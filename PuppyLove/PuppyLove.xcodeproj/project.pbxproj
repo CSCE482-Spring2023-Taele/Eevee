@@ -7,62 +7,66 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE63D0A129AC298600638539 /* PuppyLoveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63D0A029AC298600638539 /* PuppyLoveApp.swift */; };
-		CE63D0A329AC298600638539 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63D0A229AC298600638539 /* ContentView.swift */; };
-		CE63D0A529AC298900638539 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE63D0A429AC298900638539 /* Assets.xcassets */; };
-		CE63D0A929AC298900638539 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE63D0A829AC298900638539 /* Preview Assets.xcassets */; };
-		CE63D0B329AC298900638539 /* PuppyLoveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63D0B229AC298900638539 /* PuppyLoveTests.swift */; };
-		CE63D0BD29AC298900638539 /* PuppyLoveUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63D0BC29AC298900638539 /* PuppyLoveUITests.swift */; };
-		CE63D0BF29AC298900638539 /* PuppyLoveUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63D0BE29AC298900638539 /* PuppyLoveUITestsLaunchTests.swift */; };
+		60A58A9729B01F56006E6635 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A58A9629B01F56006E6635 /* AppDelegate.swift */; };
+		60A58A9929B01F56006E6635 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A58A9829B01F56006E6635 /* SceneDelegate.swift */; };
+		60A58A9B29B01F56006E6635 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A58A9A29B01F56006E6635 /* ViewController.swift */; };
+		60A58A9E29B01F56006E6635 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60A58A9C29B01F56006E6635 /* Main.storyboard */; };
+		60A58AA029B01F57006E6635 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60A58A9F29B01F57006E6635 /* Assets.xcassets */; };
+		60A58AA329B01F57006E6635 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60A58AA129B01F57006E6635 /* LaunchScreen.storyboard */; };
+		60A58AAE29B01F57006E6635 /* PuppyLoveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A58AAD29B01F57006E6635 /* PuppyLoveTests.swift */; };
+		60A58AB829B01F57006E6635 /* PuppyLoveUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A58AB729B01F57006E6635 /* PuppyLoveUITests.swift */; };
+		60A58ABA29B01F57006E6635 /* PuppyLoveUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A58AB929B01F57006E6635 /* PuppyLoveUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CE63D0AF29AC298900638539 /* PBXContainerItemProxy */ = {
+		60A58AAA29B01F57006E6635 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CE63D09529AC298600638539 /* Project object */;
+			containerPortal = 60A58A8B29B01F56006E6635 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = CE63D09C29AC298600638539;
+			remoteGlobalIDString = 60A58A9229B01F56006E6635;
 			remoteInfo = PuppyLove;
 		};
-		CE63D0B929AC298900638539 /* PBXContainerItemProxy */ = {
+		60A58AB429B01F57006E6635 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CE63D09529AC298600638539 /* Project object */;
+			containerPortal = 60A58A8B29B01F56006E6635 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = CE63D09C29AC298600638539;
+			remoteGlobalIDString = 60A58A9229B01F56006E6635;
 			remoteInfo = PuppyLove;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CE63D09D29AC298600638539 /* PuppyLove.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PuppyLove.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE63D0A029AC298600638539 /* PuppyLoveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuppyLoveApp.swift; sourceTree = "<group>"; };
-		CE63D0A229AC298600638539 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		CE63D0A429AC298900638539 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CE63D0A629AC298900638539 /* PuppyLove.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PuppyLove.entitlements; sourceTree = "<group>"; };
-		CE63D0A829AC298900638539 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CE63D0AE29AC298900638539 /* PuppyLoveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PuppyLoveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE63D0B229AC298900638539 /* PuppyLoveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuppyLoveTests.swift; sourceTree = "<group>"; };
-		CE63D0B829AC298900638539 /* PuppyLoveUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PuppyLoveUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE63D0BC29AC298900638539 /* PuppyLoveUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuppyLoveUITests.swift; sourceTree = "<group>"; };
-		CE63D0BE29AC298900638539 /* PuppyLoveUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuppyLoveUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		60A58A9329B01F56006E6635 /* PuppyLove.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PuppyLove.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		60A58A9629B01F56006E6635 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		60A58A9829B01F56006E6635 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		60A58A9A29B01F56006E6635 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		60A58A9D29B01F56006E6635 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		60A58A9F29B01F57006E6635 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		60A58AA229B01F57006E6635 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		60A58AA429B01F57006E6635 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		60A58AA929B01F57006E6635 /* PuppyLoveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PuppyLoveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		60A58AAD29B01F57006E6635 /* PuppyLoveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuppyLoveTests.swift; sourceTree = "<group>"; };
+		60A58AB329B01F57006E6635 /* PuppyLoveUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PuppyLoveUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		60A58AB729B01F57006E6635 /* PuppyLoveUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuppyLoveUITests.swift; sourceTree = "<group>"; };
+		60A58AB929B01F57006E6635 /* PuppyLoveUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuppyLoveUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CE63D09A29AC298600638539 /* Frameworks */ = {
+		60A58A9029B01F56006E6635 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE63D0AB29AC298900638539 /* Frameworks */ = {
+		60A58AA629B01F57006E6635 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE63D0B529AC298900638539 /* Frameworks */ = {
+		60A58AB029B01F57006E6635 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -72,59 +76,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		CE63D09429AC298600638539 = {
+		60A58A8A29B01F56006E6635 = {
 			isa = PBXGroup;
 			children = (
-				CE63D09F29AC298600638539 /* PuppyLove */,
-				CE63D0B129AC298900638539 /* PuppyLoveTests */,
-				CE63D0BB29AC298900638539 /* PuppyLoveUITests */,
-				CE63D09E29AC298600638539 /* Products */,
+				60A58A9529B01F56006E6635 /* PuppyLove */,
+				60A58AAC29B01F57006E6635 /* PuppyLoveTests */,
+				60A58AB629B01F57006E6635 /* PuppyLoveUITests */,
+				60A58A9429B01F56006E6635 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		CE63D09E29AC298600638539 /* Products */ = {
+		60A58A9429B01F56006E6635 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CE63D09D29AC298600638539 /* PuppyLove.app */,
-				CE63D0AE29AC298900638539 /* PuppyLoveTests.xctest */,
-				CE63D0B829AC298900638539 /* PuppyLoveUITests.xctest */,
+				60A58A9329B01F56006E6635 /* PuppyLove.app */,
+				60A58AA929B01F57006E6635 /* PuppyLoveTests.xctest */,
+				60A58AB329B01F57006E6635 /* PuppyLoveUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CE63D09F29AC298600638539 /* PuppyLove */ = {
+		60A58A9529B01F56006E6635 /* PuppyLove */ = {
 			isa = PBXGroup;
 			children = (
-				CE63D0A029AC298600638539 /* PuppyLoveApp.swift */,
-				CE63D0A229AC298600638539 /* ContentView.swift */,
-				CE63D0A429AC298900638539 /* Assets.xcassets */,
-				CE63D0A629AC298900638539 /* PuppyLove.entitlements */,
-				CE63D0A729AC298900638539 /* Preview Content */,
+				60A58A9629B01F56006E6635 /* AppDelegate.swift */,
+				60A58A9829B01F56006E6635 /* SceneDelegate.swift */,
+				60A58A9A29B01F56006E6635 /* ViewController.swift */,
+				60A58A9C29B01F56006E6635 /* Main.storyboard */,
+				60A58A9F29B01F57006E6635 /* Assets.xcassets */,
+				60A58AA129B01F57006E6635 /* LaunchScreen.storyboard */,
+				60A58AA429B01F57006E6635 /* Info.plist */,
 			);
 			path = PuppyLove;
 			sourceTree = "<group>";
 		};
-		CE63D0A729AC298900638539 /* Preview Content */ = {
+		60A58AAC29B01F57006E6635 /* PuppyLoveTests */ = {
 			isa = PBXGroup;
 			children = (
-				CE63D0A829AC298900638539 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		CE63D0B129AC298900638539 /* PuppyLoveTests */ = {
-			isa = PBXGroup;
-			children = (
-				CE63D0B229AC298900638539 /* PuppyLoveTests.swift */,
+				60A58AAD29B01F57006E6635 /* PuppyLoveTests.swift */,
 			);
 			path = PuppyLoveTests;
 			sourceTree = "<group>";
 		};
-		CE63D0BB29AC298900638539 /* PuppyLoveUITests */ = {
+		60A58AB629B01F57006E6635 /* PuppyLoveUITests */ = {
 			isa = PBXGroup;
 			children = (
-				CE63D0BC29AC298900638539 /* PuppyLoveUITests.swift */,
-				CE63D0BE29AC298900638539 /* PuppyLoveUITestsLaunchTests.swift */,
+				60A58AB729B01F57006E6635 /* PuppyLoveUITests.swift */,
+				60A58AB929B01F57006E6635 /* PuppyLoveUITestsLaunchTests.swift */,
 			);
 			path = PuppyLoveUITests;
 			sourceTree = "<group>";
@@ -132,13 +130,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CE63D09C29AC298600638539 /* PuppyLove */ = {
+		60A58A9229B01F56006E6635 /* PuppyLove */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CE63D0C229AC298900638539 /* Build configuration list for PBXNativeTarget "PuppyLove" */;
+			buildConfigurationList = 60A58ABD29B01F57006E6635 /* Build configuration list for PBXNativeTarget "PuppyLove" */;
 			buildPhases = (
-				CE63D09929AC298600638539 /* Sources */,
-				CE63D09A29AC298600638539 /* Frameworks */,
-				CE63D09B29AC298600638539 /* Resources */,
+				60A58A8F29B01F56006E6635 /* Sources */,
+				60A58A9029B01F56006E6635 /* Frameworks */,
+				60A58A9129B01F56006E6635 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -146,69 +144,69 @@
 			);
 			name = PuppyLove;
 			productName = PuppyLove;
-			productReference = CE63D09D29AC298600638539 /* PuppyLove.app */;
+			productReference = 60A58A9329B01F56006E6635 /* PuppyLove.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CE63D0AD29AC298900638539 /* PuppyLoveTests */ = {
+		60A58AA829B01F57006E6635 /* PuppyLoveTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CE63D0C529AC298900638539 /* Build configuration list for PBXNativeTarget "PuppyLoveTests" */;
+			buildConfigurationList = 60A58AC029B01F57006E6635 /* Build configuration list for PBXNativeTarget "PuppyLoveTests" */;
 			buildPhases = (
-				CE63D0AA29AC298900638539 /* Sources */,
-				CE63D0AB29AC298900638539 /* Frameworks */,
-				CE63D0AC29AC298900638539 /* Resources */,
+				60A58AA529B01F57006E6635 /* Sources */,
+				60A58AA629B01F57006E6635 /* Frameworks */,
+				60A58AA729B01F57006E6635 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				CE63D0B029AC298900638539 /* PBXTargetDependency */,
+				60A58AAB29B01F57006E6635 /* PBXTargetDependency */,
 			);
 			name = PuppyLoveTests;
 			productName = PuppyLoveTests;
-			productReference = CE63D0AE29AC298900638539 /* PuppyLoveTests.xctest */;
+			productReference = 60A58AA929B01F57006E6635 /* PuppyLoveTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		CE63D0B729AC298900638539 /* PuppyLoveUITests */ = {
+		60A58AB229B01F57006E6635 /* PuppyLoveUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CE63D0C829AC298900638539 /* Build configuration list for PBXNativeTarget "PuppyLoveUITests" */;
+			buildConfigurationList = 60A58AC329B01F57006E6635 /* Build configuration list for PBXNativeTarget "PuppyLoveUITests" */;
 			buildPhases = (
-				CE63D0B429AC298900638539 /* Sources */,
-				CE63D0B529AC298900638539 /* Frameworks */,
-				CE63D0B629AC298900638539 /* Resources */,
+				60A58AAF29B01F57006E6635 /* Sources */,
+				60A58AB029B01F57006E6635 /* Frameworks */,
+				60A58AB129B01F57006E6635 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				CE63D0BA29AC298900638539 /* PBXTargetDependency */,
+				60A58AB529B01F57006E6635 /* PBXTargetDependency */,
 			);
 			name = PuppyLoveUITests;
 			productName = PuppyLoveUITests;
-			productReference = CE63D0B829AC298900638539 /* PuppyLoveUITests.xctest */;
+			productReference = 60A58AB329B01F57006E6635 /* PuppyLoveUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		CE63D09529AC298600638539 /* Project object */ = {
+		60A58A8B29B01F56006E6635 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
-					CE63D09C29AC298600638539 = {
+					60A58A9229B01F56006E6635 = {
 						CreatedOnToolsVersion = 14.2;
 					};
-					CE63D0AD29AC298900638539 = {
+					60A58AA829B01F57006E6635 = {
 						CreatedOnToolsVersion = 14.2;
-						TestTargetID = CE63D09C29AC298600638539;
+						TestTargetID = 60A58A9229B01F56006E6635;
 					};
-					CE63D0B729AC298900638539 = {
+					60A58AB229B01F57006E6635 = {
 						CreatedOnToolsVersion = 14.2;
-						TestTargetID = CE63D09C29AC298600638539;
+						TestTargetID = 60A58A9229B01F56006E6635;
 					};
 				};
 			};
-			buildConfigurationList = CE63D09829AC298600638539 /* Build configuration list for PBXProject "PuppyLove" */;
+			buildConfigurationList = 60A58A8E29B01F56006E6635 /* Build configuration list for PBXProject "PuppyLove" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -216,36 +214,37 @@
 				en,
 				Base,
 			);
-			mainGroup = CE63D09429AC298600638539;
-			productRefGroup = CE63D09E29AC298600638539 /* Products */;
+			mainGroup = 60A58A8A29B01F56006E6635;
+			productRefGroup = 60A58A9429B01F56006E6635 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CE63D09C29AC298600638539 /* PuppyLove */,
-				CE63D0AD29AC298900638539 /* PuppyLoveTests */,
-				CE63D0B729AC298900638539 /* PuppyLoveUITests */,
+				60A58A9229B01F56006E6635 /* PuppyLove */,
+				60A58AA829B01F57006E6635 /* PuppyLoveTests */,
+				60A58AB229B01F57006E6635 /* PuppyLoveUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		CE63D09B29AC298600638539 /* Resources */ = {
+		60A58A9129B01F56006E6635 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE63D0A929AC298900638539 /* Preview Assets.xcassets in Resources */,
-				CE63D0A529AC298900638539 /* Assets.xcassets in Resources */,
+				60A58AA329B01F57006E6635 /* LaunchScreen.storyboard in Resources */,
+				60A58AA029B01F57006E6635 /* Assets.xcassets in Resources */,
+				60A58A9E29B01F56006E6635 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE63D0AC29AC298900638539 /* Resources */ = {
+		60A58AA729B01F57006E6635 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE63D0B629AC298900638539 /* Resources */ = {
+		60A58AB129B01F57006E6635 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -255,49 +254,69 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		CE63D09929AC298600638539 /* Sources */ = {
+		60A58A8F29B01F56006E6635 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE63D0A329AC298600638539 /* ContentView.swift in Sources */,
-				CE63D0A129AC298600638539 /* PuppyLoveApp.swift in Sources */,
+				60A58A9B29B01F56006E6635 /* ViewController.swift in Sources */,
+				60A58A9729B01F56006E6635 /* AppDelegate.swift in Sources */,
+				60A58A9929B01F56006E6635 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE63D0AA29AC298900638539 /* Sources */ = {
+		60A58AA529B01F57006E6635 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE63D0B329AC298900638539 /* PuppyLoveTests.swift in Sources */,
+				60A58AAE29B01F57006E6635 /* PuppyLoveTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE63D0B429AC298900638539 /* Sources */ = {
+		60A58AAF29B01F57006E6635 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE63D0BD29AC298900638539 /* PuppyLoveUITests.swift in Sources */,
-				CE63D0BF29AC298900638539 /* PuppyLoveUITestsLaunchTests.swift in Sources */,
+				60A58AB829B01F57006E6635 /* PuppyLoveUITests.swift in Sources */,
+				60A58ABA29B01F57006E6635 /* PuppyLoveUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		CE63D0B029AC298900638539 /* PBXTargetDependency */ = {
+		60A58AAB29B01F57006E6635 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CE63D09C29AC298600638539 /* PuppyLove */;
-			targetProxy = CE63D0AF29AC298900638539 /* PBXContainerItemProxy */;
+			target = 60A58A9229B01F56006E6635 /* PuppyLove */;
+			targetProxy = 60A58AAA29B01F57006E6635 /* PBXContainerItemProxy */;
 		};
-		CE63D0BA29AC298900638539 /* PBXTargetDependency */ = {
+		60A58AB529B01F57006E6635 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CE63D09C29AC298600638539 /* PuppyLove */;
-			targetProxy = CE63D0B929AC298900638539 /* PBXContainerItemProxy */;
+			target = 60A58A9229B01F56006E6635 /* PuppyLove */;
+			targetProxy = 60A58AB429B01F57006E6635 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		60A58A9C29B01F56006E6635 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				60A58A9D29B01F56006E6635 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		60A58AA129B01F57006E6635 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				60A58AA229B01F57006E6635 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
-		CE63D0C029AC298900638539 /* Debug */ = {
+		60A58ABB29B01F57006E6635 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -347,15 +366,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		CE63D0C129AC298900638539 /* Release */ = {
+		60A58ABC29B01F57006E6635 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -399,105 +420,85 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		CE63D0C329AC298900638539 /* Debug */ = {
+		60A58ABE29B01F57006E6635 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = PuppyLove/PuppyLove.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"PuppyLove/Preview Content\"";
-				DEVELOPMENT_TEAM = FX3V83UDP5;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
+				DEVELOPMENT_TEAM = V66SURL694;
 				GENERATE_INFOPLIST_FILE = YES;
-				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
-				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_FILE = PuppyLove/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = PuppyLove.PuppyLove;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		CE63D0C429AC298900638539 /* Release */ = {
+		60A58ABF29B01F57006E6635 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = PuppyLove/PuppyLove.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"PuppyLove/Preview Content\"";
-				DEVELOPMENT_TEAM = FX3V83UDP5;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
+				DEVELOPMENT_TEAM = V66SURL694;
 				GENERATE_INFOPLIST_FILE = YES;
-				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
-				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_FILE = PuppyLove/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = PuppyLove.PuppyLove;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
-		CE63D0C629AC298900638539 /* Debug */ = {
+		60A58AC129B01F57006E6635 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FX3V83UDP5;
+				DEVELOPMENT_TEAM = V66SURL694;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = PuppyLove.PuppyLoveTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -505,22 +506,19 @@
 			};
 			name = Debug;
 		};
-		CE63D0C729AC298900638539 /* Release */ = {
+		60A58AC229B01F57006E6635 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FX3V83UDP5;
+				DEVELOPMENT_TEAM = V66SURL694;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = PuppyLove.PuppyLoveTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -528,21 +526,17 @@
 			};
 			name = Release;
 		};
-		CE63D0C929AC298900638539 /* Debug */ = {
+		60A58AC429B01F57006E6635 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FX3V83UDP5;
+				DEVELOPMENT_TEAM = V66SURL694;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = PuppyLove.PuppyLoveUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -550,21 +544,17 @@
 			};
 			name = Debug;
 		};
-		CE63D0CA29AC298900638539 /* Release */ = {
+		60A58AC529B01F57006E6635 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FX3V83UDP5;
+				DEVELOPMENT_TEAM = V66SURL694;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = PuppyLove.PuppyLoveUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -575,43 +565,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CE63D09829AC298600638539 /* Build configuration list for PBXProject "PuppyLove" */ = {
+		60A58A8E29B01F56006E6635 /* Build configuration list for PBXProject "PuppyLove" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE63D0C029AC298900638539 /* Debug */,
-				CE63D0C129AC298900638539 /* Release */,
+				60A58ABB29B01F57006E6635 /* Debug */,
+				60A58ABC29B01F57006E6635 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CE63D0C229AC298900638539 /* Build configuration list for PBXNativeTarget "PuppyLove" */ = {
+		60A58ABD29B01F57006E6635 /* Build configuration list for PBXNativeTarget "PuppyLove" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE63D0C329AC298900638539 /* Debug */,
-				CE63D0C429AC298900638539 /* Release */,
+				60A58ABE29B01F57006E6635 /* Debug */,
+				60A58ABF29B01F57006E6635 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CE63D0C529AC298900638539 /* Build configuration list for PBXNativeTarget "PuppyLoveTests" */ = {
+		60A58AC029B01F57006E6635 /* Build configuration list for PBXNativeTarget "PuppyLoveTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE63D0C629AC298900638539 /* Debug */,
-				CE63D0C729AC298900638539 /* Release */,
+				60A58AC129B01F57006E6635 /* Debug */,
+				60A58AC229B01F57006E6635 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CE63D0C829AC298900638539 /* Build configuration list for PBXNativeTarget "PuppyLoveUITests" */ = {
+		60A58AC329B01F57006E6635 /* Build configuration list for PBXNativeTarget "PuppyLoveUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE63D0C929AC298900638539 /* Debug */,
-				CE63D0CA29AC298900638539 /* Release */,
+				60A58AC429B01F57006E6635 /* Debug */,
+				60A58AC529B01F57006E6635 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = CE63D09529AC298600638539 /* Project object */;
+	rootObject = 60A58A8B29B01F56006E6635 /* Project object */;
 }

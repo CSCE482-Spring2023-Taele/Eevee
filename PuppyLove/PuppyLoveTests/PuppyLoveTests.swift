@@ -2,10 +2,11 @@
 //  PuppyLoveTests.swift
 //  PuppyLoveTests
 //
-//  Created by user on 2/26/23.
+//  Created by Truitt Millican on 3/1/23.
 //
 
 import XCTest
+@testable import PuppyLove
 
 final class PuppyLoveTests: XCTestCase {
 
@@ -27,7 +28,7 @@ final class PuppyLoveTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        measure {
+        self.measure {
             // Put the code you want to measure the time of here.
         }
     }
