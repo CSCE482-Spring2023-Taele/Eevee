@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import GoogleSignIn
 
 @main
 struct PuppyLoveApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginView()
+                .onOpenURL { url in
+                    GIDSignIn.sharedInstance.handle(url) }
         }
     }
 }
