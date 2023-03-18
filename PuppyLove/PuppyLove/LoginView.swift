@@ -10,8 +10,9 @@ import GoogleSignInSwift
 import GoogleSignIn
 
 func handleSignInButton() {
-    let mainViewController = UIViewController()
-    GIDSignIn.sharedInstance.signIn(withPresenting: mainViewController)
+    guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
+
+    GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController)
     { signInResult, error in
       guard let result = signInResult else {
         // Inspect error
