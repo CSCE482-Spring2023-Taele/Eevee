@@ -18,7 +18,6 @@ func handleSignInButton() {
         return
       }
       // If sign in succeeded, display the app's main content View.
-        ContentView()
     }
 }
 
@@ -35,6 +34,7 @@ struct LoginView: View {
             
             GoogleSignInButton(action: handleSignInButton)
                 .padding(10)
+                .opacity(0.95)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.init(red: 0.784, green: 0.635, blue: 0.784))

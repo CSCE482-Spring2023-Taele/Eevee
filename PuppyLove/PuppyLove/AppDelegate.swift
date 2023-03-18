@@ -11,6 +11,8 @@ import GoogleSignIn
 
 class AppDelegate: UIResponder, UIApplicationDelegate
 {
+    
+    // View https://developers.google.com/identity/sign-in/ios/sign-in#swift_1 as reference
     func application(_ app: UIApplication,
       open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool
     {
