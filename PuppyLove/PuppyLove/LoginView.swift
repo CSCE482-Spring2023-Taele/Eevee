@@ -10,6 +10,8 @@ import GoogleSignInSwift
 import GoogleSignIn
 
 func handleSignInButton() {
+    // https://paulallies.medium.com/google-sign-in-swiftui-2909e01ea4ed This is a good resource to google oauth
+    // It is outdated, but shows how to use view controller
     guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
 
     GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController)
