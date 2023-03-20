@@ -15,6 +15,10 @@
 		19B481E129C18611009D7D5A /* PuppyLoveUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B481E029C18611009D7D5A /* PuppyLoveUITests.swift */; };
 		19B481E329C18611009D7D5A /* PuppyLoveUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B481E229C18611009D7D5A /* PuppyLoveUITestsLaunchTests.swift */; };
 		2EE37C51F181BEC890D23980 /* Pods_PuppyLoveTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E7869EC8E1B26389FB1258 /* Pods_PuppyLoveTests.framework */; };
+		31E82D5C29C64D4E00D66186 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E82D5B29C64D4E00D66186 /* SignUpView.swift */; };
+		31E82D5E29C64D8A00D66186 /* AddDogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E82D5D29C64D8A00D66186 /* AddDogView.swift */; };
+		31E82D6029C64D9A00D66186 /* UserPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E82D5F29C64D9A00D66186 /* UserPreferencesView.swift */; };
+		31E82D6229C64DAD00D66186 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E82D6129C64DAD00D66186 /* UserInfoView.swift */; };
 		32EE4397A01B813C9AA528F6 /* Pods_PuppyLove_PuppyLoveUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D622D8975343C8A3B3C70BB /* Pods_PuppyLove_PuppyLoveUITests.framework */; };
 		A063E975EBDDC997CF612C23 /* Pods_PuppyLove.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A0FE35AB5D3D695310C620 /* Pods_PuppyLove.framework */; };
 /* End PBXBuildFile section */
@@ -47,6 +51,10 @@
 		19B481DC29C18611009D7D5A /* PuppyLoveUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PuppyLoveUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		19B481E029C18611009D7D5A /* PuppyLoveUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuppyLoveUITests.swift; sourceTree = "<group>"; };
 		19B481E229C18611009D7D5A /* PuppyLoveUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuppyLoveUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		31E82D5B29C64D4E00D66186 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		31E82D5D29C64D8A00D66186 /* AddDogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDogView.swift; sourceTree = "<group>"; };
+		31E82D5F29C64D9A00D66186 /* UserPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesView.swift; sourceTree = "<group>"; };
+		31E82D6129C64DAD00D66186 /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		386A88C5DCEC619A5585F36E /* Pods-PuppyLove.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PuppyLove.release.xcconfig"; path = "Target Support Files/Pods-PuppyLove/Pods-PuppyLove.release.xcconfig"; sourceTree = "<group>"; };
 		45A0FE35AB5D3D695310C620 /* Pods_PuppyLove.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PuppyLove.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D622D8975343C8A3B3C70BB /* Pods_PuppyLove_PuppyLoveUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PuppyLove_PuppyLoveUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +123,10 @@
 				19B481C729C18610009D7D5A /* ContentView.swift */,
 				19B481C929C18611009D7D5A /* Assets.xcassets */,
 				19B481CB29C18611009D7D5A /* Preview Content */,
+				31E82D5B29C64D4E00D66186 /* SignUpView.swift */,
+				31E82D5D29C64D8A00D66186 /* AddDogView.swift */,
+				31E82D5F29C64D9A00D66186 /* UserPreferencesView.swift */,
+				31E82D6129C64DAD00D66186 /* UserInfoView.swift */,
 			);
 			path = PuppyLove;
 			sourceTree = "<group>";
@@ -154,7 +166,6 @@
 				E7195AF47D3BEB78A789905A /* Pods-PuppyLoveTests.debug.xcconfig */,
 				D18797BB9749132A1EE77C8C /* Pods-PuppyLoveTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -407,6 +418,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				19B481C829C18610009D7D5A /* ContentView.swift in Sources */,
+				31E82D5E29C64D8A00D66186 /* AddDogView.swift in Sources */,
+				31E82D6029C64D9A00D66186 /* UserPreferencesView.swift in Sources */,
+				31E82D6229C64DAD00D66186 /* UserInfoView.swift in Sources */,
+				31E82D5C29C64D4E00D66186 /* SignUpView.swift in Sources */,
 				19B481C629C18610009D7D5A /* PuppyLoveApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

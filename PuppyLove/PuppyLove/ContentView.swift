@@ -7,15 +7,22 @@
 
 import SwiftUI
 
+struct User {
+    var name: String
+    var age: Int
+    var bio: String
+    var gender: String
+}
+
+struct Dog {
+    var name: String
+    var age: String
+    var activityLevel: Double
+}
+
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+        SignUpView()
     }
 }
 
