@@ -15,9 +15,7 @@ struct PuppyLoveApp: App {
     
     var body: some Scene {
         WindowGroup {
-            LoginView()
-                .onOpenURL { url in
-                    GIDSignIn.sharedInstance.handle(url) }
+           ContentView()
         }
     }
 }

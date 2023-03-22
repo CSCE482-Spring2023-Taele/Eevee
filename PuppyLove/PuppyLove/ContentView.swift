@@ -32,14 +32,14 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selection){
-       /*     Categories()
+            Categories()
                 .tabItem{
                     VStack {
                         Image(systemName: "globe")
                         Text("Categories")
                     }
                 }
-                .tag(0)*/
+                .tag(0)
             Profile()
                 .font(.title)
                 .tabItem{
@@ -48,7 +48,16 @@ struct ContentView: View {
                         Text("Profile")
                     }
                 }
-                .tag(0)
+                .tag(1)
+          /*  profileedit()
+                .font(.title)
+                .tabItem{
+                    VStack{
+                        Image(systemName:"person")
+                        Text("profileedit")
+                    }
+                }
+                .tag(0) */
         }
     }
     
