@@ -18,6 +18,7 @@
 		19B481F329C2D512009D7D5A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B481F229C2D512009D7D5A /* LoginView.swift */; };
 		2EE37C51F181BEC890D23980 /* Pods_PuppyLoveTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E7869EC8E1B26389FB1258 /* Pods_PuppyLoveTests.framework */; };
 		32EE4397A01B813C9AA528F6 /* Pods_PuppyLove_PuppyLoveUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D622D8975343C8A3B3C70BB /* Pods_PuppyLove_PuppyLoveUITests.framework */; };
+		9336F26029CAB935009DDCC0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9336F25F29CAB935009DDCC0 /* GoogleService-Info.plist */; };
 		A063E975EBDDC997CF612C23 /* Pods_PuppyLove.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A0FE35AB5D3D695310C620 /* Pods_PuppyLove.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		55D1644494E06109540480A6 /* Pods-PuppyLove.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PuppyLove.debug.xcconfig"; path = "Target Support Files/Pods-PuppyLove/Pods-PuppyLove.debug.xcconfig"; sourceTree = "<group>"; };
 		82E7869EC8E1B26389FB1258 /* Pods_PuppyLoveTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PuppyLoveTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A8D4DE69495E6C8AC7EA8E0 /* Pods-PuppyLove-PuppyLoveUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PuppyLove-PuppyLoveUITests.debug.xcconfig"; path = "Target Support Files/Pods-PuppyLove-PuppyLoveUITests/Pods-PuppyLove-PuppyLoveUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		9336F25F29CAB935009DDCC0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		CF22BF0F89772CF96F021895 /* Pods-PuppyLove-PuppyLoveUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PuppyLove-PuppyLoveUITests.release.xcconfig"; path = "Target Support Files/Pods-PuppyLove-PuppyLoveUITests/Pods-PuppyLove-PuppyLoveUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D18797BB9749132A1EE77C8C /* Pods-PuppyLoveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PuppyLoveTests.release.xcconfig"; path = "Target Support Files/Pods-PuppyLoveTests/Pods-PuppyLoveTests.release.xcconfig"; sourceTree = "<group>"; };
 		E7195AF47D3BEB78A789905A /* Pods-PuppyLoveTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PuppyLoveTests.debug.xcconfig"; path = "Target Support Files/Pods-PuppyLoveTests/Pods-PuppyLoveTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		19B481C429C18610009D7D5A /* PuppyLove */ = {
 			isa = PBXGroup;
 			children = (
+				9336F25F29CAB935009DDCC0 /* GoogleService-Info.plist */,
 				19B481EF29C2C275009D7D5A /* Info.plist */,
 				19B481C529C18610009D7D5A /* PuppyLoveApp.swift */,
 				19B481C729C18610009D7D5A /* ContentView.swift */,
@@ -286,6 +289,7 @@
 			files = (
 				19B481CD29C18611009D7D5A /* Preview Assets.xcassets in Resources */,
 				19B481CA29C18611009D7D5A /* Assets.xcassets in Resources */,
+				9336F26029CAB935009DDCC0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

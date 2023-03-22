@@ -10,6 +10,9 @@ import GoogleSignIn
 
 @main
 struct PuppyLoveApp: App {
+    // registering app delegate for Firebase setup
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
     var body: some Scene {
         WindowGroup {
             LoginView()

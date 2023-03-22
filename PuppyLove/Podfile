@@ -8,6 +8,12 @@ target 'PuppyLove' do
   # Pods for PuppyLove
   pod 'GoogleSignIn'
   pod 'GoogleSignInSwiftSupport'
+  pod 'FirebaseAnalytics'
+  pod 'FirebaseAuth'
+  pod 'FirebaseCore'
+  pod 'FirebaseDatabase'
+  pod 'FirebaseStorage'
+  pod 'FirebaseFirestore'
 
   target 'PuppyLoveTests' do
     inherit! :search_paths
