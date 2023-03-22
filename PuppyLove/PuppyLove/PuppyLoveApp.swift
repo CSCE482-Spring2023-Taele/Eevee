@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
+import GoogleSignIn
 
 @main
 struct PuppyLoveApp: App {
+    // registering app delegate for Firebase setup
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginView()
+                .onOpenURL { url in
+                    GIDSignIn.sharedInstance.handle(url) }
         }
     }
 }

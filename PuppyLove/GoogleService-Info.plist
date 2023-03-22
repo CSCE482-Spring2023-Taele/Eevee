@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>606476715355-ibtn28ffk1vkehlriqk62kadfk7htuvi.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.606476715355-ibtn28ffk1vkehlriqk62kadfk7htuvi</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCNqsdVyupIiQ0e2BcG56lVM27viGmuJ4I</string>
+	<key>GCM_SENDER_ID</key>
+	<string>606476715355</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>PuppyLove.PuppyLove</string>
+	<key>PROJECT_ID</key>
+	<string>puppylove-380718</string>
+	<key>STORAGE_BUCKET</key>
+	<string>puppylove-380718.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:606476715355:ios:1e0ac7a90a48697879067e</string>
+</dict>
+</plist>
