@@ -10,8 +10,11 @@ import SwiftUI
 struct AddDogView: View {
     @State private var dogName = ""
     @State private var ageRange = ""
+    @State private var dogBio = ""
     @State private var activityLevel: Double = 0
     @State private var ageRangeTag: Int = 0
+    @State private var vaccinated = false
+    @State private var fixed = false
     
     var sexOptions = ["Male", "Female"]
     @State var sexOptionTag: Int = 0
@@ -50,7 +53,19 @@ struct AddDogView: View {
                         }
                     }
                 }
-                
+            }.padding()
+            
+            Section(header: Text("Bio")) {
+                TextField("Tell us about your pup...", text: $dogBio,  axis: .vertical)
+                    .lineLimit(5...10)
+            }.padding()
+            
+            Section(header: Text("Vaccination Status")) {
+                Toggle("Up to date on annual vaccinations?", isOn: $vaccinated)
+            }.padding()
+            
+            Section(header: Text("Fixed Status")) {
+                Toggle("Is your dog neutered/spayed?", isOn: $fixed)
             }.padding()
         }
         

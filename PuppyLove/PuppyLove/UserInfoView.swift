@@ -22,6 +22,7 @@ struct UserInfoView: View {
             ...
             calendar.date(from:endComponents)!
     }()
+    
     var body: some View {
         Form {
             Section(header: Text("Name")) {

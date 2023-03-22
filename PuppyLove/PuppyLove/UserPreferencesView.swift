@@ -12,22 +12,37 @@ struct UserPreferencesView: View {
     @State var minAge: Double = 18
     @State var maxAge: Double = 100
     
+    struct iOSCheckboxToggleStyle: ToggleStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            Button(action: {
+                configuration.isOn.toggle()
+            }, label: {
+                HStack {
+                    Image(systemName: configuration.isOn ? "checkmark.square" : "square")
+                    configuration.label
+                }
+            })
+        }
+    }
+
+    
     struct checklistItem: Identifiable, Hashable {
-        let title: String
-        let id = UUID()
+        var title: String
+        var choice: Bool
+        var id = UUID()
     }
     
-    let genderPreferences = [
-        checklistItem(title: "Male"),
-        checklistItem(title: "Female"),
-        checklistItem(title: "Non-binary"),
+    @State var genderPreferences = [
+        checklistItem(title: "Male", choice: false),
+        checklistItem(title: "Female", choice: false),
+        checklistItem(title: "Non-binary", choice: false),
     ]
     
-    let dogAgePreferences = [
-        checklistItem(title: "Puppy (0-1 years)"),
-        checklistItem(title: "Young (1-4 years)"),
-        checklistItem(title: "Adult (4-8 years)"),
-        checklistItem(title: "Senior (8+ years)")
+    @State var dogAgePreferences = [
+        checklistItem(title: "Puppy (0-1 years)", choice: false),
+        checklistItem(title: "Young (1-4 years)", choice: false),
+        checklistItem(title: "Adult (4-8 years)", choice: false),
+        checklistItem(title: "Senior (8+ years)", choice: false)
     ]
     
     @State private var genderPrefChoices = Set<String>()
@@ -46,12 +61,12 @@ struct UserPreferencesView: View {
             }.padding()
             
             Section(header: Text("Show Me...")) {
-                VStack {
-                    List(genderPreferences, selection: $genderPrefChoices){
-                        Text($0.title)
-                    }
+                ForEach($dogAgePreferences) { $item in
+                    Toggle(item.title, isOn: $item.choice)
+                        .toggleStyle(iOSCheckboxToggleStyle())
                 }
             }.padding()
+        
         }
     }
 }
