@@ -12,7 +12,7 @@ struct UserPreferencesView: View {
     @State var minAge: Double = 18
     @State var maxAge: Double = 100
     
-    struct iOSCheckboxToggleStyle: ToggleStyle {
+    struct CheckboxToggleStyle: ToggleStyle {
         func makeBody(configuration: Configuration) -> some View {
             Button(action: {
                 configuration.isOn.toggle()
@@ -20,6 +20,9 @@ struct UserPreferencesView: View {
                 HStack {
                     Image(systemName: configuration.isOn ? "checkmark.square" : "square")
                     configuration.label
+                }
+                .onTapGesture {
+                    configuration.isOn.toggle()
                 }
             })
         }
@@ -60,13 +63,23 @@ struct UserPreferencesView: View {
                 Slider(value: $distance, in: 0...100, step: 1)
             }.padding()
             
-            Section(header: Text("Show Me...")) {
+            Section(header: Text("Dog Preference Settings")) {
                 ForEach($dogAgePreferences) { $item in
-                    Toggle(item.title, isOn: $item.choice)
-                        .toggleStyle(iOSCheckboxToggleStyle())
+                    Toggle(isOn: $item.choice) {
+                        Text("\(item.title)")
+                    }
+                    .toggleStyle(CheckboxToggleStyle())
                 }
             }.padding()
-        
+            
+            Section(header: Text("User Preference Settings")) {
+                ForEach($genderPreferences) { $item in
+                    Toggle(isOn: $item.choice) {
+                        Text("\(item.title)")
+                    }
+                    .toggleStyle(CheckboxToggleStyle())
+                }
+            }.padding()
         }
     }
 }

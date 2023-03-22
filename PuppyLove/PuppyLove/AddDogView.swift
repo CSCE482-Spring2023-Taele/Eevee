@@ -9,12 +9,16 @@ import SwiftUI
 
 struct AddDogView: View {
     @State private var dogName = ""
+    @State private var breed = ""
     @State private var ageRange = ""
     @State private var dogBio = ""
     @State private var activityLevel: Double = 0
     @State private var ageRangeTag: Int = 0
     @State private var vaccinated = false
     @State private var fixed = false
+    
+    @State var breeds = [Breed]()
+    @State var breedOptionTag: Int = 0
     
     var sexOptions = ["Male", "Female"]
     @State var sexOptionTag: Int = 0
@@ -33,6 +37,29 @@ struct AddDogView: View {
                     in: 0...10,
                     step: 1
                 )
+            }.padding()
+            
+            Section(header: Text("Breed")) {
+                List(breeds) { breed in
+                    Text("\(breed.name)")
+                }.onAppear() {
+                    DogAPI().loadData { (breeds) in
+                        self.breeds = breeds
+                    }
+                }
+
+//                HStack {
+//                    Picker("Select Breed", selection: $breedOptionTag) {
+//                        ForEach(0 ..< breeds.count) {
+//                            Text(self.breeds[$0].name)
+//                        }
+//                        .onAppear() {
+//                            DogAPI().loadData { (breeds) in
+//                                self.breeds = breeds
+//                            }
+//                        }
+//                    }
+//                }
             }.padding()
             
             Section(header: Text("Sex")) {
