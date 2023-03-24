@@ -28,8 +28,13 @@ namespace PuppyLoveAPI
             {
                 if (String.IsNullOrEmpty(this.DatabaseName))
                     return false;
-                string connstring = string.Format("Server={0}; database={1}; UID={2}; password={3}", 
-                    this.Server, this.DatabaseName, this.UserName, this.Password);
+                string connstring = string.Format($"Server={this.Server}; database={this.DatabaseName}; UID={this.UserName}; password={this.Password}");
+                Connection = new MySqlConnection(connstring);
+                Connection.Open();
+            }
+            else
+            {
+                string connstring = string.Format($"Server={this.Server}; database={this.DatabaseName}; UID={this.UserName}; password={this.Password}");
                 Connection = new MySqlConnection(connstring);
                 Connection.Open();
             }

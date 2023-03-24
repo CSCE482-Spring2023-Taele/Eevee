@@ -1,6 +1,8 @@
 ﻿using MySql.Data;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
+using System.Collections;
+using System.Text.Json;
 
 namespace PuppyLoveAPI
 {
@@ -13,31 +15,53 @@ namespace PuppyLoveAPI
         public string Sex { get; set; }
         public string Location { get; set; }
 
-        public static string GetOwners()
+        public Owner()
         {
-            DBConnection DB = DBConnection.Instance();
-            DB.Server = @"puppy-love.mysql.database.azure.com";
-            DB.DatabaseName = @"puppy_love";
-            DB.UserName = @"";
-            DB.Password = @"";
+            this.OwnerID = -1;
+            this.OwnerName = string.Empty;
+            this.InstagramKey = String.Empty;
+            this.Age = -1;
+            this.Sex = String.Empty;
+            this.Location = String.Empty;
+        }
 
-            string someStringFromColumnZero = "";
+        public static IEnumerable<Owner> GetOwners()
+        {
+            List<Owner> owners = new List<Owner>();
+            DBConnection DB = DBConnection.Instance();
+            DB.Server = Environment.GetEnvironmentVariable("PUPPY_LOVE_DB_SERVER"); 
+            DB.DatabaseName = Environment.GetEnvironmentVariable("PUPPY_LOVE_DB_NAME"); 
+            DB.UserName = Environment.GetEnvironmentVariable("PUPPY_LOVE_DB_USERNAME");
+            DB.Password = Environment.GetEnvironmentVariable("PUPPY_LOVE_DB_PASSWORD");
 
             if (DB.IsConnect())
             {
                 string query = "SELECT * from owners";
                 MySqlCommand cmd = new MySqlCommand(query, DB.Connection);
-                var reader = cmd.ExecuteReader();
+                MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    someStringFromColumnZero = reader.GetString(0);
-                    string someStringFromColumnOne = reader.GetString(1);
-                    Console.WriteLine(someStringFromColumnZero + "," + someStringFromColumnOne);
+                    int ownerId = Int32.Parse(reader.GetString(0));
+                    string ownerName = reader.GetString(1);
+                    int age = Int32.Parse(reader.GetString(2));
+                    string sex = reader.GetString(3);
+                    string location = reader.GetString(4);
+                    string instaKey = reader.GetString(5);
+
+                    Owner owner = new Owner();
+                    owner.OwnerID = ownerId;
+                    owner.OwnerName = ownerName;
+                    owner.InstagramKey = instaKey;
+                    owner.Age = age;
+                    owner.Sex = sex;
+                    owner.Location = location;
+
+                    owners.Add(owner);
                 }
                 DB.Close();
             }
 
-            return someStringFromColumnZero;
+            return owners;
         }
     }
 }

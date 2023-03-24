@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace PuppyLoveAPI.Controllers
 {
@@ -14,13 +15,9 @@ namespace PuppyLoveAPI.Controllers
         }
 
         [HttpGet(Name = "GetOwner")]
-        public IEnumerable<Owner> Get()
+        public string Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new Owner
-            {
-                OwnerName = Owner.GetOwners()
-            })
-           .ToArray();
+            return JsonSerializer.Serialize(Owner.GetOwners());
         }
     }
 }
