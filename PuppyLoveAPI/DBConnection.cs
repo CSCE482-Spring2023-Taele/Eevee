@@ -14,11 +14,20 @@ namespace PuppyLoveAPI
 
         public MySqlConnection Connection { get; set; }
 
+        public DBConnection()
+        {
+            this.Server = Environment.GetEnvironmentVariable("PUPPY_LOVE_DB_SERVER");
+            this.DatabaseName = Environment.GetEnvironmentVariable("PUPPY_LOVE_DB_NAME");
+            this.UserName = Environment.GetEnvironmentVariable("PUPPY_LOVE_DB_USERNAME");
+            this.Password = Environment.GetEnvironmentVariable("PUPPY_LOVE_DB_PASSWORD");
+        }
+
         private static DBConnection _instance = null;
         public static DBConnection Instance()
         {
             if (_instance == null)
                 _instance = new DBConnection();
+
             return _instance;
         }
 

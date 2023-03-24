@@ -25,14 +25,10 @@ namespace PuppyLoveAPI
             this.Location = String.Empty;
         }
 
-        public static IEnumerable<Owner> GetOwners()
+        public static string GetOwners()
         {
             List<Owner> owners = new List<Owner>();
             DBConnection DB = DBConnection.Instance();
-            DB.Server = Environment.GetEnvironmentVariable("PUPPY_LOVE_DB_SERVER"); 
-            DB.DatabaseName = Environment.GetEnvironmentVariable("PUPPY_LOVE_DB_NAME"); 
-            DB.UserName = Environment.GetEnvironmentVariable("PUPPY_LOVE_DB_USERNAME");
-            DB.Password = Environment.GetEnvironmentVariable("PUPPY_LOVE_DB_PASSWORD");
 
             if (DB.IsConnect())
             {
@@ -60,8 +56,7 @@ namespace PuppyLoveAPI
                 }
                 DB.Close();
             }
-
-            return owners;
+            return JsonSerializer.Serialize(owners);
         }
     }
 }
