@@ -13,7 +13,7 @@ func handleSignInButton() {
     // https://paulallies.medium.com/google-sign-in-swiftui-2909e01ea4ed This is a good resource to google oauth
     // It is outdated, but shows how to use view controller
     guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
-    
+
     GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController)
     { signInResult, error in
       guard let result = signInResult else {
@@ -66,9 +66,33 @@ class UserAuthModel: ObservableObject {
          GIDSignIn.sharedInstance.signOut()
          self.checkStatus()
      }
+    
+    func handleSignInButton() {
+        // https://paulallies.medium.com/google-sign-in-swiftui-2909e01ea4ed This is a good resource to google oauth
+        // It is outdated, but shows how to use view controller
+        guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
+        
+        GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController)
+        { signInResult, error in
+          guard let result = signInResult else {
+            // Inspect error
+            return
+          }
+            self.checkStatus()
+          // If sign in succeeded, display the app's main content View.
+        }
+    }
 }
 
 struct LoginView: View {
+    @EnvironmentObject var vm: UserAuthModel
+    fileprivate func SignInButton() -> Button<Text> {
+        Button(action: {
+            vm.handleSignInButton()
+        }) {
+            Text("Sign In")
+        }
+    }
     var body: some View {
         VStack {
             Text("PuppyLove")
@@ -79,7 +103,8 @@ struct LoginView: View {
                 .fontWeight(.heavy)
                 .offset(x: 0, y: -100)
             
-            GoogleSignInButton(action: handleSignInButton)
+//            GoogleSignInButton(action: handleSignInButton)
+            SignInButton()
                 .padding(10)
                 .opacity(0.95)
         }
