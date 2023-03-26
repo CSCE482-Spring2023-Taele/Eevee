@@ -10,6 +10,7 @@ namespace PuppyLoveAPI
     {
         public int OwnerID { get; set; }
         public string OwnerName { get; set; }
+        public string OwnerEmail { get; set; }
         public string InstagramKey { get; set; }
         public int Age { get; set; }
         public string Sex { get; set; }
@@ -19,6 +20,7 @@ namespace PuppyLoveAPI
         {
             this.OwnerID = -1;
             this.OwnerName = string.Empty;
+            this.OwnerEmail = string.Empty;
             this.InstagramKey = String.Empty;
             this.Age = -1;
             this.Sex = String.Empty;
@@ -39,14 +41,16 @@ namespace PuppyLoveAPI
                 {
                     int ownerId = Int32.Parse(reader.GetString(0));
                     string ownerName = reader.GetString(1);
-                    int age = Int32.Parse(reader.GetString(2));
-                    string sex = reader.GetString(3);
-                    string location = reader.GetString(4);
-                    string instaKey = reader.GetString(5);
+                    string ownerEmail = reader.GetString(2);
+                    int age = Int32.Parse(reader.GetString(3));
+                    string sex = reader.GetString(4);
+                    string location = reader.GetString(5);
+                    string instaKey = reader.GetString(6);
 
                     Owner owner = new Owner();
                     owner.OwnerID = ownerId;
                     owner.OwnerName = ownerName;
+                    owner.OwnerEmail = ownerEmail;
                     owner.InstagramKey = instaKey;
                     owner.Age = age;
                     owner.Sex = sex;
@@ -59,27 +63,29 @@ namespace PuppyLoveAPI
             return JsonSerializer.Serialize(owners);
         }
 
-        public static string GetOwnerID(int id)
+        public static string GetOwnerID(string email)
         {
             DBConnection DB = DBConnection.Instance();
             Owner owner = new Owner();
 
             if (DB.IsConnect())
             {
-                string query = $"SELECT * from owners where owner_id = {id};";
+                string query = $"SELECT * from owners where email = \'{email}\';";
                 MySqlCommand cmd = new MySqlCommand(query, DB.Connection);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     int ownerId = Int32.Parse(reader.GetString(0));
                     string ownerName = reader.GetString(1);
-                    int age = Int32.Parse(reader.GetString(2));
-                    string sex = reader.GetString(3);
-                    string location = reader.GetString(4);
-                    string instaKey = reader.GetString(5);
+                    string ownerEmail = reader.GetString(2);
+                    int age = Int32.Parse(reader.GetString(3));
+                    string sex = reader.GetString(4);
+                    string location = reader.GetString(5);
+                    string instaKey = reader.GetString(6);
 
                     owner.OwnerID = ownerId;
                     owner.OwnerName = ownerName;
+                    owner.OwnerEmail = ownerEmail;
                     owner.InstagramKey = instaKey;
                     owner.Age = age;
                     owner.Sex = sex;

@@ -20,10 +20,10 @@ namespace PuppyLoveAPI.Controllers
             return Owner.GetOwners();
         }
 
-        [HttpGet("{id}", Name = "GetOwnerID")]
-        public string GetID(int id)
+        [HttpGet("{email}", Name = "GetOwnerID")]
+        public string GetID(string email)
         {
-            return Owner.GetOwnerID(id);
+            return Owner.GetOwnerID(email);
         }
     }
 }
