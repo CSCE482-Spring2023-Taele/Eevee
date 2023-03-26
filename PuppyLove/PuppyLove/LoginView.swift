@@ -103,8 +103,7 @@ struct LoginView: View {
                 .fontWeight(.heavy)
                 .offset(x: 0, y: -100)
             
-//            GoogleSignInButton(action: handleSignInButton)
-            SignInButton()
+            GoogleSignInButton(action: vm.handleSignInButton)
                 .padding(10)
                 .opacity(0.95)
         }
