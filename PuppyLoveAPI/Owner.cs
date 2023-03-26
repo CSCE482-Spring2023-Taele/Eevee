@@ -32,7 +32,7 @@ namespace PuppyLoveAPI
 
             if (DB.IsConnect())
             {
-                string query = "SELECT * from owners";
+                string query = "SELECT * from owners;";
                 MySqlCommand cmd = new MySqlCommand(query, DB.Connection);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -57,6 +57,37 @@ namespace PuppyLoveAPI
                 DB.Close();
             }
             return JsonSerializer.Serialize(owners);
+        }
+
+        public static string GetOwnerID(int id)
+        {
+            DBConnection DB = DBConnection.Instance();
+            Owner owner = new Owner();
+
+            if (DB.IsConnect())
+            {
+                string query = $"SELECT * from owners where owner_id = {id};";
+                MySqlCommand cmd = new MySqlCommand(query, DB.Connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    int ownerId = Int32.Parse(reader.GetString(0));
+                    string ownerName = reader.GetString(1);
+                    int age = Int32.Parse(reader.GetString(2));
+                    string sex = reader.GetString(3);
+                    string location = reader.GetString(4);
+                    string instaKey = reader.GetString(5);
+
+                    owner.OwnerID = ownerId;
+                    owner.OwnerName = ownerName;
+                    owner.InstagramKey = instaKey;
+                    owner.Age = age;
+                    owner.Sex = sex;
+                    owner.Location = location;
+                }
+                DB.Close();
+            }
+            return JsonSerializer.Serialize(owner);
         }
     }
 }

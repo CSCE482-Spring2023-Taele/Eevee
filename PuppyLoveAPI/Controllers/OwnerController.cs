@@ -17,7 +17,13 @@ namespace PuppyLoveAPI.Controllers
         [HttpGet(Name = "GetOwner")]
         public string Get()
         {
-            return JsonSerializer.Serialize(Owner.GetOwners());
+            return Owner.GetOwners();
+        }
+
+        [HttpGet("{id}", Name = "GetOwnerID")]
+        public string GetID(int id)
+        {
+            return Owner.GetOwnerID(id);
         }
     }
 }

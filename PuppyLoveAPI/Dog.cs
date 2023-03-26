@@ -29,7 +29,7 @@ namespace PuppyLoveAPI
             this.AdditionalInfo = String.Empty;
         }
 
-        public static string GetOwners()
+        public static string GetDogs()
         {
             List<Dog> dogs = new List<Dog>();
             DBConnection DB = DBConnection.Instance();

@@ -16,7 +16,7 @@ namespace PuppyLoveAPI.Controllers
         [HttpGet(Name = "GetDog")]
         public string Get()
         {
-            return JsonSerializer.Serialize(Owner.GetOwners());
+            return Dog.GetDogs();
         }
     }
 }
