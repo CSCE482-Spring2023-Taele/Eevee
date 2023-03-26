@@ -22,7 +22,7 @@ struct Dog {
 
 struct ContentView: View {
     var body: some View {
-        SignUpView()
+        AddDogView()
     }
 }
 
