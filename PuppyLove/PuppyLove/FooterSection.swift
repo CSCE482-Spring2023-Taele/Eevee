@@ -1,6 +1,16 @@
 import SwiftUI
 
 struct FooterSection: View {
+    
+    @EnvironmentObject var vm: UserAuthModel
+    fileprivate func SignOutButton() -> Button<Text> {
+        Button(action: {
+            vm.signOut()
+        }) {
+            Text("Sign Out")
+        }
+    }
+    
     var body: some View {
         VStack {
             //            Spacer()
@@ -19,6 +29,7 @@ struct FooterSection: View {
                     .resizable().aspectRatio(contentMode:
                             .fit).frame(height:45)
             }
+            SignOutButton()
             ZStack{
                 ForEach(Card.data.reversed()) { card in
                     CardView(card: card)

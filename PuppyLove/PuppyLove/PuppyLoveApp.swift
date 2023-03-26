@@ -10,12 +10,18 @@ import GoogleSignIn
 
 @main
 struct PuppyLoveApp: App {
+    @StateObject var userAuth: UserAuthModel =  UserAuthModel()
     // registering app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView{
+                ContentView()
+            }
+            .environmentObject(userAuth)
+            .navigationViewStyle(.stack)
+            
         }
     }
 }
