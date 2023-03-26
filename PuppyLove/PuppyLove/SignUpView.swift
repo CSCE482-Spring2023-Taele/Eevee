@@ -9,18 +9,7 @@ import SwiftUI
 
 struct SignUpView: View {
     var body: some View {
-        NavigationView {
-            VStack {
-                Text("User Info")
-                UserInfoView()
-                
-                Text("Preferences")
-                UserPreferencesView()
-                
-                Text("Dog Information")
-                AddDogView()
-            }
-        }.navigationBarTitle(Text("Sign Up"))
+        UserInfoView()
     }}
 
 struct SignUpView_Previews: PreviewProvider {

@@ -51,36 +51,39 @@ struct UserPreferencesView: View {
     @State private var genderPrefChoices = Set<String>()
     @State private var dogAgePrefChoices = Set<String>()
 
-
     var body: some View {
-        Form {
-            Section(header: Text("Distance")) {
-                Slider(value: $distance, in: 0...100, step: 1)
-                Text("\(distance) miles")
-            }.padding()
-            
-            Section(header: Text("Age Range")) {
-                Slider(value: $distance, in: 0...100, step: 1)
-            }.padding()
-            
-            Section(header: Text("Dog Preference Settings")) {
-                ForEach($dogAgePreferences) { $item in
-                    Toggle(isOn: $item.choice) {
-                        Text("\(item.title)")
+        VStack {
+            Form {
+                Section(header: Text("Distance")) {
+                    Slider(value: $distance, in: 0...100, step: 1)
+                    Text("\(Int(distance)) miles")
+                }.padding()
+                
+                Section(header: Text("Dog Preferences")) {
+                    ForEach($dogAgePreferences) { $item in
+                        Toggle(isOn: $item.choice) {
+                            Text("\(item.title)")
+                        }
+                        .toggleStyle(CheckboxToggleStyle())
                     }
-                    .toggleStyle(CheckboxToggleStyle())
-                }
-            }.padding()
-            
-            Section(header: Text("User Preference Settings")) {
-                ForEach($genderPreferences) { $item in
-                    Toggle(isOn: $item.choice) {
-                        Text("\(item.title)")
+                }.padding()
+                
+                Section(header: Text("Owner Preferences")) {
+                    ForEach($genderPreferences) { $item in
+                        Toggle(isOn: $item.choice) {
+                            Text("\(item.title)")
+                        }
+                        .toggleStyle(CheckboxToggleStyle())
                     }
-                    .toggleStyle(CheckboxToggleStyle())
-                }
-            }.padding()
+                }.padding()
+            }
+            
+            Button("Save") {
+                
+            }.buttonStyle(BorderedProminentButtonStyle())
         }
+        .navigationBarTitle("Preferences")
+        .navigationBarBackButtonHidden(true)
     }
 }
 

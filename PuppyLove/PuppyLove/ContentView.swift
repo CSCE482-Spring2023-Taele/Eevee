@@ -12,17 +12,24 @@ struct User {
     var age: Int
     var bio: String
     var gender: String
+    var profilePicture: UIImage
 }
 
 struct Dog {
     var name: String
     var age: String
     var activityLevel: Double
+    var bio: String
+    var profilePicture: Data
+    var vaccinated: Bool
+    var fixed: Bool
 }
 
 struct ContentView: View {
     var body: some View {
-        AddDogView()
+        NavigationView {
+            SignUpView()
+        }.navigationTitle("Sign Up")
     }
 }
 

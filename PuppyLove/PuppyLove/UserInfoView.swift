@@ -5,7 +5,9 @@
 //  Created by Reagan Green on 3/18/23.
 //
 
+import Foundation
 import SwiftUI
+import PhotosUI
 
 struct UserInfoView: View {
     @State private var name = ""
@@ -13,6 +15,9 @@ struct UserInfoView: View {
     @State var date = Date()
     var genderOptions = ["Male", "Female", "Non-binary"]
     @State var genderOptionTag: Int = 0
+    
+    @State private var selectedItem: PhotosPickerItem? = nil
+    @State private var userPhoto: Data? = nil
     
     let dateRange: ClosedRange<Date> = {
         let calendar = Calendar.current
@@ -24,36 +29,64 @@ struct UserInfoView: View {
     }()
     
     var body: some View {
-        Form {
-            Section(header: Text("Name")) {
-                TextField("Name", text: $name)
+        VStack {
+            Form {
+                Section(header: Text("Name")) {
+                    TextField("Name", text: $name)
+                    
+                }.padding()
                 
-            }.padding()
-            
-            Section(header: Text("Birthday")) {
-                DatePicker(
-                    "Select Date",
-                    selection: $date,
-                    in: dateRange,
-                    displayedComponents: .date
-                )
-            }.padding()
-            
-            Section(header: Text("Gender")) {
-                HStack {
-                    Picker("Select Gender", selection: $genderOptionTag) {
-                        ForEach(0 ..< genderOptions.count) {
-                            Text(self.genderOptions[$0])
+                Section(header: Text("Birthday")) {
+                    DatePicker(
+                        "Select Date",
+                        selection: $date,
+                        in: dateRange,
+                        displayedComponents: .date
+                    )
+                }.padding()
+                
+                Section(header: Text("Profile Picture")) {
+                    HStack {
+                        PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
+                            Text("Select a photo")
+                        }
+                        .onChange(of: selectedItem) { newItem in
+                            Task {
+                                if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                                    userPhoto = data
+                                }
+                            }
+                        }
+                        Spacer()
+                        if let userPhoto,
+                           let image = UIImage(data: userPhoto) {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 100, height: 100)
                         }
                     }
-                }
-            }.padding()
+                }.padding()
+                
+                Section(header: Text("Gender")) {
+                    HStack {
+                        Picker("Select Gender", selection: $genderOptionTag) {
+                            ForEach(0 ..< genderOptions.count) {
+                                Text(self.genderOptions[$0])
+                            }
+                        }
+                    }
+                }.padding()
+                
+                Section(header: Text("Bio")) {
+                    TextField("Tell us about yourself...", text: $bio,  axis: .vertical)
+                        .lineLimit(5...10)
+                }.padding()
+            }
             
-            Section(header: Text("Bio")) {
-                TextField("Tell us about yourself...", text: $bio,  axis: .vertical)
-                    .lineLimit(5...10)
-            }.padding()
+            NavigationLink(destination: AddDogView(), label: { Text("Next")})
         }
+        .navigationBarTitle(Text("User Information"))
     }
 }
 
