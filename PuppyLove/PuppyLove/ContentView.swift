@@ -44,17 +44,12 @@ struct ContentView: View {
                         }
                         .tag(1)
                 }
-                /*         LoginView()
-                 .onOpenURL { url in
-                 GIDSignIn.sharedInstance.handle(url) }
-                 }
-                 */
             }
         }
         else {
             LoginView()
         }
-/*        NavigationView {
+        NavigationView {
             SignUpView()
         }.navigationTitle("Sign Up")
     }
@@ -63,6 +58,24 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-        */
+        
     }
 }
+
+/*
+// Code to launch izzys sign up page
+
+ struct ContentView: View {
+     var body: some View {
+         NavigationView {
+             SignUpView()
+         }.navigationTitle("Sign Up")
+     }
+ }
+
+ struct ContentView_Previews: PreviewProvider {
+     static var previews: some View {
+         ContentView()
+     }
+ }
+ */
