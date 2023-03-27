@@ -16,10 +16,8 @@
 		2EE37C51F181BEC890D23980 /* Pods_PuppyLoveTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E7869EC8E1B26389FB1258 /* Pods_PuppyLoveTests.framework */; };
 		32EE4397A01B813C9AA528F6 /* Pods_PuppyLove_PuppyLoveUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D622D8975343C8A3B3C70BB /* Pods_PuppyLove_PuppyLoveUITests.framework */; };
 		43E568D529CB7D5900E67CF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43E568D029CB7D5800E67CF6 /* Assets.xcassets */; };
-		43E568D629CB7D5900E67CF6 /* Sections in Resources */ = {isa = PBXBuildFile; fileRef = 43E568D129CB7D5800E67CF6 /* Sections */; };
 		43E568D729CB7D5900E67CF6 /* Preview Content in Resources */ = {isa = PBXBuildFile; fileRef = 43E568D229CB7D5900E67CF6 /* Preview Content */; };
 		43E568D829CB7D5900E67CF6 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E568D329CB7D5900E67CF6 /* Card.swift */; };
-		43E568D929CB7D5900E67CF6 /* Components in Resources */ = {isa = PBXBuildFile; fileRef = 43E568D429CB7D5900E67CF6 /* Components */; };
 		43E568DB29CB8A3400E67CF6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E568DA29CB8A3400E67CF6 /* ContentView.swift */; };
 		43E568E129CB8CA500E67CF6 /* CardsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E568E029CB8CA500E67CF6 /* CardsSection.swift */; };
 		43E568E329CB8CAD00E67CF6 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E568E229CB8CAD00E67CF6 /* CardView.swift */; };
@@ -61,10 +59,8 @@
 		19B481F229C2D512009D7D5A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		386A88C5DCEC619A5585F36E /* Pods-PuppyLove.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PuppyLove.release.xcconfig"; path = "Target Support Files/Pods-PuppyLove/Pods-PuppyLove.release.xcconfig"; sourceTree = "<group>"; };
 		43E568D029CB7D5800E67CF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		43E568D129CB7D5800E67CF6 /* Sections */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sections; sourceTree = "<group>"; };
 		43E568D229CB7D5900E67CF6 /* Preview Content */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Preview Content"; sourceTree = "<group>"; };
 		43E568D329CB7D5900E67CF6 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		43E568D429CB7D5900E67CF6 /* Components */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Components; sourceTree = "<group>"; };
 		43E568DA29CB8A3400E67CF6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		43E568E029CB8CA500E67CF6 /* CardsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsSection.swift; sourceTree = "<group>"; };
 		43E568E229CB8CAD00E67CF6 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -143,9 +139,7 @@
 				43E568E629CB8E1D00E67CF6 /* NavigationSection.swift */,
 				43E568E229CB8CAD00E67CF6 /* CardView.swift */,
 				43E568E829CB927A00E67CF6 /* Profile.swift */,
-				43E568D429CB7D5900E67CF6 /* Components */,
 				43E568D229CB7D5900E67CF6 /* Preview Content */,
-				43E568D129CB7D5800E67CF6 /* Sections */,
 				9336F25F29CAB935009DDCC0 /* GoogleService-Info.plist */,
 				19B481EF29C2C275009D7D5A /* Info.plist */,
 				43E568DA29CB8A3400E67CF6 /* ContentView.swift */,
@@ -307,8 +301,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				43E568D729CB7D5900E67CF6 /* Preview Content in Resources */,
-				43E568D629CB7D5900E67CF6 /* Sections in Resources */,
-				43E568D929CB7D5900E67CF6 /* Components in Resources */,
 				43E568D529CB7D5900E67CF6 /* Assets.xcassets in Resources */,
 				9336F26029CAB935009DDCC0 /* GoogleService-Info.plist in Resources */,
 			);
