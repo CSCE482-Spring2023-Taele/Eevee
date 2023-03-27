@@ -1,3 +1,11 @@
+
+//
+//  Profile.swift
+//  PuppyLove
+//
+//  Created by Irving Salinas on 3/16/23.
+//
+
 import SwiftUI
 
 struct Profile: View {
