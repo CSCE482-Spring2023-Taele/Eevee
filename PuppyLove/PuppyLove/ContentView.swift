@@ -1,6 +1,24 @@
 import SwiftUI
 import GoogleSignIn
 
+struct User {
+    var name: String
+    var age: Int
+    var bio: String
+    var gender: String
+    var profilePicture: UIImage
+}
+
+struct Dog {
+    var name: String
+    var age: String
+    var activityLevel: Double
+    var bio: String
+    var profilePicture: Data
+    var vaccinated: Bool
+    var fixed: Bool
+}
+
 struct ContentView: View {
     @State private var selection = 1
     @EnvironmentObject var vm: UserAuthModel
@@ -36,5 +54,15 @@ struct ContentView: View {
         else {
             LoginView()
         }
+/*        NavigationView {
+            SignUpView()
+        }.navigationTitle("Sign Up")
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+        */
     }
 }
