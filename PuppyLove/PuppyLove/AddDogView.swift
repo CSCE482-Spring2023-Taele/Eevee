@@ -12,7 +12,9 @@ import PhotosUI
 struct AddDogView: View {
     @State private var dogName = ""
     @State private var dogBreed = ""
-    @State private var dogAge = ""
+    @State private var dogAge = "Puppy (0-1 years)"
+    @State private var dogWeight: Int = 0
+    @State private var dogSex = "Male"
     @State private var dogBio = ""
     @State private var activityLevel: Double = 0
     @State private var vaccinated = false
@@ -23,7 +25,8 @@ struct AddDogView: View {
     
     @State var breeds = [Breed]()
     @State var breedOptionTag: Int = 0
-    @State var ageRangeTag: Int = 0
+
+    @State var ageOptionTag: Int = 0
     
     var sexOptions = ["Male", "Female"]
     @State var sexOptionTag: Int = 0
@@ -60,6 +63,14 @@ struct AddDogView: View {
                     }
                 }.padding()
                 
+                Section(header: Text("Weight (lbs)")) {
+                    Picker("Select weight", selection: $dogWeight) {
+                        ForEach(1 ..< 150) { weight in
+                            Text("\(weight)")
+                        }
+                    }
+                }
+                
                 Section(header: Text("Activity Level")) {
                     Slider(
                         value: $activityLevel,
@@ -69,8 +80,10 @@ struct AddDogView: View {
                 }.padding()
                 
                 Section(header: Text("Breed")) {
-                    List(breeds) { breed in
-                        Text("\(breed.name)")
+                    Picker("Select Breed", selection: $breedOptionTag) {
+                        ForEach(0 ..< breeds.count, id: \.self) {
+                            Text(self.breeds[$0].name)
+                        }
                     }
                     .onAppear() {
                         DogAPI().loadData { (breeds) in
@@ -81,9 +94,9 @@ struct AddDogView: View {
                 
                 Section(header: Text("Sex")) {
                     HStack {
-                        Picker("Select Sex", selection: $sexOptionTag) {
-                            ForEach(0 ..< sexOptions.count) {
-                                Text(self.sexOptions[$0])
+                        Picker("Select Sex", selection: $dogSex) {
+                            ForEach(sexOptions, id: \.self) {
+                                Text($0)
                             }
                         }
                     }
@@ -91,9 +104,9 @@ struct AddDogView: View {
                 
                 Section(header: Text("Age")) {
                     HStack {
-                        Picker("Age range", selection: $ageRangeTag){
-                            ForEach(0 ..< ageOptions.count) {
-                                Text(self.ageOptions[$0])
+                        Picker("Age range", selection: $dogAge){
+                            ForEach(ageOptions, id: \.self) {
+                                Text($0)
                             }
                         }
                     }
@@ -115,22 +128,25 @@ struct AddDogView: View {
             
             NavigationLink(destination: UserPreferencesView(), label: {
                     Text("Next")
-//                    .onTapGesture {
-//                        self.sendRequest(image: dogPhoto??)
-//                    }
+                    .onTapGesture {
+                        self.sendRequest()
+                    }
             })
         }
         .navigationBarTitle(Text("Dog Information"))
         .navigationBarBackButtonHidden(true)
     }
     
-    func sendRequest(image: Data) {
+    func sendRequest() {
         let newDog = Dog(
             name: dogName,
             age: dogAge,
             activityLevel: activityLevel,
             bio: dogBio,
-            profilePicture: image,
+            breed: dogBreed,
+            weight: dogWeight,
+            sex: dogSex,
+            //profilePicture: image,
             vaccinated: vaccinated,
             fixed: fixed
         )

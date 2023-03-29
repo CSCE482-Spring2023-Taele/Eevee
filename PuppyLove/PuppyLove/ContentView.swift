@@ -6,7 +6,7 @@ struct User {
     var age: Int
     var bio: String
     var gender: String
-    var profilePicture: UIImage
+    //var profilePicture: UIImage
 }
 
 struct Dog {
@@ -14,11 +14,14 @@ struct Dog {
     var age: String
     var activityLevel: Double
     var bio: String
-    var profilePicture: Data
+    var breed: String
+    var weight: Int
+    var sex: String
+    //var profilePicture: Data
     var vaccinated: Bool
     var fixed: Bool
 }
-
+/*
 struct ContentView: View {
     @State private var selection = 1
     @EnvironmentObject var vm: UserAuthModel
@@ -62,7 +65,7 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-/*
+*/
 // Code to launch izzys sign up page
 
  struct ContentView: View {
@@ -78,4 +81,4 @@ struct ContentView_Previews: PreviewProvider {
          ContentView()
      }
  }
- */
+ 
