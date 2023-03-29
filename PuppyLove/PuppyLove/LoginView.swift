@@ -15,7 +15,7 @@ func handleSignInButton() {
     guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
 
     GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController)
-    { signInResult, error in
+    { signInResult, error in 
       guard let result = signInResult else {
         // Inspect error
         return
@@ -24,12 +24,23 @@ func handleSignInButton() {
     }
 }
 
+struct Comments: Codable, Identifiable {
+    let id = UUID()
+    let OwnerName: String
+    let OwnerEmail: String
+    let InstagramKey: String
+    let Age: Int
+    let Sex: String
+    let Location: String
+}
+
 class UserAuthModel: ObservableObject {
     let signInConfig = GIDConfiguration.init(clientID: "CLIENT_ID")
     @Published var givenName: String = ""
     @Published var profilePicUrl: String = ""
     @Published var isLoggedIn: Bool = false
     @Published var errorMessage: String = ""
+    @Published var emailAddress: String = ""
     
     init(){
         check()
@@ -44,6 +55,7 @@ class UserAuthModel: ObservableObject {
             self.givenName = givenName ?? ""
             self.profilePicUrl = profilePicUrl
             self.isLoggedIn = true
+            self.emailAddress = user.profile!.email
         }else{
             self.isLoggedIn = false
             self.givenName = "Not Logged In"
@@ -80,12 +92,28 @@ class UserAuthModel: ObservableObject {
           }
             self.checkStatus()
           // If sign in succeeded, display the app's main content View.
+            
         }
+    }
+    func getUserComments(completion:@escaping ([Comments]) -> ()) {
+        guard let url = URL(string: "https://puppyloveapi.azurewebsites.net/Owner/") else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, _, _) in
+            let comments = try! JSONDecoder().decode([Comments].self, from: data!)
+            print(comments)
+            
+            DispatchQueue.main.async {
+                completion(comments)
+            }
+        }
+        .resume()
     }
 }
 
+
 struct LoginView: View {
     @EnvironmentObject var vm: UserAuthModel
+    @State var comments = [Comments]()
     fileprivate func SignInButton() -> Button<Text> {
         Button(action: {
             vm.handleSignInButton()
@@ -94,21 +122,53 @@ struct LoginView: View {
         }
     }
     var body: some View {
-        VStack {
-            Text("PuppyLove")
-                .foregroundColor(.white)
-                .font(.largeTitle)
-                .fontDesign(.serif)
-                .fontWidth(.expanded)
-                .fontWeight(.heavy)
-                .offset(x: 0, y: -100)
-            
-            GoogleSignInButton(action: vm.handleSignInButton)
-                .padding(10)
-                .opacity(0.95)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.init(red: 0.784, green: 0.635, blue: 0.784))
+        NavigationView {
+                   //3.
+                   List(comments) { comment in
+                       VStack(alignment: .leading) {
+                           if(comment.OwnerName == "keegan") {
+                               Text(comment.OwnerName)
+                                   .font(.title)
+                                   .fontWeight(.bold)
+                               Text(comment.OwnerEmail)
+                                   .font(.subheadline)
+                                   .fontWeight(.bold)
+                               Text(comment.InstagramKey)
+                                   .font(.body)
+                               Text(String(comment.Age))
+                                   .font(.body)
+                               Text(comment.Sex)
+                                   .font(.body)
+                               Text(comment.Location)
+                                   .font(.body)
+                           }
+                       }
+                       
+                   }
+                   //2.
+                   .onAppear() {
+                       vm.getUserComments { (comments) in
+                           self.comments = comments
+                       }
+                   }.navigationTitle("Comments")
+               }
+//        VStack {
+//            Text("PuppyLove")
+//                .foregroundColor(.white)
+//                .font(.largeTitle)
+//                .fontDesign(.serif)
+//                .fontWidth(.expanded)
+//                .fontWeight(.heavy)
+//                .offset(x: 0, y: -100)
+//
+//            GoogleSignInButton(action: vm.handleSignInButton)
+//                .padding(10)
+//                .opacity(0.95)
+//            NavigationLink("Sign Up", destination: SignUpView()).navigationBarBackButtonHidden(true)
+//
+//        }
+//        .frame(maxWidth: .infinity, maxHeight: .infinity)
+//        .background(Color.init(red: 0.784, green: 0.635, blue: 0.784))
     }
 }
 

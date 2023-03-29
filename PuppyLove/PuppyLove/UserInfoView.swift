@@ -86,7 +86,6 @@ struct UserInfoView: View {
             
             NavigationLink(destination: AddDogView(), label: { Text("Next")})
         }
-        .navigationBarTitle(Text("User Information"))
     }
 }
 
