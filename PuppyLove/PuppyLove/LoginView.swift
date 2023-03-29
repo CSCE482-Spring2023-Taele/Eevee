@@ -24,7 +24,7 @@ func handleSignInButton() {
     }
 }
 
-struct Comments: Codable, Identifiable {
+struct Owners: Codable, Identifiable {
     let id = UUID()
     let OwnerName: String
     let OwnerEmail: String
@@ -95,15 +95,15 @@ class UserAuthModel: ObservableObject {
             
         }
     }
-    func getUserComments(completion:@escaping ([Comments]) -> ()) {
+    func getUserComments(completion:@escaping ([Owners]) -> ()) {
         guard let url = URL(string: "https://puppyloveapi.azurewebsites.net/Owner/") else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
-            let comments = try! JSONDecoder().decode([Comments].self, from: data!)
-            print(comments)
+            let owners = try! JSONDecoder().decode([Owners].self, from: data!)
+            print(owners)
             
             DispatchQueue.main.async {
-                completion(comments)
+                completion(owners)
             }
         }
         .resume()
@@ -113,7 +113,7 @@ class UserAuthModel: ObservableObject {
 
 struct LoginView: View {
     @EnvironmentObject var vm: UserAuthModel
-    @State var comments = [Comments]()
+    @State var owners = [Owners]()
     fileprivate func SignInButton() -> Button<Text> {
         Button(action: {
             vm.handleSignInButton()
@@ -124,22 +124,22 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
                    //3.
-                   List(comments) { comment in
+                   List(owners) { owner in
                        VStack(alignment: .leading) {
-                           if(comment.OwnerName == "keegan") {
-                               Text(comment.OwnerName)
+                           if(owner.OwnerName == "keegan") {
+                               Text(owner.OwnerName)
                                    .font(.title)
                                    .fontWeight(.bold)
-                               Text(comment.OwnerEmail)
+                               Text(owner.OwnerEmail)
                                    .font(.subheadline)
                                    .fontWeight(.bold)
-                               Text(comment.InstagramKey)
+                               Text(owner.InstagramKey)
                                    .font(.body)
-                               Text(String(comment.Age))
+                               Text(String(owner.Age))
                                    .font(.body)
-                               Text(comment.Sex)
+                               Text(owner.Sex)
                                    .font(.body)
-                               Text(comment.Location)
+                               Text(owner.Location)
                                    .font(.body)
                            }
                        }
@@ -147,10 +147,10 @@ struct LoginView: View {
                    }
                    //2.
                    .onAppear() {
-                       vm.getUserComments { (comments) in
-                           self.comments = comments
+                       vm.getUserComments { (owners) in
+                           self.owners = owners
                        }
-                   }.navigationTitle("Comments")
+                   }.navigationTitle("Owners")
                }
 //        VStack {
 //            Text("PuppyLove")
