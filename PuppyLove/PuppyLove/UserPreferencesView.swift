@@ -78,12 +78,9 @@ struct UserPreferencesView: View {
                 }.padding()
             }
             
-            Button("Save") {
-                
-            }.buttonStyle(BorderedProminentButtonStyle())
+            NavigationLink(destination: LoginView(), label: { Text("Save")})
         }
-        .navigationBarTitle("Preferences")
-        .navigationBarBackButtonHidden(true)
+        
     }
 }
 

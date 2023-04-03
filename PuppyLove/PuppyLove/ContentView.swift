@@ -49,9 +49,9 @@ struct ContentView: View {
         else {
             LoginView()
         }
-        NavigationView {
-            SignUpView()
-        }.navigationTitle("Sign Up")
+//        NavigationView {
+//            SignUpView()
+//        }.navigationTitle("Sign Up")
     }
 }
 
