@@ -1,4 +1,5 @@
-﻿using MySql.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using MySql.Data;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
 using System.Collections;
@@ -27,6 +28,47 @@ namespace PuppyLoveAPI
             this.Location = String.Empty;
         }
 
+        public static bool AddOwner(Owner owner)
+        {
+            DBConnection DB = DBConnection.Instance();
+
+            if (DB.IsConnect())
+            {
+                string query = $"SELECT * from owners where email = \'{owner.OwnerEmail}\';";
+                MySqlCommand cmd = new MySqlCommand(query, DB.Connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    DB.Close();
+                    return false;
+                }
+
+            }
+
+            if (DB.IsConnect())
+            {
+                // referenced from https://www.c-sharpcorner.com/UploadFile/9582c9/insert-update-delete-display-data-in-mysql-using-C-Sharp/
+                string query = $"insert into owners values(NULL, \'{owner.OwnerName}\', \'{owner.OwnerEmail}\', {owner.Age}, \'{owner.Sex}\', \'{owner.Location}\', \'{owner.InstagramKey}\');";
+                MySqlCommand cmd = new MySqlCommand(query, DB.Connection);
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        owner.OwnerID = Int32.Parse(reader.GetString(0));
+                        // Dont currently need to read anything from here
+                        // Might need to get owner id from here
+                    }
+                }
+                catch (Exception e)
+                {
+                    DB.Close();
+                    return false;
+                }
+                DB.Close();
+            }
+            return true;
+        }
         public static string GetOwners()
         {
             List<Owner> owners = new List<Owner>();
@@ -39,6 +81,7 @@ namespace PuppyLoveAPI
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
+                    // Need to fix for null values
                     int ownerId = Int32.Parse(reader.GetString(0));
                     string ownerName = reader.GetString(1);
                     string ownerEmail = reader.GetString(2);
@@ -63,7 +106,78 @@ namespace PuppyLoveAPI
             return JsonSerializer.Serialize(owners);
         }
 
-        public static string GetOwnerID(string email)
+        public static bool GetNewID(Owner owner)
+        {
+            DBConnection DB = DBConnection.Instance();
+
+            if (DB.IsConnect())
+            {
+                string query = $"SELECT owner_id from owners where email = \'{owner.OwnerEmail}\';";
+                MySqlCommand cmd = new MySqlCommand(query, DB.Connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    owner.OwnerID = Int32.Parse(reader.GetString(0));
+                }
+                else
+                {
+                    DB.Close();
+                    return false;
+                }
+
+                DB.Close();
+            }
+            return true;
+        }
+
+        public static Owner GetOwnerID(int id)
+        {
+            DBConnection DB = DBConnection.Instance();
+            Owner owner = new Owner();
+
+            if (DB.IsConnect())
+            {
+                if (id == -1) // Don't want to query the db in the case the id is bad
+                {
+                    DB.Close();
+                    return owner;
+                }
+
+                string query = $"SELECT * from owners where id = {id};";
+                MySqlCommand cmd = new MySqlCommand(query, DB.Connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    try
+                    {
+                        int ownerId = Int32.Parse(reader.GetString(0));
+                        string ownerName = reader.GetString(1);
+                        string ownerEmail = reader.GetString(2);
+                        int age = Int32.Parse(reader.GetString(3));
+                        string sex = reader.GetString(4);
+                        string location = reader.GetString(5);
+                        string instaKey = reader.GetString(6);
+
+                        owner.OwnerID = ownerId;
+                        owner.OwnerName = ownerName;
+                        owner.OwnerEmail = ownerEmail;
+                        owner.InstagramKey = instaKey;
+                        owner.Age = age;
+                        owner.Sex = sex;
+                        owner.Location = location;
+                    }
+                    catch (Exception e)
+                    {
+                        DB.Close();
+                        return owner;
+                    }
+                }
+                DB.Close();
+            }
+            return owner;
+        }
+
+        public static string GetOwnerEmail(string email)
         {
             DBConnection DB = DBConnection.Instance();
             Owner owner = new Owner();
@@ -73,23 +187,31 @@ namespace PuppyLoveAPI
                 string query = $"SELECT * from owners where email = \'{email}\';";
                 MySqlCommand cmd = new MySqlCommand(query, DB.Connection);
                 MySqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                if (reader.Read())
                 {
-                    int ownerId = Int32.Parse(reader.GetString(0));
-                    string ownerName = reader.GetString(1);
-                    string ownerEmail = reader.GetString(2);
-                    int age = Int32.Parse(reader.GetString(3));
-                    string sex = reader.GetString(4);
-                    string location = reader.GetString(5);
-                    string instaKey = reader.GetString(6);
+                    try
+                    {
+                        int ownerId = Int32.Parse(reader.GetString(0));
+                        string ownerName = reader.GetString(1);
+                        string ownerEmail = reader.GetString(2);
+                        int age = Int32.Parse(reader.GetString(3));
+                        string sex = reader.GetString(4);
+                        string location = reader.GetString(5);
+                        string instaKey = reader.GetString(6);
 
-                    owner.OwnerID = ownerId;
-                    owner.OwnerName = ownerName;
-                    owner.OwnerEmail = ownerEmail;
-                    owner.InstagramKey = instaKey;
-                    owner.Age = age;
-                    owner.Sex = sex;
-                    owner.Location = location;
+                        owner.OwnerID = ownerId;
+                        owner.OwnerName = ownerName;
+                        owner.OwnerEmail = ownerEmail;
+                        owner.InstagramKey = instaKey;
+                        owner.Age = age;
+                        owner.Sex = sex;
+                        owner.Location = location;
+                    }
+                    catch (Exception e)
+                    {
+                        DB.Close();
+                        return JsonSerializer.Serialize(owner);
+                    }
                 }
                 DB.Close();
             }

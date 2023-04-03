@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
+using System.Net.Mime;
 
 namespace PuppyLoveAPI.Controllers
 {
@@ -20,10 +20,39 @@ namespace PuppyLoveAPI.Controllers
             return Owner.GetOwners();
         }
 
-        [HttpGet("{email}", Name = "GetOwnerID")]
-        public string GetID(string email)
+        [HttpGet("{email}", Name = "GetOwnerEmail")]
+        public string GetEmail(string email)
         {
-            return Owner.GetOwnerID(email);
+            return Owner.GetOwnerEmail(email);
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Owner> GetById_ActionResultOfT(int id)
+        {
+            Owner owner = Owner.GetOwnerID(id);
+            return owner == null ? NotFound() : owner;
+        }
+
+        [HttpPost(Name = "PostOwner")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Owner> Create(Owner owner)
+        {
+            
+            if (!Owner.AddOwner(owner))
+            {
+                return BadRequest();
+            }
+            if (!Owner.GetNewID(owner))
+            {
+                // Owner was not created
+                return BadRequest();
+            }
+
+            return CreatedAtAction(nameof(GetById_ActionResultOfT), new { id = owner.OwnerID }, owner);
         }
     }
 }
