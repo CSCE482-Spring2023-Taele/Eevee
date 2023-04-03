@@ -122,7 +122,7 @@ struct LoginView: View {
         }
     }
     var body: some View {
-        NavigationView {
+        /*NavigationView {
                    //3.
                    List(owners) { owner in
                        VStack(alignment: .leading) {
@@ -151,24 +151,24 @@ struct LoginView: View {
                            self.owners = owners
                        }
                    }.navigationTitle("Owners")
-               }
-//        VStack {
-//            Text("PuppyLove")
-//                .foregroundColor(.white)
-//                .font(.largeTitle)
-//                .fontDesign(.serif)
-//                .fontWidth(.expanded)
-//                .fontWeight(.heavy)
-//                .offset(x: 0, y: -100)
-//
-//            GoogleSignInButton(action: vm.handleSignInButton)
-//                .padding(10)
-//                .opacity(0.95)
-//            NavigationLink("Sign Up", destination: SignUpView()).navigationBarBackButtonHidden(true)
-//
-//        }
-//        .frame(maxWidth: .infinity, maxHeight: .infinity)
-//        .background(Color.init(red: 0.784, green: 0.635, blue: 0.784))
+               }*/
+        VStack {
+            Text("PuppyLove")
+                .foregroundColor(.white)
+                .font(.largeTitle)
+                .fontDesign(.serif)
+                .fontWidth(.expanded)
+                .fontWeight(.heavy)
+                .offset(x: 0, y: -100)
+
+            GoogleSignInButton(action: vm.handleSignInButton)
+                .padding(10)
+                .opacity(0.95)
+            NavigationLink("Sign Up", destination: SignUpView()).navigationBarBackButtonHidden(true)
+
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.init(red: 0.784, green: 0.635, blue: 0.784))
     }
 }
 
