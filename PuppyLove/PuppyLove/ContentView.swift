@@ -47,7 +47,7 @@ struct ContentView: View {
             }
         }
         else {
-            LoginView()
+            messagesTemp()
         }
 //        NavigationView {
 //            SignUpView()

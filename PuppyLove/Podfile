@@ -14,6 +14,10 @@ target 'PuppyLove' do
   pod 'FirebaseDatabase'
   pod 'FirebaseStorage'
   pod 'FirebaseFirestore'
+  pod 'Firebase'
+  pod 'SDWebImageSwiftUI'
+  pod 'FirebaseFirestoreSwift'
+  
 
   target 'PuppyLoveTests' do
     inherit! :search_paths
