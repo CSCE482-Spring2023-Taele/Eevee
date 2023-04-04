@@ -12,9 +12,12 @@ namespace PuppyLoveAPI
         public int OwnerID { get; set; }
         public string DogName { get; set; }
         public string Breed { get; set; }
-        public int Age { get; set; }
+        public string Age { get; set; }
         public string Sex { get; set; }
-        public int AgressivenessLevel { get; set; }
+        public int ActivityLevel { get; set; }
+        public bool VaccinationStatus { get; set; }
+        public bool FixedStatus { get; set; }
+        public string BreedPreference { get; set; }
         public string AdditionalInfo { get; set; }
 
         public Dog()
@@ -23,9 +26,12 @@ namespace PuppyLoveAPI
             this.OwnerID = -1;
             this.DogName = string.Empty;
             this.Breed = String.Empty;
-            this.Age = -1;
+            this.Age = string.Empty;
             this.Sex = String.Empty;
-            this.AgressivenessLevel = -1;
+            this.ActivityLevel = -1;
+            this.VaccinationStatus = false;
+            this.FixedStatus = false;
+            this.BreedPreference = string.Empty;
             this.AdditionalInfo = String.Empty;
         }
 
@@ -45,10 +51,13 @@ namespace PuppyLoveAPI
                     int ownerId = Int32.Parse(reader.GetString(1));
                     string dogName = reader.GetString(2);
                     string breed = reader.GetString(3);
-                    int age = Int32.Parse(reader.GetString(4));
+                    string age = reader.GetString(4);
                     string sex = reader.GetString(5);
-                    int agressivenessLevel = Int32.Parse(reader.GetString(6));
-                    string additionalInfo = reader.GetString(7);
+                    int activityLevel = Int32.Parse(reader.GetString(6));
+                    bool vaccinationStatus = bool.Parse(reader.GetString(7));
+                    bool fixedStatus = bool.Parse(reader.GetString(8));
+                    string breedPreference = reader.GetString(9);
+                    string additionalInfo = reader.GetString(10);
 
                     Dog dog = new Dog();
                     dog.DogID = dogId;
@@ -56,7 +65,11 @@ namespace PuppyLoveAPI
                     dog.DogName = dogName;
                     dog.Breed = breed;
                     dog.Age = age;
-                    dog.AgressivenessLevel = agressivenessLevel;
+                    dog.Sex = sex;
+                    dog.ActivityLevel = activityLevel;
+                    dog.VaccinationStatus = vaccinationStatus;
+                    dog.FixedStatus = fixedStatus;
+                    dog.BreedPreference = breedPreference;
                     dog.AdditionalInfo = additionalInfo;
 
                     dogs.Add(dog);
