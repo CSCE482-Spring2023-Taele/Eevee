@@ -12,20 +12,23 @@ namespace PuppyLoveAPI
         public int OwnerID { get; set; }
         public string OwnerName { get; set; }
         public string OwnerEmail { get; set; }
-        public string InstagramKey { get; set; }
         public int Age { get; set; }
+        public int MinAge { get; set; }
+        public int MaxAge { get; set; }
         public string Sex { get; set; }
         public string Location { get; set; }
-
+        public int MaxDistance { get; set; }
         public Owner()
         {
             this.OwnerID = -1;
             this.OwnerName = string.Empty;
             this.OwnerEmail = string.Empty;
-            this.InstagramKey = String.Empty;
             this.Age = -1;
+            this.MinAge = 18;
+            this.MaxAge = 100;
             this.Sex = String.Empty;
             this.Location = String.Empty;
+            this.MaxDistance = 100;
         }
 
         public static bool AddOwner(Owner owner)
@@ -48,7 +51,7 @@ namespace PuppyLoveAPI
             if (DB.IsConnect())
             {
                 // referenced from https://www.c-sharpcorner.com/UploadFile/9582c9/insert-update-delete-display-data-in-mysql-using-C-Sharp/
-                string query = $"insert into owners values(NULL, \'{owner.OwnerName}\', \'{owner.OwnerEmail}\', {owner.Age}, \'{owner.Sex}\', \'{owner.Location}\', \'{owner.InstagramKey}\');";
+                string query = $"insert into owners values(NULL, \'{owner.OwnerName}\', \'{owner.OwnerEmail}\', {owner.Age}, {owner.MinAge}, {owner.MaxAge}, \'{owner.Sex}\', \'{owner.Location}\', \'{owner.MaxDistance}\');";
                 MySqlCommand cmd = new MySqlCommand(query, DB.Connection);
                 try
                 {
@@ -56,8 +59,6 @@ namespace PuppyLoveAPI
                     if (reader.Read())
                     {
                         owner.OwnerID = Int32.Parse(reader.GetString(0));
-                        // Dont currently need to read anything from here
-                        // Might need to get owner id from here
                     }
                 }
                 catch (Exception e)
@@ -86,18 +87,22 @@ namespace PuppyLoveAPI
                     string ownerName = reader.GetString(1);
                     string ownerEmail = reader.GetString(2);
                     int age = Int32.Parse(reader.GetString(3));
-                    string sex = reader.GetString(4);
-                    string location = reader.GetString(5);
-                    string instaKey = reader.GetString(6);
+                    int minAge = Int32.Parse(reader.GetString(4));
+                    int maxAge = Int32.Parse(reader.GetString(5));
+                    string sex = reader.GetString(6);
+                    string location = reader.GetString(7);
+                    int maxDistance = Int32.Parse(reader.GetString(8));
 
                     Owner owner = new Owner();
                     owner.OwnerID = ownerId;
                     owner.OwnerName = ownerName;
                     owner.OwnerEmail = ownerEmail;
-                    owner.InstagramKey = instaKey;
                     owner.Age = age;
+                    owner.MinAge = minAge;
+                    owner.MaxAge = maxAge;
                     owner.Sex = sex;
                     owner.Location = location;
+                    owner.MaxDistance = maxDistance;
 
                     owners.Add(owner);
                 }
@@ -154,17 +159,21 @@ namespace PuppyLoveAPI
                         string ownerName = reader.GetString(1);
                         string ownerEmail = reader.GetString(2);
                         int age = Int32.Parse(reader.GetString(3));
-                        string sex = reader.GetString(4);
-                        string location = reader.GetString(5);
-                        string instaKey = reader.GetString(6);
+                        int minAge = Int32.Parse(reader.GetString(4));
+                        int maxAge = Int32.Parse(reader.GetString(5));
+                        string sex = reader.GetString(6);
+                        string location = reader.GetString(7);
+                        int maxDistance = Int32.Parse(reader.GetString(8));
 
                         owner.OwnerID = ownerId;
                         owner.OwnerName = ownerName;
                         owner.OwnerEmail = ownerEmail;
-                        owner.InstagramKey = instaKey;
                         owner.Age = age;
+                        owner.MinAge = minAge;
+                        owner.MaxAge = maxAge;
                         owner.Sex = sex;
                         owner.Location = location;
+                        owner.MaxDistance = maxDistance;
                     }
                     catch (Exception e)
                     {
@@ -195,17 +204,21 @@ namespace PuppyLoveAPI
                         string ownerName = reader.GetString(1);
                         string ownerEmail = reader.GetString(2);
                         int age = Int32.Parse(reader.GetString(3));
-                        string sex = reader.GetString(4);
-                        string location = reader.GetString(5);
-                        string instaKey = reader.GetString(6);
+                        int minAge = Int32.Parse(reader.GetString(4));
+                        int maxAge = Int32.Parse(reader.GetString(5));
+                        string sex = reader.GetString(6);
+                        string location = reader.GetString(7);
+                        int maxDistance = Int32.Parse(reader.GetString(8));
 
                         owner.OwnerID = ownerId;
                         owner.OwnerName = ownerName;
                         owner.OwnerEmail = ownerEmail;
-                        owner.InstagramKey = instaKey;
                         owner.Age = age;
+                        owner.MinAge = minAge;
+                        owner.MaxAge = maxAge;
                         owner.Sex = sex;
                         owner.Location = location;
+                        owner.MaxDistance = maxDistance;
                     }
                     catch (Exception e)
                     {
