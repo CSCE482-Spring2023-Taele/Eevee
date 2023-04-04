@@ -16,6 +16,7 @@ namespace PuppyLoveAPI
         public int MinAge { get; set; }
         public int MaxAge { get; set; }
         public string Sex { get; set; }
+        public string SexPreference { get; set; }
         public string Location { get; set; }
         public int MaxDistance { get; set; }
         public Owner()
@@ -90,8 +91,9 @@ namespace PuppyLoveAPI
                     int minAge = Int32.Parse(reader.GetString(4));
                     int maxAge = Int32.Parse(reader.GetString(5));
                     string sex = reader.GetString(6);
-                    string location = reader.GetString(7);
-                    int maxDistance = Int32.Parse(reader.GetString(8));
+                    string sexPreference = reader.GetString(7);
+                    string location = reader.GetString(8);
+                    int maxDistance = Int32.Parse(reader.GetString(9));
 
                     Owner owner = new Owner();
                     owner.OwnerID = ownerId;
@@ -101,6 +103,7 @@ namespace PuppyLoveAPI
                     owner.MinAge = minAge;
                     owner.MaxAge = maxAge;
                     owner.Sex = sex;
+                    owner.SexPreference = sexPreference;
                     owner.Location = location;
                     owner.MaxDistance = maxDistance;
 
@@ -162,8 +165,9 @@ namespace PuppyLoveAPI
                         int minAge = Int32.Parse(reader.GetString(4));
                         int maxAge = Int32.Parse(reader.GetString(5));
                         string sex = reader.GetString(6);
-                        string location = reader.GetString(7);
-                        int maxDistance = Int32.Parse(reader.GetString(8));
+                        string sexPreference = reader.GetString(7);
+                        string location = reader.GetString(8);
+                        int maxDistance = Int32.Parse(reader.GetString(9));
 
                         owner.OwnerID = ownerId;
                         owner.OwnerName = ownerName;
@@ -172,6 +176,7 @@ namespace PuppyLoveAPI
                         owner.MinAge = minAge;
                         owner.MaxAge = maxAge;
                         owner.Sex = sex;
+                        owner.SexPreference = sexPreference;
                         owner.Location = location;
                         owner.MaxDistance = maxDistance;
                     }
@@ -207,8 +212,9 @@ namespace PuppyLoveAPI
                         int minAge = Int32.Parse(reader.GetString(4));
                         int maxAge = Int32.Parse(reader.GetString(5));
                         string sex = reader.GetString(6);
-                        string location = reader.GetString(7);
-                        int maxDistance = Int32.Parse(reader.GetString(8));
+                        string sexPreference = reader.GetString(7);
+                        string location = reader.GetString(8);
+                        int maxDistance = Int32.Parse(reader.GetString(9));
 
                         owner.OwnerID = ownerId;
                         owner.OwnerName = ownerName;
@@ -217,6 +223,7 @@ namespace PuppyLoveAPI
                         owner.MinAge = minAge;
                         owner.MaxAge = maxAge;
                         owner.Sex = sex;
+                        owner.SexPreference = sexPreference;
                         owner.Location = location;
                         owner.MaxDistance = maxDistance;
                     }
