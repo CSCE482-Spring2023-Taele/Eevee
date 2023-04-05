@@ -52,7 +52,7 @@ namespace PuppyLoveAPI
             if (DB.IsConnect())
             {
                 // referenced from https://www.c-sharpcorner.com/UploadFile/9582c9/insert-update-delete-display-data-in-mysql-using-C-Sharp/
-                string query = $"insert into owners values(NULL, \'{owner.OwnerName}\', \'{owner.OwnerEmail}\', {owner.Age}, {owner.MinAge}, {owner.MaxAge}, \'{owner.Sex}\', \'{owner.Location}\', \'{owner.MaxDistance}\');";
+                string query = $"insert into owners values(NULL, \'{owner.OwnerName}\', \'{owner.OwnerEmail}\', {owner.Age}, {owner.MinAge}, {owner.MaxAge}, \'{owner.Sex}\', \'{owner.SexPreference}\', \'{owner.Location}\', \'{owner.MaxDistance}\');";
                 MySqlCommand cmd = new MySqlCommand(query, DB.Connection);
                 try
                 {
