@@ -12,12 +12,11 @@ import PhotosUI
 struct AddDogView: View {
     @StateObject var dog: Dog
     
-    @State private var dogName = ""
     @State private var dogBreed = ""
-    @State private var dogAge = ""
-    @State private var dogBio = ""
-    @State private var activityLevel: Double = 0
+    @State private var dogAge = "Puppy (0-1 years)"
     @State private var dogWeight: Int = 0
+    @State private var dogSex = "Male"
+    @State private var activityLevel: Double = 0
     @State private var vaccinated = false
     @State private var fixed = false
     
@@ -62,28 +61,36 @@ struct AddDogView: View {
                     TextField("Name", text: $dog.DogName)
                 }.padding()
                 
-                Section(header: Text("Profile Picture")) {
-                    HStack {
-                        PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
-                            Text("Select a photo")
-                        }
-                        .onChange(of: selectedItem) { newItem in
-                            Task {
-                                if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                                    dogPhoto = data
-                                }
-                            }
-                        }
-                        Spacer()
-                        if let dogPhoto,
-                            let image = UIImage(data: dogPhoto) {
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 100, height: 100)
+//                Section(header: Text("Profile Picture")) {
+//                    HStack {
+//                        PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
+//                            Text("Select a photo")
+//                        }
+//                        .onChange(of: selectedItem) { newItem in
+//                            Task {
+//                                if let data = try? await newItem?.loadTransferable(type: Data.self) {
+//                                    dogPhoto = data
+//                                }
+//                            }
+//                        }
+//                        Spacer()
+//                        if let dogPhoto,
+//                            let image = UIImage(data: dogPhoto) {
+//                            Image(uiImage: image)
+//                                .resizable()
+//                                .scaledToFill()
+//                                .frame(width: 100, height: 100)
+//                        }
+//                    }
+//                }.padding()
+                
+                Section(header: Text("Weight (lbs)")) {
+                    Picker("Select weight", selection: $dogWeight) {
+                        ForEach(1 ..< 150) { weight in
+                            Text("\(weight)")
                         }
                     }
-                }.padding()
+                }
                 
                 Section(header: Text("Activity Level")) {
                     Slider(
@@ -142,14 +149,13 @@ struct AddDogView: View {
                 }.padding()
                 
                 Section(header: Text("Vaccination Status")) {
-                    Toggle("Up to date on annual vaccinations?", isOn: $dog.VaccinationStatus)
+                    Toggle("Up to date on annual vaccinations?", isOn: $vaccinated)
                 }.padding()
                 
                 Section(header: Text("Fixed Status")) {
-                    Toggle("Is your dog neutered/spayed?", isOn: $dog.FixedStatus)
+                    Toggle("Is your dog neutered/spayed?", isOn: $fixed)
                 }.padding()
             }
-            
             NavigationLink(destination: LoginView().onAppear {
                 // hardcoded ownerID, still working on this
                 dog.OwnerID = 20
