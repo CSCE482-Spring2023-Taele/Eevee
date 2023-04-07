@@ -43,11 +43,19 @@ struct ContentView: View {
                             }
                         }
                         .tag(1)
+                    CardsSection()
+                        .tabItem{
+                            VStack {
+                                Image(systemName:"chat")
+                                Text("Bark")
+                            }
+                        }
+                        .tag(2)
                 }
             }
         }
         else {
-            messagesTemp()
+            LoginView()
         }
 //        NavigationView {
 //            SignUpView()

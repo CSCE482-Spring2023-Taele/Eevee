@@ -45,8 +45,7 @@ class ChatLogViewModel: ObservableObject {
                 querySnapshot?.documentChanges.forEach({ change in
                     if change.type == .added {
                         do {
-                            let cm = try change.document.data(as: ChatMessage.self)
-                            if(true) {
+                            if let cm = try change.document.data(as: ChatMessage?.self) {
                                 self.chatMessages.append(cm)
                                 print("Appending chatMessage in ChatLogView: \(Date())")
                             }
@@ -123,7 +122,7 @@ class ChatLogViewModel: ObservableObject {
             FirebaseConstants.text: self.chatText,
             FirebaseConstants.fromId: uid,
             FirebaseConstants.toId: toId,
-            FirebaseConstants.profileImageUrl: chatUser.profileImageUrl,
+            //FirebaseConstants.profileImageUrl: chatUser.profileImageUrl,
             FirebaseConstants.email: chatUser.email
         ] as [String : Any]
         
@@ -143,7 +142,7 @@ class ChatLogViewModel: ObservableObject {
             FirebaseConstants.text: self.chatText,
             FirebaseConstants.fromId: uid,
             FirebaseConstants.toId: toId,
-            FirebaseConstants.profileImageUrl: currentUser.profileImageUrl,
+            //FirebaseConstants.profileImageUrl: currentUser.profileImageUrl,
             FirebaseConstants.email: currentUser.email
         ] as [String : Any]
         
@@ -300,6 +299,6 @@ struct ChatLogView_Previews: PreviewProvider {
 //        NavigationView {
 //            ChatLogView(chatUser: .init(data: ["uid": "R8ZrxIT4uRZMVZeWwWeQWPI5zUE3", "email": "waterfall1@gmail.com"]))
 //        }
-        MainMessagesView()
+        messagesTemp()
     }
 }
