@@ -8,48 +8,41 @@
 import SwiftUI
 
 struct UserPreferencesView: View {
-    @State var distance: Double = 0
-    @State var minAge: Double = 18
-    @State var maxAge: Double = 100
+    @StateObject var user: User
+    @StateObject var dog: Dog
     
-    struct CheckboxToggleStyle: ToggleStyle {
-        func makeBody(configuration: Configuration) -> some View {
-            Button(action: {
-                configuration.isOn.toggle()
-            }, label: {
-                HStack {
-                    Image(systemName: configuration.isOn ? "checkmark.square" : "square")
-                    configuration.label
-                }
-                .onTapGesture {
-                    configuration.isOn.toggle()
-                }
-            })
+    var sexPreferences = ["Male", "Female", "Non-binary", "Everyone"]
+    @State var selectedPreference = "Male"
+    
+    @State var distance: Double = 0
+    @State var minAge: Int = 18
+    @State var maxAge: Int = 100
+    
+    // API call POST owner
+    func sendRequest() async {
+        print("sendRequest()")
+        guard let encoded = try? JSONEncoder().encode(user) else {
+            print("Failed to encode order")
+            return
+        }
+        
+        let url = URL(string: "https://puppyloveapi.azurewebsites.net/Owner")!
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        
+        do {
+            let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+
+            // this is where i try to get the ID but it doesn't work
+            let decodedUser = try JSONDecoder().decode(User.self, from: data)
+            dog.OwnerID = decodedUser.OwnerID
+            dump(decodedUser)
+
+        } catch {
+            print("POST  failed.")
         }
     }
-
-    
-    struct checklistItem: Identifiable, Hashable {
-        var title: String
-        var choice: Bool
-        var id = UUID()
-    }
-    
-    @State var genderPreferences = [
-        checklistItem(title: "Male", choice: false),
-        checklistItem(title: "Female", choice: false),
-        checklistItem(title: "Non-binary", choice: false),
-    ]
-    
-    @State var dogAgePreferences = [
-        checklistItem(title: "Puppy (0-1 years)", choice: false),
-        checklistItem(title: "Young (1-4 years)", choice: false),
-        checklistItem(title: "Adult (4-8 years)", choice: false),
-        checklistItem(title: "Senior (8+ years)", choice: false)
-    ]
-    
-    @State private var genderPrefChoices = Set<String>()
-    @State private var dogAgePrefChoices = Set<String>()
 
     var body: some View {
         VStack {
@@ -59,33 +52,62 @@ struct UserPreferencesView: View {
                     Text("\(Int(distance)) miles")
                 }.padding()
                 
-                Section(header: Text("Dog Preferences")) {
-                    ForEach($dogAgePreferences) { $item in
-                        Toggle(isOn: $item.choice) {
-                            Text("\(item.title)")
+                Section(header: Text("Owner Gender Preference")) {
+                    HStack {
+                        Picker("Show me...", selection: $selectedPreference) {
+                            ForEach(sexPreferences, id: \.self, content: { sex in
+                                Text(sex)
+                            })
                         }
-                        .toggleStyle(CheckboxToggleStyle())
                     }
                 }.padding()
                 
-                Section(header: Text("Owner Preferences")) {
-                    ForEach($genderPreferences) { $item in
-                        Toggle(isOn: $item.choice) {
-                            Text("\(item.title)")
+                // This is ugly gotta look for new way to do this
+                Section(header: Text("Minimum Owner Age")) {
+                    HStack {
+                        Picker("Select Age", selection: $minAge){
+                            ForEach(18 ..< 100) {
+                                Text("\($0)")
+                            }
                         }
-                        .toggleStyle(CheckboxToggleStyle())
+                    }
+                }.padding()
+                
+                Section(header: Text("Maximum Owner Age")) {
+                    HStack {
+                        Picker("Select Age", selection: $maxAge){
+                            ForEach(18 ..< 100) {
+                                Text("\($0)")
+                            }
+                        }
                     }
                 }.padding()
             }
-            
-            NavigationLink(destination: LoginView(), label: { Text("Save")})
+            NavigationLink(destination: AddDogView(dog: dog).onAppear {
+                user.SexPreference = selectedPreference
+                
+                // change email or else post wont work, need to grab email from oAuth process
+                user.OwnerEmail = "reagan@gmail.com"
+                user.MaxDistance = Int(distance)
+                user.MaxAge = Int(maxAge)
+                user.MinAge = Int(minAge)
+                user.Location = "College Station"
+                Task {
+                    await sendRequest()
+                }
+            }, label: {
+                    Text("Next")
+            })
         }
-        
+        .navigationBarTitle(Text("User Preferences"))
     }
 }
 
 struct UserPreferencesView_Previews: PreviewProvider {
     static var previews: some View {
-        UserPreferencesView()
+        UserPreferencesView(
+            user: User(OwnerID: 0, OwnerName: "", OwnerEmail: "", Age: 0, MinAge: 0, MaxAge: 0, Sex: "", SexPreference: "", Location: "", MaxDistance: 0),
+            dog: Dog(DogID: 0, OwnerID: 0, DogName: "", Breed: "", Weight: 0, Age: "", Sex: "", ActivityLevel: 0, VaccinationStatus: false, FixedStatus: false, BreedPreference: "none", AdditionalInfo: "")
+        )
     }
 }

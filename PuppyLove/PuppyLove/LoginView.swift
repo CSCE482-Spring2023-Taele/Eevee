@@ -24,16 +24,6 @@ func handleSignInButton() {
     }
 }
 
-struct Owners: Codable, Identifiable {
-    let id = UUID()
-    let OwnerName: String
-    let OwnerEmail: String
-    let InstagramKey: String
-    let Age: Int
-    let Sex: String
-    let Location: String
-}
-
 class UserAuthModel: ObservableObject {
     let signInConfig = GIDConfiguration.init(clientID: "CLIENT_ID")
     @Published var givenName: String = ""
@@ -95,11 +85,12 @@ class UserAuthModel: ObservableObject {
             
         }
     }
-    func getUserComments(completion:@escaping ([Owners]) -> ()) {
+    func getUserComments(completion:@escaping ([User]) -> ()) {
         guard let url = URL(string: "https://puppyloveapi.azurewebsites.net/Owner/") else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
-            let owners = try! JSONDecoder().decode([Owners].self, from: data!)
+            let owners = try! JSONDecoder().decode([User].self, from: data!)
+            print("owners")
             print(owners)
             
             DispatchQueue.main.async {
@@ -113,7 +104,7 @@ class UserAuthModel: ObservableObject {
 
 struct LoginView: View {
     @EnvironmentObject var vm: UserAuthModel
-    @State var owners = [Owners]()
+    @State var owners = [User]()
     fileprivate func SignInButton() -> Button<Text> {
         Button(action: {
             vm.handleSignInButton()
@@ -123,52 +114,51 @@ struct LoginView: View {
     }
     var body: some View {
         NavigationView {
-                   //3.
-                   List(owners) { owner in
-                       VStack(alignment: .leading) {
-                           if(owner.OwnerName == "keegan") {
-                               Text(owner.OwnerName)
-                                   .font(.title)
-                                   .fontWeight(.bold)
-                               Text(owner.OwnerEmail)
-                                   .font(.subheadline)
-                                   .fontWeight(.bold)
-                               Text(owner.InstagramKey)
-                                   .font(.body)
-                               Text(String(owner.Age))
-                                   .font(.body)
-                               Text(owner.Sex)
-                                   .font(.body)
-                               Text(owner.Location)
-                                   .font(.body)
-                           }
-                       }
-                       
-                   }
-                   //2.
-                   .onAppear() {
-                       vm.getUserComments { (owners) in
-                           self.owners = owners
-                       }
-                   }.navigationTitle("Owners")
-               }
-//        VStack {
-//            Text("PuppyLove")
-//                .foregroundColor(.white)
-//                .font(.largeTitle)
-//                .fontDesign(.serif)
-//                .fontWidth(.expanded)
-//                .fontWeight(.heavy)
-//                .offset(x: 0, y: -100)
-//
-//            GoogleSignInButton(action: vm.handleSignInButton)
-//                .padding(10)
-//                .opacity(0.95)
-//            NavigationLink("Sign Up", destination: SignUpView()).navigationBarBackButtonHidden(true)
-//
-//        }
-//        .frame(maxWidth: .infinity, maxHeight: .infinity)
-//        .background(Color.init(red: 0.784, green: 0.635, blue: 0.784))
+            //3.
+            //                   List(owners) { owner in
+            //                       VStack(alignment: .leading) {
+            //                           if(owner.OwnerName == "aaron") {
+            //                               Text(owner.OwnerName)
+            //                                   .font(.title)
+            //                                   .fontWeight(.bold)
+            //                               Text(owner.OwnerEmail)
+            //                                   .font(.subheadline)
+            //                                   .fontWeight(.bold)
+            //                               Text(owner.Sex)
+            //                                   .font(.body)
+            //                               Text(String(owner.Age))
+            //                                   .font(.body)
+            //                               Text(owner.Location)
+            //                                   .font(.body)
+            //                           }
+            //                       }
+            //
+            //                   }
+            //                   //2.
+            //                   .onAppear() {
+            //                       vm.getUserComments { (owners) in
+            //                           self.owners = owners
+            //                       }
+            //                   }.navigationTitle("Owners")
+            //               }
+            VStack {
+                Text("PuppyLove")
+                    .foregroundColor(.white)
+                    .font(.largeTitle)
+                    .fontDesign(.serif)
+                    .fontWidth(.expanded)
+                    .fontWeight(.heavy)
+                    .offset(x: 0, y: -100)
+                
+                GoogleSignInButton(action: vm.handleSignInButton)
+                    .padding(10)
+                    .opacity(0.95)
+                NavigationLink("Sign Up", destination: SignUpView()).navigationBarBackButtonHidden(true)
+                
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.init(red: 0.784, green: 0.635, blue: 0.784))
+        }
     }
 }
 

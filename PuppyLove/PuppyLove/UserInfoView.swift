@@ -8,21 +8,23 @@
 import Foundation
 import SwiftUI
 import PhotosUI
+import CoreLocation
 
 struct UserInfoView: View {
-    @State private var name = ""
-    @State private var bio = ""
-    @State var date = Date()
-    var genderOptions = ["Male", "Female", "Non-binary"]
-    @State var genderOptionTag: Int = 0
+    @StateObject var user: User
+    @StateObject var dog: Dog
+    
+    var sexOptions = ["Male", "Female", "Non-binary"]
+    @State var selectedSex = "Male"
     
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var userPhoto: Data? = nil
     
+    @State var date = Date()
     let dateRange: ClosedRange<Date> = {
         let calendar = Calendar.current
-        let startComponents = DateComponents(year: 2021, month: 1, day: 1)
-        let endComponents = DateComponents(year: 2021, month: 12, day: 31, hour: 23, minute: 59, second: 59)
+        let startComponents = DateComponents(year: 1900, month: 1, day: 1)
+        let endComponents = DateComponents(year: 2004, month: 12, day: 31, hour: 23, minute: 59, second: 59)
         return calendar.date(from:startComponents)!
             ...
             calendar.date(from:endComponents)!
@@ -32,7 +34,7 @@ struct UserInfoView: View {
         VStack {
             Form {
                 Section(header: Text("Name")) {
-                    TextField("Name", text: $name)
+                    TextField("Name", text: $user.OwnerName)
                     
                 }.padding()
                 
@@ -70,27 +72,30 @@ struct UserInfoView: View {
                 
                 Section(header: Text("Gender")) {
                     HStack {
-                        Picker("Select Gender", selection: $genderOptionTag) {
-                            ForEach(0 ..< genderOptions.count) {
-                                Text(self.genderOptions[$0])
-                            }
+                        Picker("Select Gender", selection: $selectedSex) {
+                            ForEach(sexOptions, id: \.self, content: { sex in
+                                Text(sex)
+                            })
                         }
                     }
                 }.padding()
-                
-                Section(header: Text("Bio")) {
-                    TextField("Tell us about yourself...", text: $bio,  axis: .vertical)
-                        .lineLimit(5...10)
-                }.padding()
             }
-            
-            NavigationLink(destination: AddDogView(), label: { Text("Next")})
+            NavigationLink(destination: UserPreferencesView(user: user, dog: dog).onAppear {
+                user.Sex = selectedSex
+                user.calculateAge(birthday: date)
+                print(user.Sex)
+                print(user.Age)
+            }, label: { Text("Next")})
         }
+        .navigationBarTitle(Text("User Information"))
     }
 }
 
 struct UserInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        UserInfoView()
+        return UserInfoView(
+            user: User(OwnerID: 0, OwnerName: "", OwnerEmail: "", Age: 0, MinAge: 0, MaxAge: 0, Sex: "", SexPreference: "", Location: "", MaxDistance: 0),
+            dog: Dog(DogID: 0, OwnerID: 0, DogName: "", Breed: "", Weight: 0, Age: "", Sex: "", ActivityLevel: 0, VaccinationStatus: false, FixedStatus: false, BreedPreference: "none", AdditionalInfo: "")
+        )
     }
 }
