@@ -36,6 +36,7 @@
 		601F11D229E089B60043B1C4 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601F11D029E089B60043B1C4 /* ChatMessage.swift */; };
 		601F11D429E089D80043B1C4 /* ChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601F11D329E089D80043B1C4 /* ChatLogView.swift */; };
 		601F11D629E08D250043B1C4 /* CreateNewMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601F11D529E08D250043B1C4 /* CreateNewMessageView.swift */; };
+		601F11E029E355FE0043B1C4 /* Matches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601F11DF29E355FE0043B1C4 /* Matches.swift */; };
 		9336F26929D17EFB009DDCC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9336F26529D17EFB009DDCC0 /* Assets.xcassets */; };
 		9336F26A29D17EFB009DDCC0 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9336F26629D17EFB009DDCC0 /* Categories.swift */; };
 		9336F26B29D17EFB009DDCC0 /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9336F26729D17EFB009DDCC0 /* PhotoPickerView.swift */; };
@@ -96,6 +97,7 @@
 		601F11D029E089B60043B1C4 /* ChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		601F11D329E089D80043B1C4 /* ChatLogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLogView.swift; sourceTree = "<group>"; };
 		601F11D529E08D250043B1C4 /* CreateNewMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateNewMessageView.swift; path = "../../../../Downloads/LBTASwiftUIFirebaseChat-2/LBTASwiftUIFirebaseChat/MainMessages/NewMessage/CreateNewMessageView.swift"; sourceTree = "<group>"; };
+		601F11DF29E355FE0043B1C4 /* Matches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matches.swift; sourceTree = "<group>"; };
 		82E7869EC8E1B26389FB1258 /* Pods_PuppyLoveTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PuppyLoveTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A8D4DE69495E6C8AC7EA8E0 /* Pods-PuppyLove-PuppyLoveUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PuppyLove-PuppyLoveUITests.debug.xcconfig"; path = "Target Support Files/Pods-PuppyLove-PuppyLoveUITests/Pods-PuppyLove-PuppyLoveUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9336F26529D17EFB009DDCC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				601F11D029E089B60043B1C4 /* ChatMessage.swift */,
 				43805DD829DBC8AB00A02041 /* RecentMessage.swift */,
 				43805DE429DCD5C400A02041 /* messagesTemp.swift */,
+				601F11DF29E355FE0043B1C4 /* Matches.swift */,
 				601F11C929DF6E390043B1C4 /* ChatUser.swift */,
 				601F11D329E089D80043B1C4 /* ChatLogView.swift */,
 				43E568E029CB8CA500E67CF6 /* CardsSection.swift */,
@@ -495,6 +498,7 @@
 				19B481F329C2D512009D7D5A /* LoginView.swift in Sources */,
 				19B481F129C2C8D4009D7D5A /* AppDelegate.swift in Sources */,
 				601F11CE29E081470043B1C4 /* FirebaseConstants.swift in Sources */,
+				601F11E029E355FE0043B1C4 /* Matches.swift in Sources */,
 				43805DE529DCD5C400A02041 /* messagesTemp.swift in Sources */,
 				601F11D629E08D250043B1C4 /* CreateNewMessageView.swift in Sources */,
 			);
