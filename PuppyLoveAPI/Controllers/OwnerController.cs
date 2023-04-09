@@ -20,13 +20,13 @@ namespace PuppyLoveAPI.Controllers
             return Owner.GetOwners();
         }
 
-        [HttpGet("{email}", Name = "GetOwnerEmail")]
-        public string GetEmail(string email)
+        [HttpGet("{email}, {id}", Name = "GetOwnerEmail")]
+        public string GetEmail(string email, int id)
         {
             return Owner.GetOwnerEmail(email);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetOwnerID")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Owner> GetById_ActionResultOfT(int id)

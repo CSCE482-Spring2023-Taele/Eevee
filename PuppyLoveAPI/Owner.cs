@@ -151,7 +151,7 @@ namespace PuppyLoveAPI
                     return owner;
                 }
 
-                string query = $"SELECT * from owners where id = {id};";
+                string query = $"SELECT * from owners where owner_id = {id};";
                 MySqlCommand cmd = new MySqlCommand(query, DB.Connection);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
