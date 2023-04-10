@@ -99,12 +99,33 @@ class UserAuthModel: ObservableObject {
         }
         .resume()
     }
+    func getDogComments(completion:@escaping ([Dog]) -> ()) {
+        guard let url = URL(string: "https://puppyloveapi.azurewebsites.net/Dog/") else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, _, _) in
+            let dogs = try! JSONDecoder().decode([Dog].self, from: data!)
+            print("dogs")
+            print(dogs)
+            
+            DispatchQueue.main.async {
+                completion(dogs)
+            }
+        }
+        .resume()
+    }
+//    func addDogsToArray() {
+//        for dog in dogs {
+//            let newCard = Card(name: dog.DogName, imageName: p0, age: dog.Age, bio: dog.AdditionalInfo)
+//            Card.data.append(newCard)
+//        }
+//    }
 }
-
 
 struct LoginView: View {
     @EnvironmentObject var vm: UserAuthModel
     @State var owners = [User]()
+    @State var dogs = [Dog]()
+    
     fileprivate func SignInButton() -> Button<Text> {
         Button(action: {
             vm.handleSignInButton()
@@ -112,35 +133,9 @@ struct LoginView: View {
             Text("Sign In")
         }
     }
+    
     var body: some View {
         NavigationView {
-            //3.
-            //                   List(owners) { owner in
-            //                       VStack(alignment: .leading) {
-            //                           if(owner.OwnerName == "aaron") {
-            //                               Text(owner.OwnerName)
-            //                                   .font(.title)
-            //                                   .fontWeight(.bold)
-            //                               Text(owner.OwnerEmail)
-            //                                   .font(.subheadline)
-            //                                   .fontWeight(.bold)
-            //                               Text(owner.Sex)
-            //                                   .font(.body)
-            //                               Text(String(owner.Age))
-            //                                   .font(.body)
-            //                               Text(owner.Location)
-            //                                   .font(.body)
-            //                           }
-            //                       }
-            //
-            //                   }
-            //                   //2.
-            //                   .onAppear() {
-            //                       vm.getUserComments { (owners) in
-            //                           self.owners = owners
-            //                       }
-            //                   }.navigationTitle("Owners")
-            //               }
             VStack {
                 Text("PuppyLove")
                     .foregroundColor(.white)
@@ -153,14 +148,29 @@ struct LoginView: View {
                 GoogleSignInButton(action: vm.handleSignInButton)
                     .padding(10)
                     .opacity(0.95)
-                NavigationLink("Sign Up", destination: SignUpView()).navigationBarBackButtonHidden(true)
                 
+                NavigationLink("Sign Up", destination: SignUpView())
+                    .navigationBarBackButtonHidden(true)
+            }
+            .onAppear {
+                vm.getDogComments { dogs in
+                    self.dogs = dogs
+                    
+                    for dog in dogs {
+                        let newCard = Card(name: dog.DogName, imageName: "p0", age: dog.Age, bio: dog.AdditionalInfo, dogID: dog.DogID)
+                        if !Card.data.contains(where: { $0.dogID == newCard.dogID}) {
+                                        Card.data.append(newCard)
+                                    }
+                    }
+                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.init(red: 0.784, green: 0.635, blue: 0.784))
+            .background(Color(red: 0.784, green: 0.635, blue: 0.784))
         }
     }
 }
+
+
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {

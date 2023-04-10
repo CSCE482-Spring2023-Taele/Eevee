@@ -19,6 +19,8 @@
 		31E82D6029C64D9A00D66186 /* UserPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E82D5F29C64D9A00D66186 /* UserPreferencesView.swift */; };
 		31E82D6229C64DAD00D66186 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E82D6129C64DAD00D66186 /* UserInfoView.swift */; };
 		32EE4397A01B813C9AA528F6 /* Pods_PuppyLove_PuppyLoveUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D622D8975343C8A3B3C70BB /* Pods_PuppyLove_PuppyLoveUITests.framework */; };
+		43805DEA29E375D200A02041 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43805DE829E375D100A02041 /* Dog.swift */; };
+		43805DEB29E375D200A02041 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43805DE929E375D200A02041 /* User.swift */; };
 		43E568D829CB7D5900E67CF6 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E568D329CB7D5900E67CF6 /* Card.swift */; };
 		43E568DB29CB8A3400E67CF6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E568DA29CB8A3400E67CF6 /* ContentView.swift */; };
 		43E568E129CB8CA500E67CF6 /* CardsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E568E029CB8CA500E67CF6 /* CardsSection.swift */; };
@@ -69,6 +71,8 @@
 		31E82D5F29C64D9A00D66186 /* UserPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesView.swift; sourceTree = "<group>"; };
 		31E82D6129C64DAD00D66186 /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		386A88C5DCEC619A5585F36E /* Pods-PuppyLove.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PuppyLove.release.xcconfig"; path = "Target Support Files/Pods-PuppyLove/Pods-PuppyLove.release.xcconfig"; sourceTree = "<group>"; };
+		43805DE829E375D100A02041 /* Dog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
+		43805DE929E375D200A02041 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		43E568D329CB7D5900E67CF6 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		43E568DA29CB8A3400E67CF6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		43E568E029CB8CA500E67CF6 /* CardsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsSection.swift; sourceTree = "<group>"; };
@@ -164,6 +168,8 @@
 				19B481C529C18610009D7D5A /* PuppyLoveApp.swift */,
 				19B481F029C2C8D4009D7D5A /* AppDelegate.swift */,
 				19B481F229C2D512009D7D5A /* LoginView.swift */,
+				43805DE829E375D100A02041 /* Dog.swift */,
+				43805DE929E375D200A02041 /* User.swift */,
 				31E82D5B29C64D4E00D66186 /* SignUpView.swift */,
 				31E82D5D29C64D8A00D66186 /* AddDogView.swift */,
 				31E82D5F29C64D9A00D66186 /* UserPreferencesView.swift */,
@@ -459,6 +465,7 @@
 				9336F26A29D17EFB009DDCC0 /* Categories.swift in Sources */,
 				31E82D6229C64DAD00D66186 /* UserInfoView.swift in Sources */,
 				31E82D5C29C64D4E00D66186 /* SignUpView.swift in Sources */,
+				43805DEB29E375D200A02041 /* User.swift in Sources */,
 				19B481C629C18610009D7D5A /* PuppyLoveApp.swift in Sources */,
 				43E568ED29CBA1A500E67CF6 /* Chats.swift in Sources */,
 				43E568EB29CBA01B00E67CF6 /* FooterSection.swift in Sources */,
@@ -466,6 +473,7 @@
 				43E568E129CB8CA500E67CF6 /* CardsSection.swift in Sources */,
 				43E568DB29CB8A3400E67CF6 /* ContentView.swift in Sources */,
 				9336F26B29D17EFB009DDCC0 /* PhotoPickerView.swift in Sources */,
+				43805DEA29E375D200A02041 /* Dog.swift in Sources */,
 				43E568D829CB7D5900E67CF6 /* Card.swift in Sources */,
 				19B481F329C2D512009D7D5A /* LoginView.swift in Sources */,
 				19B481F129C2C8D4009D7D5A /* AppDelegate.swift in Sources */,
