@@ -113,12 +113,6 @@ class UserAuthModel: ObservableObject {
         }
         .resume()
     }
-//    func addDogsToArray() {
-//        for dog in dogs {
-//            let newCard = Card(name: dog.DogName, imageName: p0, age: dog.Age, bio: dog.AdditionalInfo)
-//            Card.data.append(newCard)
-//        }
-//    }
 }
 
 struct LoginView: View {
@@ -155,15 +149,72 @@ struct LoginView: View {
             .onAppear {
                 vm.getDogComments { dogs in
                     self.dogs = dogs
-                    
+                    var urlString: String?
+                    var receivedValue: Double?
+
                     for dog in dogs {
-                        let newCard = Card(name: dog.DogName, imageName: "p0", age: dog.Age, bio: dog.AdditionalInfo, dogID: dog.DogID)
-                        if !Card.data.contains(where: { $0.dogID == newCard.dogID}) {
-                                        Card.data.append(newCard)
+                        let ownerUrl = "https://puppyloveapi.azurewebsites.net/Owner/"+String(dog.OwnerID)
+                        guard let url = URL(string: ownerUrl) else {
+                            print("Invalid URL")
+                            return
+                        }
+                        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                            guard let data = data, error == nil,
+                                  let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                                  let ownerEmail = json["ownerEmail"] as? String else {
+                                print("Invalid response")
+                                return
+                            }
+                            let urlString = "https://puppylovema.azurewebsites.net/api/puppylove?userEmail=" + vm.emailAddress+"&matchEmail="+ownerEmail
+                            
+                     //       print(urlString)
+                            
+                            if let url = URL(string: urlString) {
+                                let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                                    guard let data = data, error == nil,
+                                          let responseString = String(data: data, encoding: .utf8) else {
+                                        print("Invalid response")
+                                        return
                                     }
+                                    
+                                    // Use the string value here
+                                    print("\(responseString)")
+                                }
+                                
+                                task.resume()
+                            } else {
+                                print("Invalid URL")
+                            }
+
+//                            if let url = URL(string: urlString) {
+//                                let task = URLSession.shared.dataTask(with: url) { data, response, error in
+//                                    guard let data = data, error == nil,
+//                                          let responseJSON = try? JSONSerialization.jsonObject(with: data, options: []),
+//                                          let value = responseJSON as? Double else {
+//                                        print("Invalid response")
+//                                        return
+//                                    }
+//                                    receivedValue = value
+//
+//                                    // Use the double value here
+//                                    print("The value is: \(value)")
+//                                }
+//
+//                                task.resume()
+//                            } else {
+//                                print("Invalid URL")
+//                            }
+                        }
+                        task.resume()
+
+                        let newCard = Card(name: dog.DogName, imageName: "p0", age: dog.Age, bio: dog.AdditionalInfo, dogID: dog.DogID)
+                            if !Card.data.contains(where: { $0.dogID == newCard.dogID}) {
+                                Card.data.append(newCard)
+                            }
                     }
                 }
             }
+
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(red: 0.784, green: 0.635, blue: 0.784))
         }
