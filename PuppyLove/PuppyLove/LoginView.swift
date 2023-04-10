@@ -122,53 +122,53 @@ struct LoginView: View {
         }
     }
     var body: some View {
-        NavigationView {
-                   //3.
-                   List(owners) { owner in
-                       VStack(alignment: .leading) {
-                           if(owner.OwnerName == "keegan") {
-                               Text(owner.OwnerName)
-                                   .font(.title)
-                                   .fontWeight(.bold)
-                               Text(owner.OwnerEmail)
-                                   .font(.subheadline)
-                                   .fontWeight(.bold)
-                               Text(owner.InstagramKey)
-                                   .font(.body)
-                               Text(String(owner.Age))
-                                   .font(.body)
-                               Text(owner.Sex)
-                                   .font(.body)
-                               Text(owner.Location)
-                                   .font(.body)
-                           }
-                       }
-                       
-                   }
-                   //2.
-                   .onAppear() {
-                       vm.getUserComments { (owners) in
-                           self.owners = owners
-                       }
-                   }.navigationTitle("Owners")
-               }
-//        VStack {
-//            Text("PuppyLove")
-//                .foregroundColor(.white)
-//                .font(.largeTitle)
-//                .fontDesign(.serif)
-//                .fontWidth(.expanded)
-//                .fontWeight(.heavy)
-//                .offset(x: 0, y: -100)
+//        NavigationView {
+//                   //3.
+//                   List(owners) { owner in
+//                       VStack(alignment: .leading) {
+//                           if(owner.OwnerName == "keegan") {
+//                               Text(owner.OwnerName)
+//                                   .font(.title)
+//                                   .fontWeight(.bold)
+//                               Text(owner.OwnerEmail)
+//                                   .font(.subheadline)
+//                                   .fontWeight(.bold)
+//                               Text(owner.InstagramKey)
+//                                   .font(.body)
+//                               Text(String(owner.Age))
+//                                   .font(.body)
+//                               Text(owner.Sex)
+//                                   .font(.body)
+//                               Text(owner.Location)
+//                                   .font(.body)
+//                           }
+//                       }
 //
-//            GoogleSignInButton(action: vm.handleSignInButton)
-//                .padding(10)
-//                .opacity(0.95)
-//            NavigationLink("Sign Up", destination: SignUpView()).navigationBarBackButtonHidden(true)
-//
-//        }
-//        .frame(maxWidth: .infinity, maxHeight: .infinity)
-//        .background(Color.init(red: 0.784, green: 0.635, blue: 0.784))
+//                   }
+//                   //2.
+//                   .onAppear() {
+//                       vm.getUserComments { (owners) in
+//                           self.owners = owners
+//                       }
+//                   }.navigationTitle("Owners")
+//               }
+        VStack {
+            Text("PuppyLove")
+                .foregroundColor(.white)
+                .font(.largeTitle)
+                .fontDesign(.serif)
+                .fontWidth(.expanded)
+                .fontWeight(.heavy)
+                .offset(x: 0, y: -100)
+
+            GoogleSignInButton(action: vm.handleSignInButton)
+                .padding(10)
+                .opacity(0.95)
+            NavigationLink("Sign Up", destination: SignUpView()).navigationBarBackButtonHidden(true)
+
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.init(red: 0.784, green: 0.635, blue: 0.784))
     }
 }
 

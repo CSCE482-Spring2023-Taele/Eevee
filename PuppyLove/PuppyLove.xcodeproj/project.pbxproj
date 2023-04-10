@@ -33,6 +33,13 @@
 		9336F26A29D17EFB009DDCC0 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9336F26629D17EFB009DDCC0 /* Categories.swift */; };
 		9336F26B29D17EFB009DDCC0 /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9336F26729D17EFB009DDCC0 /* PhotoPickerView.swift */; };
 		9336F26C29D17EFB009DDCC0 /* Preview Content in Resources */ = {isa = PBXBuildFile; fileRef = 9336F26829D17EFB009DDCC0 /* Preview Content */; };
+		93504E5929E47E360092EA41 /* Eevee in Resources */ = {isa = PBXBuildFile; fileRef = 93504E5829E47E360092EA41 /* Eevee */; };
+		93504E6029E47E650092EA41 /* userSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93504E5A29E47E650092EA41 /* userSettings.swift */; };
+		93504E6129E47E650092EA41 /* HeaderBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93504E5B29E47E650092EA41 /* HeaderBanner.swift */; };
+		93504E6229E47E650092EA41 /* colorSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93504E5C29E47E650092EA41 /* colorSlider.swift */; };
+		93504E6329E47E650092EA41 /* profileedit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93504E5D29E47E650092EA41 /* profileedit.swift */; };
+		93504E6429E47E650092EA41 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93504E5E29E47E650092EA41 /* SceneDelegate.swift */; };
+		93504E6529E47E650092EA41 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93504E5F29E47E650092EA41 /* ProfileView.swift */; };
 		A063E975EBDDC997CF612C23 /* Pods_PuppyLove.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A0FE35AB5D3D695310C620 /* Pods_PuppyLove.framework */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +95,13 @@
 		9336F26629D17EFB009DDCC0 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		9336F26729D17EFB009DDCC0 /* PhotoPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
 		9336F26829D17EFB009DDCC0 /* Preview Content */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Preview Content"; sourceTree = "<group>"; };
+		93504E5829E47E360092EA41 /* Eevee */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Eevee; path = ../..; sourceTree = "<group>"; };
+		93504E5A29E47E650092EA41 /* userSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userSettings.swift; sourceTree = "<group>"; };
+		93504E5B29E47E650092EA41 /* HeaderBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderBanner.swift; sourceTree = "<group>"; };
+		93504E5C29E47E650092EA41 /* colorSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = colorSlider.swift; sourceTree = "<group>"; };
+		93504E5D29E47E650092EA41 /* profileedit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profileedit.swift; sourceTree = "<group>"; };
+		93504E5E29E47E650092EA41 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		93504E5F29E47E650092EA41 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		CF22BF0F89772CF96F021895 /* Pods-PuppyLove-PuppyLoveUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PuppyLove-PuppyLoveUITests.release.xcconfig"; path = "Target Support Files/Pods-PuppyLove-PuppyLoveUITests/Pods-PuppyLove-PuppyLoveUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D18797BB9749132A1EE77C8C /* Pods-PuppyLoveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PuppyLoveTests.release.xcconfig"; path = "Target Support Files/Pods-PuppyLoveTests/Pods-PuppyLoveTests.release.xcconfig"; sourceTree = "<group>"; };
 		E7195AF47D3BEB78A789905A /* Pods-PuppyLoveTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PuppyLoveTests.debug.xcconfig"; path = "Target Support Files/Pods-PuppyLoveTests/Pods-PuppyLoveTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -146,7 +160,14 @@
 		19B481C429C18610009D7D5A /* PuppyLove */ = {
 			isa = PBXGroup;
 			children = (
+				93504E5C29E47E650092EA41 /* colorSlider.swift */,
+				93504E5B29E47E650092EA41 /* HeaderBanner.swift */,
+				93504E5D29E47E650092EA41 /* profileedit.swift */,
+				93504E5F29E47E650092EA41 /* ProfileView.swift */,
+				93504E5E29E47E650092EA41 /* SceneDelegate.swift */,
+				93504E5A29E47E650092EA41 /* userSettings.swift */,
 				9336F26529D17EFB009DDCC0 /* Assets.xcassets */,
+				93504E5829E47E360092EA41 /* Eevee */,
 				9336F26629D17EFB009DDCC0 /* Categories.swift */,
 				9336F26729D17EFB009DDCC0 /* PhotoPickerView.swift */,
 				9336F26829D17EFB009DDCC0 /* Preview Content */,
@@ -324,6 +345,7 @@
 				9336F26C29D17EFB009DDCC0 /* Preview Content in Resources */,
 				9336F26929D17EFB009DDCC0 /* Assets.xcassets in Resources */,
 				9336F26029CAB935009DDCC0 /* GoogleService-Info.plist in Resources */,
+				93504E5929E47E360092EA41 /* Eevee in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,11 +479,17 @@
 				31E82D6029C64D9A00D66186 /* UserPreferencesView.swift in Sources */,
 				43E568EF29D21DF500E67CF6 /* Breeds.swift in Sources */,
 				9336F26A29D17EFB009DDCC0 /* Categories.swift in Sources */,
+				93504E6429E47E650092EA41 /* SceneDelegate.swift in Sources */,
 				31E82D6229C64DAD00D66186 /* UserInfoView.swift in Sources */,
+				93504E6229E47E650092EA41 /* colorSlider.swift in Sources */,
+				93504E6029E47E650092EA41 /* userSettings.swift in Sources */,
+				93504E6329E47E650092EA41 /* profileedit.swift in Sources */,
 				31E82D5C29C64D4E00D66186 /* SignUpView.swift in Sources */,
 				19B481C629C18610009D7D5A /* PuppyLoveApp.swift in Sources */,
 				43E568ED29CBA1A500E67CF6 /* Chats.swift in Sources */,
 				43E568EB29CBA01B00E67CF6 /* FooterSection.swift in Sources */,
+				93504E6129E47E650092EA41 /* HeaderBanner.swift in Sources */,
+				93504E6529E47E650092EA41 /* ProfileView.swift in Sources */,
 				43E568E729CB8E1D00E67CF6 /* NavigationSection.swift in Sources */,
 				43E568E129CB8CA500E67CF6 /* CardsSection.swift in Sources */,
 				43E568DB29CB8A3400E67CF6 /* ContentView.swift in Sources */,

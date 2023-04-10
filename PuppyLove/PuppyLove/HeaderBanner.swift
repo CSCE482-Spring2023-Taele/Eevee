@@ -17,11 +17,12 @@ struct Header: View {
             Rectangle()
                 .foregroundColor(Color(red: rValue, green: gValue, blue: bValue, opacity: 1.0))
                 .edgesIgnoringSafeArea(.top)
-                .frame(height: 100)
-            Image("profile")
-                .clipShape(Circle())
+                .frame(height: 50)
+            Image("cr7")
+                .frame(width:200, height: 200)
+                .clipShape(Circle() )
                 .overlay(Circle().stroke(Color.white, lineWidth: 4))
-                .shadow(radius: 10)
+                .shadow(radius: 5)
         }
     }
 }
