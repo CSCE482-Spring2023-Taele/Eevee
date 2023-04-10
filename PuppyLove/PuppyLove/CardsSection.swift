@@ -6,15 +6,17 @@ import Firebase
 class Email{
     var email: String
     var created: String
-    init(email: String) {
+    var name: String
+    init(email: String, name:String) {
         self.email = email
         self.created = "0"
+        self.name = name
     }
 }
 
 struct CardsSection: View {
     //let didCompleteLoginView: () -> ()
-    @State var email = Email(email: "")
+    @State var email = Email(email: "", name:"")
     private func setEmail() ->String{
         if let email2 = GIDSignIn.sharedInstance.currentUser?.profile?.email{
             return email2
@@ -43,6 +45,11 @@ struct CardsSection: View {
         messagesTemp()
         
         
+    }
+    
+    func handleSignOut() {
+        
+        try? FirebaseManager.shared.auth.signOut()
     }
     
     private func loginUser() {

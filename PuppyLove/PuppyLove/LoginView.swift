@@ -56,6 +56,12 @@ class UserAuthModel: ObservableObject {
             self.profilePicUrl = profilePicUrl
             self.isLoggedIn = true
             self.emailAddress = user.profile!.email
+            if let email2 = GIDSignIn.sharedInstance.currentUser?.profile?.email{
+                FirebaseManager.shared.auth.signIn(withEmail: email2, password: "P@ssw0rd!")
+                print("Wowow: " + email2)
+                FirebaseManager.shared.currentUser?.email = email2
+            }
+            
         }else{
             self.isLoggedIn = false
             self.givenName = "Not Logged In"
@@ -76,6 +82,7 @@ class UserAuthModel: ObservableObject {
      
      func signOut(){
          GIDSignIn.sharedInstance.signOut()
+         try? FirebaseManager.shared.auth.signOut()
          self.checkStatus()
      }
     
@@ -92,6 +99,7 @@ class UserAuthModel: ObservableObject {
           }
             self.checkStatus()
           // If sign in succeeded, display the app's main content View.
+            
             
         }
     }

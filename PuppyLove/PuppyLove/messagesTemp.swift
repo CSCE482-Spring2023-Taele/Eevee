@@ -32,6 +32,22 @@ class MainMessagesViewModel: ObservableObject {
     
     private var firestoreListener: ListenerRegistration?
     
+    func getUsername(email: String, completion:@escaping ([Owners]) -> ()) {
+        guard let url = URL(string: "https://puppyloveapi.azurewebsites.net/Owner/\(email),%201") else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, _, _) in
+            let owners = try! JSONDecoder().decode([Owners].self, from: data!)
+            print(owners)
+            
+            DispatchQueue.main.async {
+                completion(owners)
+            }
+        }
+        .resume()
+    }
+    
+    
+    
     func fetchRecentMessages() {
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
         
@@ -70,6 +86,8 @@ class MainMessagesViewModel: ObservableObject {
             }
     }
     
+    
+    
     func fetchCurrentUser() {
         print("inside")
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
@@ -97,7 +115,7 @@ class MainMessagesViewModel: ObservableObject {
         
         @State var shouldNavigateToChatLogView = false
         
-        @ObservedObject private var vm = MainMessagesViewModel()
+        @ObservedObject public var vm = MainMessagesViewModel()
         
         private var chatLogViewModel = ChatLogViewModel(chatUser: nil)
         
@@ -111,6 +129,7 @@ class MainMessagesViewModel: ObservableObject {
                     NavigationLink("", isActive: $shouldNavigateToChatLogView) {
                         ChatLogView(vm: chatLogViewModel)
                     }
+                    
                 }
                 .overlay(
                     newMessageButton, alignment: .bottom)
@@ -224,7 +243,9 @@ class MainMessagesViewModel: ObservableObject {
     
     struct messagesTemp_Previews: PreviewProvider {
         static var previews: some View {
-            messagesTemp()
+            messagesTemp().onDisappear(){
+                //CardsSection().handleSignOut()
+            }
         }
     }
 
