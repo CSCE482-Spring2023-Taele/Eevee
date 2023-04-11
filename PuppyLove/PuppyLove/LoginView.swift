@@ -32,6 +32,12 @@ class UserAuthModel: ObservableObject {
             self.profilePicUrl = profilePicUrl
             self.isLoggedIn = true
             self.emailAddress = user.profile!.email
+            if let email2 = GIDSignIn.sharedInstance.currentUser?.profile?.email{
+                FirebaseManager.shared.auth.signIn(withEmail: email2, password: "P@ssw0rd!")
+                print("Wowow: " + email2)
+                FirebaseManager.shared.currentUser?.email = email2
+            }
+            
             checkAccount()
         }else{
             self.isLoggedIn = false
@@ -84,6 +90,7 @@ class UserAuthModel: ObservableObject {
      
      func signOut(){
          GIDSignIn.sharedInstance.signOut()
+         try? FirebaseManager.shared.auth.signOut()
          self.checkStatus()
      }
     
@@ -100,6 +107,7 @@ class UserAuthModel: ObservableObject {
           }
             self.checkStatus()
           // If sign in succeeded, display the app's main content View.
+            
             
         }
     }
@@ -153,14 +161,7 @@ struct LoginView: View {
                 GoogleSignInButton(action: vm.handleSignInButton)
                     .padding(10)
                     .opacity(0.95)
-
-                NavigationLink("Sign Up", destination: SignUpView())
-                    .navigationBarBackButtonHidden(true)
-                    .hidden()
             }
-            .sheet(isPresented: $showSignUp) {
-                        SignUpView()
-                    }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(red: 0.784, green: 0.635, blue: 0.784))
             .onAppear {
@@ -169,33 +170,7 @@ struct LoginView: View {
                         print("User not logged in yet")
                         sleep(2)
                     }
-                    
-//                    let email = vm.emailAddress
-//                    let emailCheck = "https://puppyloveapi.azurewebsites.net/Owner/" + email + ",%201"
-//                    if let emailUrl = URL(string: emailCheck) {
-//                        let task = URLSession.shared.dataTask(with: emailUrl) { data, response, error in
-//                            guard let data = data, error == nil else {
-//                                print("Error: \(error?.localizedDescription ?? "Unknown error")")
-//                                return
-//                            }
-//
-//                            do {
-//                                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-//                                if let ownerID = json?["ownerID"] as? Int, ownerID == -1 {
-//                                    self.showSignUp = true
-//                    //                self.showSignUpView()
-//                                } else {
-//                                    print("Email Found")
-//                                    // Email found
-//                                }
-//                            } catch let error {
-//                                print("Error decoding JSON: \(error.localizedDescription)")
-//                            }
-//                        }
-//                        task.resume()
-//                    } else {
-//                        print("Invalid URL")
-//                    }
+                
 
                     
                     print("User logged in with email: \(vm.emailAddress)")
