@@ -38,9 +38,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         } else {
           // Show the app's signed-in state.
         }
+        UserDefaults.standard.removeObject(forKey: "cards")
       }
       return true
     }
+    
 }
 
 

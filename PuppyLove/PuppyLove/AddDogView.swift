@@ -10,10 +10,12 @@ import SwiftUI
 import PhotosUI
 
 struct AddDogView: View {
-    @State private var dogName = ""
+    @StateObject var dog: Dog
+    
     @State private var dogBreed = ""
-    @State private var dogAge = ""
-    @State private var dogBio = ""
+    @State private var dogAge = "Puppy (0-1 years)"
+    @State private var dogWeight: Int = 0
+    @State private var dogSex = "Male"
     @State private var activityLevel: Double = 0
     @State private var vaccinated = false
     @State private var fixed = false
@@ -22,19 +24,40 @@ struct AddDogView: View {
     @State private var dogPhoto: Data? = nil
     
     @State var breeds = [Breed]()
-    @State var breedOptionTag: Int = 0
-    @State var ageRangeTag: Int = 0
+    @State var selectedBreed = Breed(id: 0, name: "")
     
     var sexOptions = ["Male", "Female"]
-    @State var sexOptionTag: Int = 0
+    @State var selectedSex = "Male"
     
     var ageOptions = ["Puppy (0-1 years)", "Young (1-4 years)", "Adult (4-8 years)", "Senior (8+ years)"]
+    @State var selectedAgeRange = "Puppy (0-1 years)"
+    
+    // API call POST the dog
+    func sendRequest() async {
+        print("sendRequest()")
+        guard let encoded = try? JSONEncoder().encode(dog) else {
+            print("Failed to encode dog")
+            return
+        }
+        
+        let url = URL(string: "https://puppyloveapi.azurewebsites.net/Dog")!
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        
+        do {
+            let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+            // handle the result
+        } catch {
+            print("POST  failed.")
+        }
+    }
     
     var body: some View {
         VStack {
             Form {
                 Section(header: Text("Name")) {
-                    TextField("Name", text: $dogName)
+                    TextField("Name", text: $dog.DogName)
                 }.padding()
                 
                 Section(header: Text("Profile Picture")) {
@@ -69,8 +92,10 @@ struct AddDogView: View {
                 }.padding()
                 
                 Section(header: Text("Breed")) {
-                    List(breeds) { breed in
-                        Text("\(breed.name)")
+                    Picker("Select Breed", selection: $selectedBreed) {
+                        ForEach(breeds, id: \.self, content: { breed in
+                            Text(breed.name)
+                        })
                     }
                     .onAppear() {
                         DogAPI().loadData { (breeds) in
@@ -81,26 +106,36 @@ struct AddDogView: View {
                 
                 Section(header: Text("Sex")) {
                     HStack {
-                        Picker("Select Sex", selection: $sexOptionTag) {
-                            ForEach(0 ..< sexOptions.count) {
-                                Text(self.sexOptions[$0])
-                            }
+                        Picker("Select sex", selection: $selectedSex) {
+                            ForEach(sexOptions, id: \.self, content: { sex in
+                                Text(sex)
+                            })
                         }
                     }
                 }.padding()
                 
                 Section(header: Text("Age")) {
                     HStack {
-                        Picker("Age range", selection: $ageRangeTag){
-                            ForEach(0 ..< ageOptions.count) {
-                                Text(self.ageOptions[$0])
+                        Picker("Age range", selection: $selectedAgeRange){
+                            ForEach(ageOptions, id: \.self, content: { age in
+                                Text(age)
+                            })
+                        }
+                    }
+                }.padding()
+                
+                Section(header: Text("Size")) {
+                    HStack {
+                        Picker("Select Weight (lbs)", selection: $dogWeight){
+                            ForEach(1 ..< 150) {
+                                Text("\($0)")
                             }
                         }
                     }
                 }.padding()
                 
                 Section(header: Text("Bio")) {
-                    TextField("Tell us about your pup...", text: $dogBio,  axis: .vertical)
+                    TextField("Tell us about your pup...", text: $dog.AdditionalInfo,  axis: .vertical)
                         .lineLimit(5...10)
                 }.padding()
                 
@@ -112,34 +147,25 @@ struct AddDogView: View {
                     Toggle("Is your dog neutered/spayed?", isOn: $fixed)
                 }.padding()
             }
-            
-            NavigationLink(destination: UserPreferencesView(), label: {
-                    Text("Next")
-//                    .onTapGesture {
-//                        self.sendRequest(image: dogPhoto??)
-//                    }
-            })
+            NavigationLink(destination: LoginView().onAppear {
+                dog.Sex = selectedSex
+                dog.Age = selectedAgeRange
+                dog.Breed = selectedBreed.name
+                dog.VaccinationStatus = vaccinated
+                dog.FixedStatus = fixed
+                dog.Weight = dogWeight
+                dump(dog)
+                Task {
+                    await sendRequest()
+                }
+            }, label: { Text("Save")})
         }
-        .navigationBarTitle(Text("Dog Information"))
-        .navigationBarBackButtonHidden(true)
-    }
-    
-    func sendRequest(image: Data) {
-        let newDog = Dog(
-            name: dogName,
-            age: dogAge,
-            activityLevel: activityLevel,
-            bio: dogBio,
-            profilePicture: image,
-            vaccinated: vaccinated,
-            fixed: fixed
-        )
-        print(newDog)
+        .navigationBarTitle(Text("Dog Information")).navigationBarBackButtonHidden()
     }
 }
 
 struct AddDogView_Previews: PreviewProvider {
     static var previews: some View {
-        AddDogView()
+        AddDogView(dog: Dog(DogID: 0, OwnerID: 0, DogName: "", Breed: "", Weight: 0, Age: "", Sex: "", ActivityLevel: 0, VaccinationStatus: false, FixedStatus: false, BreedPreference: "none", AdditionalInfo: ""))
     }
 }
