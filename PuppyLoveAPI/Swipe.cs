@@ -78,15 +78,60 @@ namespace PuppyLoveAPI
                         // dog.DogID = Int32.Parse(reader.GetString(0));
                         swipe.CurrDogID = reader.GetInt32(0);
                     }
+                    reader.Close();
                 }
                 catch (Exception e)
                 {
                     DB.Close();
                     return sent;
                 }
+
+                bool isMatch = false;
+                if (swipe.Outcome == 1)
+                {
+                    string matchQuery = $"select outcome from swipe_outcomes where current_dog_id = {swipe.ReviewedDogID} and reviewed_dog_id = {swipe.CurrDogID};";
+                    MySqlCommand matchCmd = new MySqlCommand(matchQuery, DB.Connection);
+                    try
+                    {
+                        MySqlDataReader reader = matchCmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            // tells us there is a match
+                            short i = reader.GetInt16(0);
+                            if (i == 1)
+                            {
+                                isMatch = true;
+                            }
+                        }
+                        reader.Close();
+                    }
+                    catch (Exception e)
+                    {
+                        DB.Close();
+                        return sent;
+                    }
+                }
+
+                if (isMatch) // This is going to automatically update the users matches based off of the swipe outcomes
+                {
+                    string matchQuery = $"insert into matches values(NULL, {swipe.CurrDogID}, {swipe.ReviewedDogID});";
+                    MySqlCommand matchCmd = new MySqlCommand(matchQuery, DB.Connection);
+                    try
+                    {
+                        MySqlDataReader reader = matchCmd.ExecuteReader();
+                        reader.Close();
+                    }
+                    catch (Exception e)
+                    {
+                        DB.Close();
+                        return sent;
+                    }
+                }
+
                 DB.Close();
             }
 
+            sent = true;
             return sent;
         }
     }
