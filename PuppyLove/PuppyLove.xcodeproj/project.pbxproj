@@ -79,13 +79,10 @@
 		31E82D5F29C64D9A00D66186 /* UserPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesView.swift; sourceTree = "<group>"; };
 		31E82D6129C64DAD00D66186 /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		386A88C5DCEC619A5585F36E /* Pods-PuppyLove.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PuppyLove.release.xcconfig"; path = "Target Support Files/Pods-PuppyLove/Pods-PuppyLove.release.xcconfig"; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		43805DD829DBC8AB00A02041 /* RecentMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMessage.swift; sourceTree = "<group>"; };
 		43805DE429DCD5C400A02041 /* messagesTemp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messagesTemp.swift; sourceTree = "<group>"; };
-=======
 		43805DE829E375D100A02041 /* Dog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		43805DE929E375D200A02041 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
->>>>>>> mergedDemo3
 		43E568D329CB7D5900E67CF6 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		43E568DA29CB8A3400E67CF6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		43E568E029CB8CA500E67CF6 /* CardsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsSection.swift; sourceTree = "<group>"; };
@@ -493,11 +490,8 @@
 				9336F26A29D17EFB009DDCC0 /* Categories.swift in Sources */,
 				31E82D6229C64DAD00D66186 /* UserInfoView.swift in Sources */,
 				31E82D5C29C64D4E00D66186 /* SignUpView.swift in Sources */,
-<<<<<<< HEAD
 				601F11D229E089B60043B1C4 /* ChatMessage.swift in Sources */,
-=======
 				43805DEB29E375D200A02041 /* User.swift in Sources */,
->>>>>>> mergedDemo3
 				19B481C629C18610009D7D5A /* PuppyLoveApp.swift in Sources */,
 				43E568EB29CBA01B00E67CF6 /* FooterSection.swift in Sources */,
 				43E568E729CB8E1D00E67CF6 /* NavigationSection.swift in Sources */,
