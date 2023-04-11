@@ -16,6 +16,7 @@ class UserAuthModel: ObservableObject {
     @Published var isLoggedIn: Bool = false
     @Published var errorMessage: String = ""
     @Published var emailAddress: String = ""
+    @Published var hasAccount: Bool = false
     
     init(){
         check()
@@ -31,11 +32,43 @@ class UserAuthModel: ObservableObject {
             self.profilePicUrl = profilePicUrl
             self.isLoggedIn = true
             self.emailAddress = user.profile!.email
+            checkAccount()
         }else{
             self.isLoggedIn = false
             self.givenName = "Not Logged In"
             self.profilePicUrl =  ""
         }
+    }
+    
+    func checkAccount() {
+        let email = self.emailAddress
+        let emailCheck = "https://puppyloveapi.azurewebsites.net/Owner/" + email + ",%201"
+        if let emailUrl = URL(string: emailCheck) {
+            let task = URLSession.shared.dataTask(with: emailUrl) { data, response, error in
+                guard let data = data, error == nil else {
+                    print("Error: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                    print(json)
+                    if let ownerID = json?["OwnerID"] as? Int, ownerID == -1, let ownerEmail = json?["OwnerEmail"] as? String, ownerEmail.isEmpty == true {
+                        self.hasAccount = false
+                    } else {
+                        print("Email Found")
+                        self.hasAccount = true
+                    }
+
+                } catch let error {
+                    print("Error decoding JSON: \(error.localizedDescription)")
+                }
+            }
+            task.resume()
+        } else {
+            print("Invalid URL")
+        }
+        print(self.hasAccount)
     }
     
     func check(){
@@ -104,14 +137,7 @@ struct LoginView: View {
     @EnvironmentObject var vm: UserAuthModel
     @State var owners = [User]()
     @State var dogs = [Dog]()
-
-    fileprivate func SignInButton() -> Button<Text> {
-        Button(action: {
-            vm.handleSignInButton()
-        }) {
-            Text("Sign In")
-        }
-    }
+    @State var showSignUp = false
 
     var body: some View {
         NavigationView {
@@ -130,7 +156,11 @@ struct LoginView: View {
 
                 NavigationLink("Sign Up", destination: SignUpView())
                     .navigationBarBackButtonHidden(true)
+                    .hidden()
             }
+            .sheet(isPresented: $showSignUp) {
+                        SignUpView()
+                    }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(red: 0.784, green: 0.635, blue: 0.784))
             .onAppear {
@@ -139,7 +169,35 @@ struct LoginView: View {
                         print("User not logged in yet")
                         sleep(2)
                     }
+                    
+//                    let email = vm.emailAddress
+//                    let emailCheck = "https://puppyloveapi.azurewebsites.net/Owner/" + email + ",%201"
+//                    if let emailUrl = URL(string: emailCheck) {
+//                        let task = URLSession.shared.dataTask(with: emailUrl) { data, response, error in
+//                            guard let data = data, error == nil else {
+//                                print("Error: \(error?.localizedDescription ?? "Unknown error")")
+//                                return
+//                            }
+//
+//                            do {
+//                                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+//                                if let ownerID = json?["ownerID"] as? Int, ownerID == -1 {
+//                                    self.showSignUp = true
+//                    //                self.showSignUpView()
+//                                } else {
+//                                    print("Email Found")
+//                                    // Email found
+//                                }
+//                            } catch let error {
+//                                print("Error decoding JSON: \(error.localizedDescription)")
+//                            }
+//                        }
+//                        task.resume()
+//                    } else {
+//                        print("Invalid URL")
+//                    }
 
+                    
                     print("User logged in with email: \(vm.emailAddress)")
 
                     vm.getDogComments { dogs in
