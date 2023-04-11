@@ -9,21 +9,6 @@ import SwiftUI
 import GoogleSignInSwift
 import GoogleSignIn
 
-func handleSignInButton() {
-    // https://paulallies.medium.com/google-sign-in-swiftui-2909e01ea4ed This is a good resource to google oauth
-    // It is outdated, but shows how to use view controller
-    guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
-
-    GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController)
-    { signInResult, error in 
-      guard let result = signInResult else {
-        // Inspect error
-        return
-      }
-      // If sign in succeeded, display the app's main content View.
-    }
-}
-
 class UserAuthModel: ObservableObject {
     let signInConfig = GIDConfiguration.init(clientID: "CLIENT_ID")
     @Published var givenName: String = ""
@@ -104,7 +89,7 @@ class UserAuthModel: ObservableObject {
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             let dogs = try! JSONDecoder().decode([Dog].self, from: data!)
-            print("dogs")
+            print("grabbed dogs")
             print(dogs)
             
             DispatchQueue.main.async {
@@ -119,7 +104,7 @@ struct LoginView: View {
     @EnvironmentObject var vm: UserAuthModel
     @State var owners = [User]()
     @State var dogs = [Dog]()
-    
+
     fileprivate func SignInButton() -> Button<Text> {
         Button(action: {
             vm.handleSignInButton()
@@ -127,7 +112,7 @@ struct LoginView: View {
             Text("Sign In")
         }
     }
-    
+
     var body: some View {
         NavigationView {
             VStack {
@@ -138,88 +123,77 @@ struct LoginView: View {
                     .fontWidth(.expanded)
                     .fontWeight(.heavy)
                     .offset(x: 0, y: -100)
-                
+
                 GoogleSignInButton(action: vm.handleSignInButton)
                     .padding(10)
                     .opacity(0.95)
-                
+
                 NavigationLink("Sign Up", destination: SignUpView())
                     .navigationBarBackButtonHidden(true)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(red: 0.784, green: 0.635, blue: 0.784))
             .onAppear {
-                vm.getDogComments { dogs in
-                    self.dogs = dogs
-                    var urlString: String?
-                    var receivedValue: Double?
+                DispatchQueue.global(qos: .background).async {
+                    while vm.emailAddress.isEmpty {
+                        print("User not logged in yet")
+                        sleep(2)
+                    }
 
-                    for dog in dogs {
-                        let ownerUrl = "https://puppyloveapi.azurewebsites.net/Owner/"+String(dog.OwnerID)
-                        guard let url = URL(string: ownerUrl) else {
-                            print("Invalid URL")
-                            return
-                        }
-                        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                            guard let data = data, error == nil,
-                                  let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-                                  let ownerEmail = json["ownerEmail"] as? String else {
-                                print("Invalid response")
+                    print("User logged in with email: \(vm.emailAddress)")
+
+                    vm.getDogComments { dogs in
+                        self.dogs = dogs
+
+                        for dog in dogs {
+                            let ownerUrl = "https://puppyloveapi.azurewebsites.net/Owner/\(dog.OwnerID)"
+                            guard let url = URL(string: ownerUrl) else {
+                                print("Invalid URL")
                                 return
                             }
-                            let urlString = "https://puppylovema.azurewebsites.net/api/puppylove?userEmail=" + vm.emailAddress+"&matchEmail="+ownerEmail
-                            
-                     //       print(urlString)
-                            
-                            if let url = URL(string: urlString) {
-                                let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                                    guard let data = data, error == nil,
-                                          let responseString = String(data: data, encoding: .utf8) else {
-                                        print("Invalid response")
-                                        return
-                                    }
-                                    
-                                    // Use the string value here
-                                    print("\(responseString)")
+                            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                                guard let data = data, error == nil,
+                                      let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                                      let ownerEmail = json["ownerEmail"] as? String else {
+                                    print("Invalid response: \(ownerUrl)")
+                                    return
                                 }
-                                
-                                task.resume()
-                            } else {
-                                print("Invalid URL")
-                            }
+                                let urlString = "https://puppylovema.azurewebsites.net/api/puppylove?userEmail=\(vm.emailAddress)&matchEmail=\(ownerEmail)"
+                                if(ownerEmail != vm.emailAddress) {
+                                    if let url = URL(string: urlString) {
+                                        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                                            guard let data = data, error == nil,
+                                                  let responseString = String(data: data, encoding: .utf8) else {
+                                                print("Invalid response")
+                                                return
+                                            }
 
-//                            if let url = URL(string: urlString) {
-//                                let task = URLSession.shared.dataTask(with: url) { data, response, error in
-//                                    guard let data = data, error == nil,
-//                                          let responseJSON = try? JSONSerialization.jsonObject(with: data, options: []),
-//                                          let value = responseJSON as? Double else {
-//                                        print("Invalid response")
-//                                        return
-//                                    }
-//                                    receivedValue = value
-//
-//                                    // Use the double value here
-//                                    print("The value is: \(value)")
-//                                }
-//
-//                                task.resume()
-//                            } else {
-//                                print("Invalid URL")
-//                            }
+                                            if let receivedValue = Double(responseString) {
+                                                let newCard = Card(name: dog.DogName, imageName: "p0", age: dog.Age, bio: dog.AdditionalInfo, dogID: dog.DogID)
+                                                if !Card.data.contains(where: { $0.dogID == newCard.dogID}) && receivedValue > 60.0 {
+                                                    Card.data.append(newCard)
+                                                } else {
+                                                    print("Did not meet compatibility score")
+                                                }
+                                            } else {
+                                                print("Could not convert responseString to Double")
+                                            }
+                                        }
+                                        task.resume()
+                                    } else {
+                                        print("Invalid URL")
+                                    }
+                                }
+                            }
+                            task.resume()
                         }
-                        task.resume()
-
-                        let newCard = Card(name: dog.DogName, imageName: "p0", age: dog.Age, bio: dog.AdditionalInfo, dogID: dog.DogID)
-                            if !Card.data.contains(where: { $0.dogID == newCard.dogID}) {
-                                Card.data.append(newCard)
-                            }
                     }
                 }
             }
-
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(red: 0.784, green: 0.635, blue: 0.784))
         }
     }
 }
+
 
 
 
