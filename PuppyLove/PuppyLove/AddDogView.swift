@@ -160,7 +160,7 @@ struct AddDogView: View {
                 }
             }, label: { Text("Save")})
         }
-        .navigationBarTitle(Text("Dog Information"))
+        .navigationBarTitle(Text("Dog Information")).navigationBarBackButtonHidden()
     }
 }
 

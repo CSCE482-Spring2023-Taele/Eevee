@@ -13,6 +13,7 @@ import CoreLocation
 struct UserInfoView: View {
     @StateObject var user: User
     @StateObject var dog: Dog
+    @StateObject var locationDataManager = LocationDataManager()
     
     var sexOptions = ["Male", "Female", "Non-binary"]
     @State var selectedSex = "Male"
@@ -29,6 +30,26 @@ struct UserInfoView: View {
             ...
             calendar.date(from:endComponents)!
     }()
+    
+    func grabLocation() {
+        switch locationDataManager.locationManager.authorizationStatus {
+            case .authorizedWhenInUse:  // Location services are available.
+                // Insert code here of what should happen when Location services are authorized
+                user.Location = String((locationDataManager.locationManager.location?.coordinate.latitude.description ?? "0.0") + ", " + (locationDataManager.locationManager.location?.coordinate.longitude.description ?? "0.0"))
+                print(user.Location)
+                break
+            
+            case .restricted, .denied:  // Location services currently unavailable.
+                // Insert code here of what should happen when Location services are NOT authorized
+                break
+            
+            case .notDetermined:        // Authorization not determined yet.
+                break
+            
+            default:
+                break
+        }
+    }
     
     var body: some View {
         VStack {
@@ -81,6 +102,7 @@ struct UserInfoView: View {
                 }.padding()
             }
             NavigationLink(destination: UserPreferencesView(user: user, dog: dog).onAppear {
+                grabLocation()
                 user.Sex = selectedSex
                 user.calculateAge(birthday: date)
             }, label: { Text("Next")})

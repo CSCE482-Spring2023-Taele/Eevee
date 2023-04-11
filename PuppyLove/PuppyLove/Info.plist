@@ -4,7 +4,7 @@
 <dict>
 	<key>GIDClientID</key>
 	<string>606476715355-ibtn28ffk1vkehlriqk62kadfk7htuvi.apps.googleusercontent.com</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app uses your location to find dogs near you.</string>
 	<key>CFBundleURLTypes</key>
 	<array>

@@ -5,6 +5,7 @@ import GoogleSignIn
 struct ContentView: View {
     @State private var selection = 1
     @EnvironmentObject var vm: UserAuthModel
+    
     var body: some View {
         if(vm.isLoggedIn == true && vm.hasAccount == true) {
             VStack {

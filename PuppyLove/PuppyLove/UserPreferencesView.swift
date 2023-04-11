@@ -88,12 +88,11 @@ struct UserPreferencesView: View {
                 user.SexPreference = selectedPreference
                 
                 // change email or else post wont work, need to grab email from oAuth process
-                // user.OwnerEmail = vm.emailAddress
-                user.OwnerEmail = "anne@gmail.com"
+                user.OwnerEmail = vm.emailAddress
                 user.MaxDistance = Int(distance)
                 user.MaxAge = Int(maxAge)
                 user.MinAge = Int(minAge)
-                user.Location = "College Station"
+                dump(user)
                 Task {
                     await sendRequest()
                 }
