@@ -6,7 +6,7 @@ struct ContentView: View {
     @State private var selection = 1
     @EnvironmentObject var vm: UserAuthModel
     var body: some View {
-        if(vm.isLoggedIn == true) {
+        if(vm.isLoggedIn == true && vm.hasAccount == true) {
             VStack {
                 TabView(selection: $selection){
                     FooterSection()
@@ -28,6 +28,11 @@ struct ContentView: View {
                         .tag(1)
                 }
             }
+        }
+        else if(vm.isLoggedIn == true) {
+                NavigationView {
+                    SignUpView()
+                }.navigationTitle("Sign Up")
         }
         else {
             LoginView()
