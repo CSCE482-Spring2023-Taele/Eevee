@@ -83,8 +83,6 @@ struct UserInfoView: View {
             NavigationLink(destination: UserPreferencesView(user: user, dog: dog).onAppear {
                 user.Sex = selectedSex
                 user.calculateAge(birthday: date)
-                print(user.Sex)
-                print(user.Age)
             }, label: { Text("Next")})
         }
         .navigationBarTitle(Text("User Information"))

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @StateObject var user = User(OwnerID: 0, OwnerName: "", OwnerEmail: "", Age: 0, MinAge: 0, MaxAge: 0, Sex: "Male", SexPreference: "Everyone", Location: "", MaxDistance: 0)
+    @StateObject var user = User(OwnerID: 0, OwnerName: "", OwnerEmail: "", Age: 0, MinAge: 18, MaxAge: 100, Sex: "Male", SexPreference: "Everyone", Location: "", MaxDistance: 100)
     
     @StateObject var dog = Dog(DogID: 0, OwnerID: 0, DogName: "", Breed: "", Weight: 0, Age: "Puppy (0-1 years)", Sex: "Male", ActivityLevel: 0, VaccinationStatus: false, FixedStatus: false, BreedPreference: "none", AdditionalInfo: "")
     

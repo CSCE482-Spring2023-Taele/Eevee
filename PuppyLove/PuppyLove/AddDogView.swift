@@ -36,7 +36,7 @@ struct AddDogView: View {
     func sendRequest() async {
         print("sendRequest()")
         guard let encoded = try? JSONEncoder().encode(dog) else {
-            print("Failed to encode order")
+            print("Failed to encode dog")
             return
         }
         
@@ -45,7 +45,6 @@ struct AddDogView: View {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         
-        dump(encoded)
         do {
             let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
             // handle the result
@@ -61,36 +60,28 @@ struct AddDogView: View {
                     TextField("Name", text: $dog.DogName)
                 }.padding()
                 
-//                Section(header: Text("Profile Picture")) {
-//                    HStack {
-//                        PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
-//                            Text("Select a photo")
-//                        }
-//                        .onChange(of: selectedItem) { newItem in
-//                            Task {
-//                                if let data = try? await newItem?.loadTransferable(type: Data.self) {
-//                                    dogPhoto = data
-//                                }
-//                            }
-//                        }
-//                        Spacer()
-//                        if let dogPhoto,
-//                            let image = UIImage(data: dogPhoto) {
-//                            Image(uiImage: image)
-//                                .resizable()
-//                                .scaledToFill()
-//                                .frame(width: 100, height: 100)
-//                        }
-//                    }
-//                }.padding()
-                
-                Section(header: Text("Weight (lbs)")) {
-                    Picker("Select weight", selection: $dogWeight) {
-                        ForEach(1 ..< 150) { weight in
-                            Text("\(weight)")
+                Section(header: Text("Profile Picture")) {
+                    HStack {
+                        PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
+                            Text("Select a photo")
+                        }
+                        .onChange(of: selectedItem) { newItem in
+                            Task {
+                                if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                                    dogPhoto = data
+                                }
+                            }
+                        }
+                        Spacer()
+                        if let dogPhoto,
+                            let image = UIImage(data: dogPhoto) {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 100, height: 100)
                         }
                     }
-                }
+                }.padding()
                 
                 Section(header: Text("Activity Level")) {
                     Slider(
@@ -157,8 +148,6 @@ struct AddDogView: View {
                 }.padding()
             }
             NavigationLink(destination: LoginView().onAppear {
-                // hardcoded ownerID, still working on this
-                dog.OwnerID = 20
                 dog.Sex = selectedSex
                 dog.Age = selectedAgeRange
                 dog.Breed = selectedBreed.name

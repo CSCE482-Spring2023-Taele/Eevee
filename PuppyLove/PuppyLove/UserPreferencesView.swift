@@ -7,14 +7,28 @@
 
 import SwiftUI
 
+struct DecodedUser: Codable {
+    let ownerID: Int?
+    let ownerName: String?
+    let ownerEmail: String?
+    let age: Int?
+    let minAge: Int?
+    let maxAge: Int?
+    let sex: String?
+    let sexPreference: String?
+    let location: String?
+    let maxDistance: Int?
+}
+
 struct UserPreferencesView: View {
+    @EnvironmentObject var vm: UserAuthModel
     @StateObject var user: User
     @StateObject var dog: Dog
     
     var sexPreferences = ["Male", "Female", "Non-binary", "Everyone"]
     @State var selectedPreference = "Male"
     
-    @State var distance: Double = 0
+    @State var distance: Double = 100
     @State var minAge: Int = 18
     @State var maxAge: Int = 100
     
@@ -33,14 +47,15 @@ struct UserPreferencesView: View {
         
         do {
             let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+            do {
+                let decodedUser = try JSONDecoder().decode(DecodedUser.self, from: data)
+                dog.OwnerID = decodedUser.ownerID ?? 0
 
-            // this is where i try to get the ID but it doesn't work
-            let decodedUser = try JSONDecoder().decode(User.self, from: data)
-            dog.OwnerID = decodedUser.OwnerID
-            dump(decodedUser)
-
+            } catch {
+                print(error.localizedDescription)
+            }
         } catch {
-            print("POST  failed.")
+            print("Decoding failed.")
         }
     }
 
@@ -62,24 +77,10 @@ struct UserPreferencesView: View {
                     }
                 }.padding()
                 
-                // This is ugly gotta look for new way to do this
-                Section(header: Text("Minimum Owner Age")) {
-                    HStack {
-                        Picker("Select Age", selection: $minAge){
-                            ForEach(18 ..< 100) {
-                                Text("\($0)")
-                            }
-                        }
-                    }
-                }.padding()
-                
-                Section(header: Text("Maximum Owner Age")) {
-                    HStack {
-                        Picker("Select Age", selection: $maxAge){
-                            ForEach(18 ..< 100) {
-                                Text("\($0)")
-                            }
-                        }
+                Section(header: Text("Owner Age Preference")) {
+                    VStack {
+                        Stepper("Minimum Age: \(minAge)", value: $minAge, in: 18...100)
+                        Stepper("Maximum Age: \(maxAge)", value: $maxAge, in: minAge...100)
                     }
                 }.padding()
             }
@@ -87,7 +88,8 @@ struct UserPreferencesView: View {
                 user.SexPreference = selectedPreference
                 
                 // change email or else post wont work, need to grab email from oAuth process
-                user.OwnerEmail = "reagan@gmail.com"
+                // user.OwnerEmail = vm.emailAddress
+                user.OwnerEmail = "anne@gmail.com"
                 user.MaxDistance = Int(distance)
                 user.MaxAge = Int(maxAge)
                 user.MinAge = Int(minAge)
