@@ -33,11 +33,11 @@ class MainMessagesViewModel: ObservableObject {
     
     private var firestoreListener: ListenerRegistration?
     
-    func getUsername(email: String, completion:@escaping ([Owners]) -> ()) {
+    func getUsername(email: String, completion:@escaping ([User]) -> ()) {
         guard let url = URL(string: "https://puppyloveapi.azurewebsites.net/Owner/\(email),%201") else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
-            let owners = try! JSONDecoder().decode([Owners].self, from: data!)
+            let owners = try! JSONDecoder().decode([User].self, from: data!)
             print(owners)
             
             DispatchQueue.main.async {

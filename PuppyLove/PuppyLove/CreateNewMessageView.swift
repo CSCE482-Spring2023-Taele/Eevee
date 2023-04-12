@@ -1,102 +1,127 @@
 //
-//  CreateNewMessageView.swift
-//  LBTASwiftUIFirebaseChat
-//
-//  Created by Brian Voong on 11/16/21.
-//
+ //  CreateNewMessageView.swift
+ //  LBTASwiftUIFirebaseChat
+ //
+ //  Created by Brian Voong on 11/16/21.
+ //
 
-import SwiftUI
-import SDWebImageSwiftUI
+ import SwiftUI
+ import SDWebImageSwiftUI
+ import Foundation
 
-class CreateNewMessageViewModel: ObservableObject {
-    var matches:[String] = ["truitt.millican@tamu.edu", "trinity.millican@tamu.edu"]
-    @Published var users = [ChatUser]()
-    @Published var errorMessage = ""
-    
-    init() {
-        fetchAllUsers()
-    }
-    
-    private func fetchAllUsers() {
-        //FirebaseManager.shared.firestore.collection("users").getDocuments()
-        FirebaseManager.shared.firestore.collection("users")
-            .getDocuments { documentsSnapshot, error in
-                if let error = error {
-                    self.errorMessage = "Failed to fetch users: \(error)"
-                    print("Failed to fetch users: \(error)")
-                    return
-                }
-                
-                documentsSnapshot?.documents.forEach({ snapshot in
-                    let user = try? snapshot.data(as: ChatUser.self)
-                    if user?.email != FirebaseManager.shared.auth.currentUser?.email {
-                        self.matches.forEach{ match in
-                            if match == user?.email{
-                                self.users.append(user!)
-                            }
-                        }
-                                
-                        
-                    }
-                    
-                })
-            }
-    }
-}
+ class CreateNewMessageViewModel: ObservableObject {
+     @State private var matches = [String()]
+     @Published var data2 = String()
+     @Published var users = [ChatUser]()
+     @Published var errorMessage = ""
+     //@Published var emails = String()
+     init() {
+         fetchAllUsers()
+     }
 
-struct CreateNewMessageView: View {
-    
-    let didSelectNewUser: (ChatUser) -> ()
-    
-    @Environment(\.presentationMode) var presentationMode
-    
-    @ObservedObject var vm = CreateNewMessageViewModel()
-    
-    var body: some View {
-        NavigationView {
-            ScrollView {
-                Text(vm.errorMessage)
-                
-                ForEach(vm.users) { user in
-                    Button {
-                        presentationMode.wrappedValue.dismiss()
-                        didSelectNewUser(user)
-                    } label: {
-                        HStack(spacing: 16) {
-                            WebImage(url: URL(string: user.profileImageUrl))
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 50, height: 50)
-                                .clipped()
-                                .cornerRadius(50)
-                                .overlay(RoundedRectangle(cornerRadius: 50)
-                                            .stroke(Color(.label), lineWidth: 2)
-                                )
-                            Text(user.email)
-                                .foregroundColor(Color(.label))
-                            Spacer()
-                        }.padding(.horizontal)
-                    }
-                    Divider()
-                        .padding(.vertical, 8)
-                }
-            }.navigationTitle("New Message")
-                .toolbar {
-                    ToolbarItemGroup(placement: .navigationBarLeading) {
-                        Button {
-                            presentationMode.wrappedValue.dismiss()
-                        } label: {
-                            Text("Cancel")
-                        }
-                    }
-                }
-        }
-    }
-}
 
-struct CreateNewMessageView_Previews: PreviewProvider {
-    static var previews: some View {
-//        CreateNewMessageView()
-        MainMessagesView()
-    }
-}
+
+
+     func assign(match: String){
+         matches.append(match)
+     }
+
+
+
+     private func fetchAllUsers() {
+         //var t = MatchAPI().userEmail = FirebaseManager.shared.auth.currentUser!.email
+         //var email = FirebaseManager.shared.auth.currentUser?.email
+         
+
+         //var email = "aaron@test.com"
+         //var result = String()
+         
+         //print(self.assign)
+         
+
+
+         FirebaseManager.shared.firestore.collection("users")
+             .getDocuments { documentsSnapshot, error in
+                 if let error = error {
+                     self.errorMessage = "Failed to fetch users: \(error)"
+                     print("Failed to fetch users: \(error)")
+                     return
+                 }
+                 MatchAPI.getMatches(userEmail: FirebaseManager.shared.auth.currentUser!.email!) {
+                     result in
+                     var parse = result.trimmingCharacters(in: CharacterSet(charactersIn: "[\"\"]"))
+                     parse = parse.replacingOccurrences(of: "\"", with: "")
+                     //print(parse)
+                     var matches = parse.components(separatedBy: ",")
+                     print(matches)
+                     matches.append("trudogmill@gmail.com")
+                     matches.append("tmillican6362@gmail.com")
+                     print(matches)
+                     documentsSnapshot?.documents.forEach({ snapshot in
+                         let user = try? snapshot.data(as: ChatUser.self)
+                         if user?.uid != FirebaseManager.shared.auth.currentUser?.uid {
+                             matches.forEach{ match in
+                             if match == user?.email{
+                             //print("Hey:" + result)
+                             
+                             self.users.append(user!)
+                             }
+                             }
+
+                         }
+
+                     })
+                 }
+
+             }
+     }
+ }
+
+ struct CreateNewMessageView: View {
+
+     let didSelectNewUser: (ChatUser) -> ()
+
+     @Environment(\.presentationMode) var presentationMode
+
+     @ObservedObject var vm = CreateNewMessageViewModel()
+
+     var body: some View {
+         NavigationView {
+             ScrollView {
+                 Text(vm.errorMessage)
+
+                 ForEach(vm.users) { user in
+                     Button {
+                         presentationMode.wrappedValue.dismiss()
+                         didSelectNewUser(user)
+                     } label: {
+                         HStack(spacing: 16) {
+
+                             Text(user.email)
+                                 .foregroundColor(Color(.label))
+                             Spacer()
+                         }.padding(.horizontal)
+                     }
+                     Divider()
+                         .padding(.vertical, 8)
+                 }
+             }.navigationTitle("New Message")
+                 .toolbar {
+                     ToolbarItemGroup(placement: .navigationBarLeading) {
+                         Button {
+                             presentationMode.wrappedValue.dismiss()
+                         } label: {
+                             Text("Cancel")
+                         }
+                     }
+                 }
+         }
+     }
+ }
+
+ struct CreateNewMessageView_Previews: PreviewProvider {
+     static var previews: some View {
+ //        CreateNewMessageView()
+         messagesTemp()
+     }
+ }
