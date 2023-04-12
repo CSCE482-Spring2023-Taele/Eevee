@@ -33,8 +33,15 @@ struct SettingsView: View {
 }
 struct ProfileSettings: View {
     @AppStorage("name") var name = DefaultSettings.name
-    @AppStorage("subtitle") var subtitle = DefaultSettings.subtitle
+    @AppStorage("age") var age = DefaultSettings.age
+    @AppStorage("gender") var gender = DefaultSettings.gender
     @AppStorage("description") var description = DefaultSettings.description
+    @AppStorage("minAge") var minAge = DefaultSettings.minAge
+    @AppStorage("maxAge") var maxAge = DefaultSettings.maxAge
+    @AppStorage("sexPreference") var sexPreference = DefaultSettings.sexPreference
+    @AppStorage("maxDistance") var maxDistance = DefaultSettings.maxDistance
+    @AppStorage("dogName") var dogName = DefaultSettings.dogName
+    @AppStorage("dogBreed") var dogBreed = DefaultSettings.dogBreed
     
     var body: some View {
         Section(header: Text("Profile")) {
@@ -47,8 +54,16 @@ struct ProfileSettings: View {
                 }
             )
             TextField("Name", text: $name)
-            TextField("Subtitle", text: $subtitle)
+            TextField("Age", text: $age)
+            TextField("Gender", text: $gender)
             TextEditor(text: $description)
+            TextField("Minimum Age",text: $minAge )
+            TextField("Maximum Age",text: $maxAge )
+            TextField("Sex Preference",text: $sexPreference )
+            TextField("Dog Name" , text: $dogName )
+            TextField("Dog Breed" , text: $dogBreed )
+            
+            
         }
     }
 }

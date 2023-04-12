@@ -31,8 +31,16 @@ struct ProfileView: View {
 
 struct ProfileText: View {
     @AppStorage("name") var name = DefaultSettings.name
-    @AppStorage("subtitle") var subtitle = DefaultSettings.subtitle
+    @AppStorage("age") var age = DefaultSettings.age
+    @AppStorage("gender") var gender = DefaultSettings.gender
     @AppStorage("description") var description = DefaultSettings.description
+    @AppStorage("minAge") var minAge = DefaultSettings.minAge
+    @AppStorage("maxAge") var maxAge = DefaultSettings.maxAge
+    @AppStorage("maxDistance") var maxDistance = DefaultSettings.maxDistance
+    @AppStorage("dogName") var dogName = DefaultSettings.dogName
+    @AppStorage("dogBreed") var dogBreed = DefaultSettings.dogBreed
+    
+    
     
     var body: some View {
         VStack(spacing: 15) {
@@ -40,7 +48,10 @@ struct ProfileText: View {
                 Text(name)
                     .bold()
                     .font(.title)
-                Text(subtitle)
+                Text(age)
+                    .font(.body)
+                    .foregroundColor(.secondary)
+                Text(gender)
                     .font(.body)
                     .foregroundColor(.secondary)
             }.padding()
@@ -48,6 +59,7 @@ struct ProfileText: View {
                 .multilineTextAlignment(.center)
                 .padding()
             Spacer()
+           
         }
     }
 }

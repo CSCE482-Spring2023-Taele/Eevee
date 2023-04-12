@@ -16,8 +16,16 @@ enum DefaultSettings {
     
     // Profile
     static var name: String = "Irving Salinas"
-    static var subtitle: String = "Developer"
+    static var email: String = "cr7@gmail.com"
+    static var gender: String = "Male"
+    static var age: String = "0"
     static var description: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non arcu risus quis varius quam. Faucibus ornare suspendisse sed nisi lacus sed viverra tellus. Ornare suspendisse sed nisi lacus sed viverra tellus. Arcu odio ut sem nulla pharetra. Vitae congue mauris rhoncus aenean vel elit. Scelerisque eu ultrices vitae auctor eu."
+    static var minAge: String = "0"
+    static var maxAge: String = "0"
+    static var sexPreference: String = ""
+    static var maxDistance: String = "0"
+    static var dogName: String = "Rex"
+    static var dogBreed: String = "Corgi"
 }
 
 //final class UserOptions {
