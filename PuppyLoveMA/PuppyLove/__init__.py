@@ -22,23 +22,40 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     userJson = json.loads(responseUser.text)
     matchJson = json.loads(responseMatch.text)
-    #print(userJson)
-    #print(matchJson)
-
+    print(userJson)
+    print(matchJson)
+    if int(userJson['MinAge']) == -1 or int(matchJson['MinAge']) == -1:
+        print("profile failure")
+        return func.HttpResponse(f"{0}")
+       
     userAge = int(userJson['Age'])
     userAgeRange = [int(userJson['MinAge']),int(userJson['MaxAge'])]
     userActLvl = int(userJson['ActivityLevel'])
     userWeight = int(userJson['Weight'])
     userGender = userJson['Sex']
     userShowG = userJson['SexPreference']
-
+    userLocUP = userJson['Location']
+    userLoc = [float(i) for i in userLocUP.split(', ')]
+    userDist = int(userJson['MaxDistance'])
+    
+    userAge += 18
     matchAge = int(matchJson['Age'])
     matchAgeRange = [int(matchJson['MinAge']),int(matchJson['MaxAge'])]
     matchActLvl = int(matchJson['ActivityLevel'])
     matchWeight = int(matchJson['Weight'])
     matchGender = matchJson['Sex']
     matchShowG = matchJson['SexPreference']
-
+    matchLocUP = matchJson['Location']
+    matchDist = int(matchJson['MaxDistance'])
+    userLoc = [0,0]
+    matchLoc = [0,0]
+    try:
+        userLoc = [float(i) for i in userLocUP.split(', ')]
+        matchLoc = [float(i) for i in matchLocUP.split(', ')]
+    except:
+        print("location failure")
+        return func.HttpResponse(f"{0}")
+    
     if userActLvl == 0:
       userActLvl = 1
     if matchActLvl == 0:
@@ -78,34 +95,28 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     #for breed in userIgnoreBreed:
     #    if matchBreed == breed:
     #        return func.HttpResponse(f"Compatability score: {0}")
-
     if matchAge < userAgeRange[0] or matchAge > userAgeRange[1]:
-         return func.HttpResponse(f"Compatability score: {0}")
+        print("age")
+        return func.HttpResponse(f"{0}")
     if userAge < matchAgeRange[0] or userAge > matchAgeRange[1]:
-         return func.HttpResponse(f"Compatability score: {0}")
+        print("age")
+        return func.HttpResponse(f"{0}")
 
-    # foundM = False
-    # for gender in matchShowGender:
-    #     if userGender == gender:
-    #         foundM = True
-    #         break
-    # if not foundM:
-    #     return func.HttpResponse(f"Compatability score: {0}")
+    if userGender != matchShowG and matchShowG.lower() != 'everyone':
+        print("gender")   
+        return func.HttpResponse(f"{0}")
+    
+    if userGender != matchShowG and matchShowG.lower() != 'everyone':
+        print("gender")   
+        return func.HttpResponse(f"{0}")
 
-    # foundU = False
-    # for gender in userShowGender:
-    #     if matchGender == gender:
-    #         foundU = True
-    #         break
-    # if not foundU:
-    #     return func.HttpResponse(f"Compatability score: {0}")
-
-    # distance_2d = distance.distance(userLatLong, matchLatLong).miles
-    # if distance_2d > matchDist or distance_2d > userDist:
-    #     return func.HttpResponse(f"Compatability score: {0}")
-    # distCom = 20 + pow(-1 * distance_2d, 5)/10000
-    # if (distCom < 0):
-    #     distCom = 0
+    distance_2d = distance.distance(userLoc, matchLoc).miles
+    if distance_2d > matchDist or distance_2d > userDist:
+        print("dist")
+        return func.HttpResponse(f"{0}")
+    distCom = 20 + pow(-1 * distance_2d, 5)/10000
+    if (distCom < 0):
+        distCom = 0
     weightCom = (40 * (1-pow(abs(math.log(userWeight, 3) -
         math.log(matchWeight, 3))/((math.log(userWeight, 3))), 0.8)))
     actCom = (40 * (1-pow(abs(math.log(userActLvl+1, 2) -
@@ -116,7 +127,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     if (actCom < 1):
         actCom = 0
-    distCom = 10
+    
     com = weightCom + actCom + distCom
     #com = 0
 
