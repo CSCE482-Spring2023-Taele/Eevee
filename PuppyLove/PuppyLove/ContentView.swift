@@ -18,7 +18,7 @@ struct ContentView: View {
                             }
                         }
                         .tag(0)
-                    Profile()
+                    ProfileView()
                         .font(.title)
                         .tabItem{
                             VStack{
