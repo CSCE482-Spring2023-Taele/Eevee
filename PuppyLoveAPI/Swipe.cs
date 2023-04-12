@@ -94,7 +94,7 @@ namespace PuppyLoveAPI
                     try
                     {
                         MySqlDataReader reader = matchCmd.ExecuteReader();
-                        if (reader.Read())
+                        while (reader.Read())
                         {
                             // tells us there is a match
                             short i = reader.GetInt16(0);
