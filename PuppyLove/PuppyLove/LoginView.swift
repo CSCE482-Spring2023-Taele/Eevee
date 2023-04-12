@@ -146,6 +146,54 @@ struct LoginView: View {
     @State var owners = [User]()
     @State var dogs = [Dog]()
     @State var showSignUp = false
+    
+    func fetchMatches(for dog: Dog) {
+        let ownerUrl = "https://puppyloveapi.azurewebsites.net/Owner/\(dog.OwnerID)"
+        guard let url = URL(string: ownerUrl) else {
+            print("Invalid URL")
+            return
+        }
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil,
+                let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                let ownerEmail = json["ownerEmail"] as? String else {
+                    print("Invalid response: \(ownerUrl)")
+                    return
+            }
+            let urlString = "https://puppylovema.azurewebsites.net/api/puppylove?userEmail=\(vm.emailAddress)&matchEmail=\(ownerEmail)"
+            if ownerEmail != vm.emailAddress {
+                if let url = URL(string: urlString) {
+                    let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                        guard let data = data, error == nil,
+                            let responseString = String(data: data, encoding: .utf8) else {
+                                print("Invalid response")
+                         //       fetchMatches(for: dog)
+                                return
+                        }
+
+                        if let receivedValue = Double(responseString) {
+                            let newCard = Card(name: dog.DogName, imageName: "p0", age: dog.Age, bio: dog.AdditionalInfo, dogID: dog.DogID)
+                            if !Card.data.contains(where: { $0.dogID == newCard.dogID}) && receivedValue >= 0 {
+                                print(receivedValue)
+                                Card.data.append(newCard)
+                            } else {
+                                print(urlString)
+                                print("Did not meet compatibility score")
+                            }
+                        } else {
+                 //           fetchMatches(for: dog)
+                            print("Could not convert responseString to Double")
+                        }
+                    }
+                    task.resume()
+                } else {
+                    print("Invalid URL")
+                }
+            }
+        }
+        task.resume()
+    }
+
 
     var body: some View {
         NavigationView {
@@ -170,55 +218,16 @@ struct LoginView: View {
                         print("User not logged in yet")
                         sleep(2)
                     }
-                
-
+                    
+                    
                     
                     print("User logged in with email: \(vm.emailAddress)")
-
+                    
                     vm.getDogComments { dogs in
                         self.dogs = dogs
-
+                        
                         for dog in dogs {
-                            let ownerUrl = "https://puppyloveapi.azurewebsites.net/Owner/\(dog.OwnerID)"
-                            guard let url = URL(string: ownerUrl) else {
-                                print("Invalid URL")
-                                return
-                            }
-                            let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                                guard let data = data, error == nil,
-                                      let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-                                      let ownerEmail = json["ownerEmail"] as? String else {
-                                    print("Invalid response: \(ownerUrl)")
-                                    return
-                                }
-                                let urlString = "https://puppylovema.azurewebsites.net/api/puppylove?userEmail=\(vm.emailAddress)&matchEmail=\(ownerEmail)"
-                                if(ownerEmail != vm.emailAddress) {
-                                    if let url = URL(string: urlString) {
-                                        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                                            guard let data = data, error == nil,
-                                                  let responseString = String(data: data, encoding: .utf8) else {
-                                                print("Invalid response")
-                                                return
-                                            }
-
-                                            if let receivedValue = Double(responseString) {
-                                                let newCard = Card(name: dog.DogName, imageName: "p0", age: dog.Age, bio: dog.AdditionalInfo, dogID: dog.DogID)
-                                                if !Card.data.contains(where: { $0.dogID == newCard.dogID}) && receivedValue > 60.0 {
-                                                    Card.data.append(newCard)
-                                                } else {
-                                                    print("Did not meet compatibility score")
-                                                }
-                                            } else {
-                                                print("Could not convert responseString to Double")
-                                            }
-                                        }
-                                        task.resume()
-                                    } else {
-                                        print("Invalid URL")
-                                    }
-                                }
-                            }
-                            task.resume()
+                            fetchMatches(for: dog)
                         }
                     }
                 }
