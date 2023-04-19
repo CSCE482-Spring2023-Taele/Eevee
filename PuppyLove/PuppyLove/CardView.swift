@@ -14,7 +14,7 @@ struct CardView: View {
                 return
             }
 
-            let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/Dog%22)!
+            let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/Swipe)!
             var request = URLRequest(url: url)
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "POST"
