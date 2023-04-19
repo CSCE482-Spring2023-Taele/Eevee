@@ -48,7 +48,7 @@ class UserAuthModel: ObservableObject {
     
     func checkAccount() {
         let email = self.emailAddress
-        let emailCheck = "https://puppyloveapi.azurewebsites.net/Owner/" + email + ",%201"
+        let emailCheck = "https://puppyloveapishmeegan.azurewebsites.net/Owner/" + email + ",%201"
         if let emailUrl = URL(string: emailCheck) {
             let task = URLSession.shared.dataTask(with: emailUrl) { data, response, error in
                 guard let data = data, error == nil else {
@@ -112,7 +112,7 @@ class UserAuthModel: ObservableObject {
         }
     }
     func getUserComments(completion:@escaping ([User]) -> ()) {
-        guard let url = URL(string: "https://puppyloveapi.azurewebsites.net/Owner/") else { return }
+        guard let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/Owner/") else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             let owners = try! JSONDecoder().decode([User].self, from: data!)
@@ -126,7 +126,7 @@ class UserAuthModel: ObservableObject {
         .resume()
     }
     func getDogComments(completion:@escaping ([Dog]) -> ()) {
-        guard let url = URL(string: "https://puppyloveapi.azurewebsites.net/Dog/") else { return }
+        guard let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/Dog/") else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             let dogs = try! JSONDecoder().decode([Dog].self, from: data!)
@@ -179,7 +179,7 @@ struct LoginView: View {
                         self.dogs = dogs
 
                         for dog in dogs {
-                            let ownerUrl = "https://puppyloveapi.azurewebsites.net/Owner/\(dog.OwnerID)"
+                            let ownerUrl = "https://puppyloveapishmeegan.azurewebsites.net/Owner/\(dog.OwnerID)"
                             guard let url = URL(string: ownerUrl) else {
                                 print("Invalid URL")
                                 return
@@ -191,7 +191,7 @@ struct LoginView: View {
                                     print("Invalid response: \(ownerUrl)")
                                     return
                                 }
-                                let urlString = "https://puppylovema.azurewebsites.net/api/puppylove?userEmail=\(vm.emailAddress)&matchEmail=\(ownerEmail)"
+                                let urlString = "https://puppyloveapishmeegan.azurewebsites.net/api/puppylove?userEmail=\(vm.emailAddress)&matchEmail=\(ownerEmail)"
                                 if(ownerEmail != vm.emailAddress) {
                                     if let url = URL(string: urlString) {
                                         let task = URLSession.shared.dataTask(with: url) { data, response, error in

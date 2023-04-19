@@ -2,8 +2,30 @@ import SwiftUI
 
 struct CardView: View {
     @State var card: Card
+    @State var outcome: Outcome
+    
     // MARK: - Drawing Constant
     let cardGradient = Gradient(colors: [Color.black.opacity(0.0), Color.black.opacity(0.5)])
+    
+    func sendRequest() async {
+            print("sendRequest()")
+            guard let encoded = try? JSONEncoder().encode(outcome) else {
+                print("Failed to encode outcome")
+                return
+            }
+
+            let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/Dog%22)!
+            var request = URLRequest(url: url)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = "POST"
+
+            do {
+                let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+                // handle the result
+            } catch {
+                print("POST  failed.")
+            }
+        }
     
     var body: some View {
         ZStack(alignment: .topLeading) {
