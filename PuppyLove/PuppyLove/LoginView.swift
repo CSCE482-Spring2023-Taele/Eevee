@@ -48,7 +48,7 @@ class UserAuthModel: ObservableObject {
     
     func checkAccount() {
         let email = self.emailAddress
-        let emailCheck = "https://puppyloveapi.azurewebsites.net/Owner/" + email + ",%201"
+        let emailCheck = "https://puppyloveapishmeegan.azurewebsites.net/Owner/" + email + ",%201"
         if let emailUrl = URL(string: emailCheck) {
             let task = URLSession.shared.dataTask(with: emailUrl) { data, response, error in
                 guard let data = data, error == nil else {
@@ -112,7 +112,7 @@ class UserAuthModel: ObservableObject {
         }
     }
     func getUserComments(completion:@escaping ([User]) -> ()) {
-        guard let url = URL(string: "https://puppyloveapi.azurewebsites.net/Owner/") else { return }
+        guard let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/Owner/") else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             let owners = try! JSONDecoder().decode([User].self, from: data!)
@@ -126,7 +126,8 @@ class UserAuthModel: ObservableObject {
         .resume()
     }
     func getDogComments(completion:@escaping ([Dog]) -> ()) {
-        guard let url = URL(string: "https://puppyloveapi.azurewebsites.net/Dog/") else { return }
+        let eligbleDogs = "https://puppyloveapishmeegan.azurewebsites.net/SwipeList/" + emailAddress
+        guard let url = URL(string: eligbleDogs) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             let dogs = try! JSONDecoder().decode([Dog].self, from: data!)
@@ -170,62 +171,23 @@ struct LoginView: View {
                         print("User not logged in yet")
                         sleep(2)
                     }
-                
-
-                    
                     print("User logged in with email: \(vm.emailAddress)")
-
                     vm.getDogComments { dogs in
                         self.dogs = dogs
-
-                        for dog in dogs {
-                            let ownerUrl = "https://puppyloveapi.azurewebsites.net/Owner/\(dog.OwnerID)"
-                            guard let url = URL(string: ownerUrl) else {
-                                print("Invalid URL")
-                                return
-                            }
-                            let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                                guard let data = data, error == nil,
-                                      let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-                                      let ownerEmail = json["ownerEmail"] as? String else {
-                                    print("Invalid response: \(ownerUrl)")
-                                    return
-                                }
-                                let urlString = "https://puppylovema.azurewebsites.net/api/puppylove?userEmail=\(vm.emailAddress)&matchEmail=\(ownerEmail)"
-                                if(ownerEmail != vm.emailAddress) {
-                                    if let url = URL(string: urlString) {
-                                        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                                            guard let data = data, error == nil,
-                                                  let responseString = String(data: data, encoding: .utf8) else {
-                                                print("Invalid response")
-                                                return
-                                            }
-
-                                            if let receivedValue = Double(responseString) {
-                                                let newCard = Card(name: dog.DogName, imageName: "p0", age: dog.Age, bio: dog.AdditionalInfo, dogID: dog.DogID)
-                                                if !Card.data.contains(where: { $0.dogID == newCard.dogID}) && receivedValue >= 0.0 {
-                                                    Card.data.append(newCard)
-                                                } else {
-                                                    print("Did not meet compatibility score")
-                                                }
-                                            } else {
-                                                print("Could not convert responseString to Double")
-                                            }
-                                        }
-                                        task.resume()
-                                    } else {
-                                        print("Invalid URL")
-                                    }
-                                }
-                            }
-                            task.resume()
+                for dog in dogs {
+                let newCard = Card(name: dog.DogName, imageName: "p0", age: dog.Age, bio: dog.AdditionalInfo, dogID: dog.DogID)
+                if !Card.data.contains(where: { $0.dogID == newCard.dogID}) {
+                    Card.data.append(newCard)
+                } else {
+                    print("Did not meet compatibility score")
+                }
+            }
                         }
                     }
                 }
             }
         }
     }
-}
 
 
 

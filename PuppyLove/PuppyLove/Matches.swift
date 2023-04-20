@@ -13,7 +13,7 @@ import Foundation
 
 @MainActor class MatchAPI : ObservableObject {
     class func getMatches(userEmail: String, completion: @escaping (String) -> ()) {
-        let url = URL(string: "https:/puppyloveapi.azurewebsites.net/Match/\(userEmail)")!
+        let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/Match/\(userEmail)")!
         
         URLSession.shared.dataTask(with:url) { (data, response, error) in
             if error != nil {
