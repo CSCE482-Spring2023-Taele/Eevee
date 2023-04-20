@@ -42,7 +42,7 @@ namespace PuppyLoveAPI
 
             if (DB.IsConnect())
             {
-                string query = $"select owners.age, owners.min_age, owners.max_age, owners.sex, owners.sex_preference, owners.location, owners.max_distance, dogs.activity_level, dogs.weight, dogs.breed, dogs.breed_preference from owners inner join dogs d on d.owner_id = owners.owner_id where email = \'{email}\';";
+                string query = $"select owners.age, owners.min_age, owners.max_age, owners.sex, owners.sex_preference, owners.location, owners.max_distance, d.activity_level, d.weight, d.breed, d.breed_preference from owners inner join dogs d on d.owner_id = owners.owner_id where email = \'{email}\';";
                 MySqlCommand cmd = new MySqlCommand(query, DB.Connection);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
