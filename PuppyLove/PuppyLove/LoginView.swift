@@ -92,6 +92,7 @@ class UserAuthModel: ObservableObject {
          GIDSignIn.sharedInstance.signOut()
          try? FirebaseManager.shared.auth.signOut()
          self.checkStatus()
+         Card.data = []
      }
     
     func handleSignInButton() {

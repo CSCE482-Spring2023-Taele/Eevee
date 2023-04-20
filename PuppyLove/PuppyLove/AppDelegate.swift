@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate
       open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool
     {
       var handled: Bool
-        Card.data = []
       handled = GIDSignIn.sharedInstance.handle(url)
       if handled {
         return true
