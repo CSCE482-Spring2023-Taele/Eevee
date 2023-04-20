@@ -203,7 +203,7 @@ struct LoginView: View {
 
                                             if let receivedValue = Double(responseString) {
                                                 let newCard = Card(name: dog.DogName, imageName: "p0", age: dog.Age, bio: dog.AdditionalInfo, dogID: dog.DogID)
-                                                if !Card.data.contains(where: { $0.dogID == newCard.dogID}) && receivedValue > 60.0 {
+                                                if !Card.data.contains(where: { $0.dogID == newCard.dogID}) && receivedValue >= 0.0 {
                                                     Card.data.append(newCard)
                                                 } else {
                                                     print("Did not meet compatibility score")
