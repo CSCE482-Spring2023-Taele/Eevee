@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "InO6v/YLde3IjPQVSdltoCIIzmB1iXEt4o/4WqV3P9p54awnnybTwEZlmMB5RBCa0SJGF1Y2X63UD8kD/jO++A==",
+  "dgSpecHash": "H3gYZdxpC9dWxXRQrUJJTOxlI2+ECUNdhWnmR1dc0naauHOhc61/F/EMnJP5KZWQVPBma0keuUAgCcZcmkjjHQ==",
   "success": true,
   "projectFilePath": "C:\\Eevee\\PuppyLoveAPI\\PuppyLoveAPI.csproj",
   "expectedPackageFiles": [
@@ -12,7 +12,10 @@
     "C:\\Users\\sanch\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\sanch\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\sanch\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\sanch\\.nuget\\packages\\microsoft.testplatform\\17.5.0\\microsoft.testplatform.17.5.0.nupkg.sha512",
     "C:\\Users\\sanch\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\sanch\\.nuget\\packages\\mstest.testadapter\\3.0.2\\mstest.testadapter.3.0.2.nupkg.sha512",
+    "C:\\Users\\sanch\\.nuget\\packages\\mstest.testframework\\3.0.2\\mstest.testframework.3.0.2.nupkg.sha512",
     "C:\\Users\\sanch\\.nuget\\packages\\mysql.data\\8.0.32.1\\mysql.data.8.0.32.1.nupkg.sha512",
     "C:\\Users\\sanch\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\portable.bouncycastle.1.9.0.nupkg.sha512",
     "C:\\Users\\sanch\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",

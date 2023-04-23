@@ -10,7 +10,7 @@ namespace PuppyLoveAPI
         public int CurrDogID { get; set; }
         public int ReviewedDogID { get; set; }
         public string Timestamp { get; set; }
-        public short Outcome { get; set; }
+        public int Outcome { get; set; }
 
         public Swipe()
         {
@@ -18,7 +18,7 @@ namespace PuppyLoveAPI
             this.CurrDogID = -1;
             this.ReviewedDogID = -1;
             this.Timestamp = DateTime.Now.ToString();
-            this.Outcome = 0;
+            this.Outcome = -1;
         }
 
         public static Swipe GetID(int id)
@@ -34,7 +34,7 @@ namespace PuppyLoveAPI
                     return swipe;
                 }
 
-                string query = $"SELECT * from owners where owner_id = {id};";
+                string query = $"SELECT * from swipe_outcomes where outcome_id = {id};";
                 MySqlCommand cmd = new MySqlCommand(query, DB.Connection);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
@@ -45,7 +45,7 @@ namespace PuppyLoveAPI
                         swipe.CurrDogID = Int32.Parse(reader.GetString(1));
                         swipe.ReviewedDogID = Int32.Parse(reader.GetString(2));
                         swipe.Timestamp = reader.GetString(3);
-                        swipe.Outcome = short.Parse(reader.GetString(4)); // This might cause me errors
+                        swipe.Outcome = Int32.Parse(reader.GetString(4)); // This might cause me errors
                     }
                     catch (Exception e)
                     {
