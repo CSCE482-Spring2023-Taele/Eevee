@@ -20,7 +20,7 @@ struct AddDogView: View {
     @State private var vaccinated = false
     @State private var fixed = false
     
-    @State private var selectedItem: PhotosPickerItem? = nil
+    @State private var selectedPhoto: PhotosPickerItem? = nil
     @State private var dogPhoto: Data? = nil
     
     @State var breeds = [Breed]()
@@ -62,10 +62,10 @@ struct AddDogView: View {
                 
                 Section(header: Text("Profile Picture")) {
                     HStack {
-                        PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
+                        PhotosPicker(selection: $selectedPhoto, matching: .images, photoLibrary: .shared()) {
                             Text("Select a photo")
                         }
-                        .onChange(of: selectedItem) { newItem in
+                        .onChange(of: selectedPhoto) { newItem in
                             Task {
                                 if let data = try? await newItem?.loadTransferable(type: Data.self) {
                                     dogPhoto = data
@@ -74,8 +74,8 @@ struct AddDogView: View {
                         }
                         Spacer()
                         if let dogPhoto,
-                            let image = UIImage(data: dogPhoto) {
-                            Image(uiImage: image)
+                            let dogImage = UIImage(data: dogPhoto) {
+                            Image(uiImage: dogImage)
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 100, height: 100)
@@ -88,7 +88,13 @@ struct AddDogView: View {
                         value: $activityLevel,
                         in: 0...10,
                         step: 1
-                    )
+                    ) {
+                    }
+                    minimumValueLabel: {
+                        Text("0").font(.title2).fontWeight(.thin)
+                    } maximumValueLabel: {
+                        Text("10").font(.title2).fontWeight(.thin)
+                    }
                 }.padding()
                 
                 Section(header: Text("Breed")) {

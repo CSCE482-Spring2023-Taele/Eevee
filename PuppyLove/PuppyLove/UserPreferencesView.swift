@@ -30,7 +30,7 @@ struct UserPreferencesView: View {
     
     @State var distance: Double = 100
     @State var minAge: Int = 18
-    @State var maxAge: Int = 100
+    @State var maxAge: Int = 30
     
     // API call POST owner
     func sendRequest() async {
