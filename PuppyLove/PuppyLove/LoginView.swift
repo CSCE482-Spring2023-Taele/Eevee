@@ -17,6 +17,8 @@ class UserAuthModel: ObservableObject {
     @Published var errorMessage: String = ""
     @Published var emailAddress: String = ""
     @Published var hasAccount: Bool = false
+    @Published var dogID: Int = 0
+    
     
     init(){
         check()

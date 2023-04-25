@@ -13,17 +13,6 @@ struct FooterSection: View {
     
     var body: some View {
         VStack {
-            //            Spacer()
-            //            Button(action: {}) {
-            //                Image("puppy-icon")
-            //                    .resizable().aspectRatio(contentMode: .fit).frame(height:45)
-            //            }
-            //
-            //            Spacer()
-            //            Button(action: {}) {
-            //                Image("chats")
-            //            }
-            //        }.padding([.horizontal, .bottom])
             Button(action: {}) {
                 Image("puppy-icon")
                     .resizable().aspectRatio(contentMode:
