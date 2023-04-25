@@ -17,6 +17,10 @@ class UserAuthModel: ObservableObject {
     @Published var errorMessage: String = ""
     @Published var emailAddress: String = ""
     @Published var hasAccount: Bool = false
+    @Published var ownerID: Int?
+  
+
+    
     
     init(){
         check()
@@ -45,7 +49,7 @@ class UserAuthModel: ObservableObject {
             self.profilePicUrl =  ""
         }
     }
-    
+
     func checkAccount() {
         let email = self.emailAddress
         let emailCheck = "https://puppyloveapishmeegan.azurewebsites.net/Owner/" + email + ",%201"
@@ -64,7 +68,12 @@ class UserAuthModel: ObservableObject {
                     } else {
                         print("Email Found")
                         self.hasAccount = true
+                        // Store the ownerID in the @Published variable
+                        self.ownerID = json?["OwnerID"] as? Int
                     }
+                   
+                    
+                    
 
                 } catch let error {
                     print("Error decoding JSON: \(error.localizedDescription)")
@@ -76,6 +85,7 @@ class UserAuthModel: ObservableObject {
         }
         print(self.hasAccount)
     }
+
     
     func check(){
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in

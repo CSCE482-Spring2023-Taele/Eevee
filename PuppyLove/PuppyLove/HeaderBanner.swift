@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Header: View {
+    @EnvironmentObject var vm: UserAuthModel
     @AppStorage("rValue") var rValue = DefaultSettings.rValue
     @AppStorage("gValue") var gValue = DefaultSettings.gValue
     @AppStorage("bValue") var bValue = DefaultSettings.bValue
