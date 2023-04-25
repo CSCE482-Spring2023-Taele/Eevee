@@ -19,12 +19,20 @@ struct CardView: View {
             return
         }
         outcome.reviewedDogID = card.dogID
+        if let ownerID = vm.ownerID {
+            outcome.currDogID = ownerID
+        }
         if(swipeOutcome == 1) {
             outcome.outcome = 1
         }
         else {
             outcome.outcome = 0
         }
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let timestampString = dateFormatter.string(from: date)
+        outcome.timestamp = timestampString
         let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/Swipe")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -33,8 +41,8 @@ struct CardView: View {
             let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
             print(outcome.currDogID)
             print(outcome.reviewedDogID)
-            print(outcome.timestamp)
-            print(outcome.outcome)
+//            print(outcome.timestamp)
+//            print(outcome.outcome)
             // handle the result
         } catch {
             print("POST  failed.")
