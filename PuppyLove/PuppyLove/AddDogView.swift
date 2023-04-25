@@ -8,9 +8,11 @@
 import Foundation
 import SwiftUI
 import PhotosUI
+import Amplify
 
 struct AddDogView: View {
     @StateObject var dog: Dog
+    @EnvironmentObject var vm: UserAuthModel
     
     @State private var dogBreed = ""
     @State private var dogAge = "Puppy (0-1 years)"
@@ -20,7 +22,7 @@ struct AddDogView: View {
     @State private var vaccinated = false
     @State private var fixed = false
     
-    @State private var selectedItem: PhotosPickerItem? = nil
+    @State private var selected: PhotosPickerItem? = nil
     @State private var dogPhoto: Data? = nil
     
     @State var breeds = [Breed]()
@@ -53,6 +55,27 @@ struct AddDogView: View {
         }
     }
     
+    func uploadImage() async throws {
+        if dogPhoto != nil {
+            let dogPhotoData: Data! = dogPhoto ?? nil
+            let imageKey: String = "\(vm.emailAddress)-Dog"
+            let profileImage = UIImage(data: dogPhotoData)!
+            let profileImageData = profileImage.jpegData(compressionQuality: 1)!
+            
+            let uploadTask = Amplify.Storage.uploadData(
+                    key: imageKey,
+                    data: profileImageData
+                )
+                Task {
+                    for await progress in await uploadTask.progress {
+                        print("Progress: \(progress)")
+                    }
+                }
+                let value = try await uploadTask.value
+                print("Completed: \(value)")
+        }
+    }
+    
     var body: some View {
         VStack {
             Form {
@@ -62,10 +85,10 @@ struct AddDogView: View {
                 
                 Section(header: Text("Profile Picture")) {
                     HStack {
-                        PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
+                        PhotosPicker(selection: $selected, matching: .images, photoLibrary: .shared()) {
                             Text("Select a photo")
                         }
-                        .onChange(of: selectedItem) { newItem in
+                        .onChange(of: selected) { newItem in
                             Task {
                                 if let data = try? await newItem?.loadTransferable(type: Data.self) {
                                     dogPhoto = data
@@ -89,6 +112,11 @@ struct AddDogView: View {
                         in: 0...10,
                         step: 1
                     )
+                    HStack {
+                        Text("Not Active").font(.caption)
+                        Spacer()
+                        Text("Extremely Active").font(.caption)
+                    }
                 }.padding()
                 
                 Section(header: Text("Breed")) {
@@ -154,9 +182,9 @@ struct AddDogView: View {
                 dog.VaccinationStatus = vaccinated
                 dog.FixedStatus = fixed
                 dog.Weight = dogWeight
-                dump(dog)
                 Task {
                     await sendRequest()
+                    try await uploadImage()
                 }
             }, label: { Text("Save")})
         }

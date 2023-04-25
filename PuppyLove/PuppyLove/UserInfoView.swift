@@ -9,11 +9,13 @@ import Foundation
 import SwiftUI
 import PhotosUI
 import CoreLocation
+import Amplify
 
 struct UserInfoView: View {
     @StateObject var user: User
     @StateObject var dog: Dog
     @StateObject var locationDataManager = LocationDataManager()
+    @EnvironmentObject var vm: UserAuthModel
     
     var sexOptions = ["Male", "Female", "Non-binary"]
     @State var selectedSex = "Male"
@@ -48,6 +50,27 @@ struct UserInfoView: View {
             
             default:
                 break
+        }
+    }
+    
+    func uploadImage() async throws {
+        if userPhoto != nil {
+            let userPhotoData: Data! = userPhoto ?? nil
+            let imageKey: String = "\(vm.emailAddress)"
+            let profileImage = UIImage(data: userPhotoData)!
+            let profileImageData = profileImage.jpegData(compressionQuality: 1)!
+            
+            let uploadTask = Amplify.Storage.uploadData(
+                    key: imageKey,
+                    data: profileImageData
+                )
+                Task {
+                    for await progress in await uploadTask.progress {
+                        print("Progress: \(progress)")
+                    }
+                }
+                let value = try await uploadTask.value
+                print("Completed: \(value)")
         }
     }
     
@@ -87,7 +110,7 @@ struct UserInfoView: View {
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 100, height: 100)
-                        }
+                            }
                     }
                 }.padding()
                 
@@ -103,6 +126,9 @@ struct UserInfoView: View {
             }
             NavigationLink(destination: UserPreferencesView(user: user, dog: dog).onAppear {
                 grabLocation()
+                Task {
+                    try await uploadImage()
+                }
                 user.Sex = selectedSex
                 user.calculateAge(birthday: date)
             }, label: { Text("Next")})

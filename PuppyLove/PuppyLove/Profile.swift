@@ -7,28 +7,61 @@
 //
 
 import SwiftUI
+import Amplify
 
 struct Profile: View {
     let profileLinkNames: [String] = ["Dog/s", "Name", "Birthday","Email","Gender",
     "Height","Location","Age Range", "Political Affiliation", "Religion", "Do you Drink/Smoke"
      ]
-
-    var body: some View {
-        NavigationView {
-            VStack(spacing:0) {
-                ForEach(profileLinkNames, id: \.self) { profileLinkName in ProfileLink(profileLinkName: profileLinkName)
+    
+    @State var userPhoto: Data? = nil
+    @State var profilePhoto: UIImage?
+    func downloadImage() async throws {
+        print("downloading image")
+        let imageKey: String = "izzy@gmail.com"
+        let downloadTask = Amplify.Storage.downloadData(key: imageKey)
+            Task {
+                for await progress in await downloadTask.progress {
+                    print("Progress: \(progress)")
                 }
-                Spacer()
             }
-            .navigationBarTitle("Martha Green")
-            .navigationBarItems(leading:Text("Owner")
-                .font(.body)
-                .foregroundColor(Color(.systemGray)),
-                                trailing: Image("Kate")
-                                          .resizable()
-                                          .frame(width: 40, height: 40)
-                                          .clipShape(Circle()))
+        userPhoto = try await downloadTask.value
+        print("Completed")
+    }
+
+    // Keeping this here, just uncomment for actual profile page functionality
+    // Showing the implementation of the function
+    var body: some View {
+        VStack {
+            if let userPhoto,
+               let image = UIImage(data: userPhoto) {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 100, height: 100)
+                }
         }
+        .onAppear {
+            Task {
+                // Showing the implementation of the function
+                try await downloadImage()
+            }
+        }
+//        NavigationView {
+//            VStack(spacing:0) {
+//                ForEach(profileLinkNames, id: \.self) { profileLinkName in ProfileLink(profileLinkName: profileLinkName)
+//                }
+//                Spacer()
+//            }
+//            .navigationBarTitle("Martha Green")
+//            .navigationBarItems(leading:Text("Owner")
+//                .font(.body)
+//                .foregroundColor(Color(.systemGray)),
+//                                trailing: Image("Kate")
+//                                          .resizable()
+//                                          .frame(width: 40, height: 40)
+//                                          .clipShape(Circle()))
+//        }
     }
 }
 

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Amplify
 
 struct DecodedUser: Codable {
     let ownerID: Int?
@@ -30,7 +31,7 @@ struct UserPreferencesView: View {
     
     @State var distance: Double = 100
     @State var minAge: Int = 18
-    @State var maxAge: Int = 100
+    @State var maxAge: Int = 25
     
     // API call POST owner
     func sendRequest() async {
@@ -58,6 +59,18 @@ struct UserPreferencesView: View {
             print("Decoding failed.")
         }
     }
+    
+    func downloadImage() async throws {
+        let imageKey: String = "izzy@gmail.com"
+        let downloadTask = Amplify.Storage.downloadData(key: imageKey)
+            Task {
+                for await progress in await downloadTask.progress {
+                    print("Progress: \(progress)")
+                }
+            }
+        let data = try await downloadTask.value
+        print("Completed: \(data)")
+    }
 
     var body: some View {
         VStack {
@@ -84,15 +97,13 @@ struct UserPreferencesView: View {
                     }
                 }.padding()
             }
+            
             NavigationLink(destination: AddDogView(dog: dog).onAppear {
                 user.SexPreference = selectedPreference
-                
-                // change email or else post wont work, need to grab email from oAuth process
                 user.OwnerEmail = vm.emailAddress
                 user.MaxDistance = Int(distance)
                 user.MaxAge = Int(maxAge)
                 user.MinAge = Int(minAge)
-                dump(user)
                 Task {
                     await sendRequest()
                 }
