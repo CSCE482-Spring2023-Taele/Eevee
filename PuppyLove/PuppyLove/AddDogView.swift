@@ -42,7 +42,7 @@ struct AddDogView: View {
             return
         }
         
-        let url = URL(string: "https://puppyloveapi.azurewebsites.net/Dog")!
+        let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/Dog")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"

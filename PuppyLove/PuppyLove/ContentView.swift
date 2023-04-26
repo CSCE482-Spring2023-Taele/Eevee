@@ -13,12 +13,12 @@ struct ContentView: View {
                     FooterSection()
                         .tabItem{
                             VStack {
-                                Image(systemName: "card")
+                                Image(systemName: "person")
                                 Text("Swipe")
                             }
                         }
                         .tag(0)
-                    Profile()
+                    ProfileView()
                         .font(.title)
                         .tabItem{
                             VStack{
@@ -27,6 +27,15 @@ struct ContentView: View {
                             }
                         }
                         .tag(1)
+                    CardsSection()
+                        .tabItem{
+                            VStack {
+                                Image(systemName:"person")
+                                Text("Bark")
+                            }
+                        }
+                        .tag(2)
+                    
                 }
             }
         }

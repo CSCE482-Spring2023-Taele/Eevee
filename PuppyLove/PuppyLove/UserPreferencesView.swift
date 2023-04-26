@@ -41,7 +41,7 @@ struct UserPreferencesView: View {
             return
         }
         
-        let url = URL(string: "https://puppyloveapi.azurewebsites.net/Owner")!
+        let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/Owner")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
