@@ -97,8 +97,8 @@ struct AddDogView: View {
                         }
                         Spacer()
                         if let dogPhoto,
-                            let image = UIImage(data: dogPhoto) {
-                            Image(uiImage: image)
+                            let dogImage = UIImage(data: dogPhoto) {
+                            Image(uiImage: dogImage)
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 100, height: 100)

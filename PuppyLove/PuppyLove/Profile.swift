@@ -14,11 +14,12 @@ struct Profile: View {
     "Height","Location","Age Range", "Political Affiliation", "Religion", "Do you Drink/Smoke"
      ]
     
+    @EnvironmentObject var vm: UserAuthModel
     @State var userPhoto: Data? = nil
     @State var profilePhoto: UIImage?
     func downloadImage() async throws {
         print("downloading image")
-        let imageKey: String = "izzy@gmail.com"
+        let imageKey: String = "\(vm.emailAddress)"
         let downloadTask = Amplify.Storage.downloadData(key: imageKey)
             Task {
                 for await progress in await downloadTask.progress {

@@ -42,11 +42,11 @@ struct ContentView: View {
         else if(vm.isLoggedIn == true) {
                 NavigationView {
                     SignUpView()
-                }.navigationTitle("Sign Up")
+                }//.navigationTitle("Sign Up")
         }
         else {
-            // LoginView()
-            SignUpView()
+            LoginView()
+            // SignUpView()
         }
 //        NavigationView {
 //            SignUpView()

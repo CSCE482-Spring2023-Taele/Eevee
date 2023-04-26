@@ -6,11 +6,47 @@
 //
 
 import SwiftUI
+import Amplify
 
 struct ProfileView: View {
     @State var isPresented = false
+    
+    // Setup for including photo
+    @EnvironmentObject var vm: UserAuthModel
+    @State var userPhoto: Data? = nil
+    @State var profilePhoto: UIImage?
+    func downloadImage() async throws {
+        print("downloading image")
+        let imageKey: String = "\(vm.emailAddress)"
+        let downloadTask = Amplify.Storage.downloadData(key: imageKey)
+            Task {
+                for await progress in await downloadTask.progress {
+                    print("Progress: \(progress)")
+                }
+            }
+        userPhoto = try await downloadTask.value
+        print("Completed")
+    }
 
     var body: some View {
+        
+        // Exmaple use of loading photo onto page
+//        VStack {
+//            if let userPhoto,
+//               let image = UIImage(data: userPhoto) {
+//                Image(uiImage: image)
+//                    .resizable()
+//                    .scaledToFill()
+//                    .frame(width: 100, height: 100)
+//                }
+//        }
+//        .onAppear {
+//            Task {
+//                // Showing the implementation of the function
+//                try await downloadImage()
+//            }
+//        }
+        
         VStack {
             VStack {
                 Header()

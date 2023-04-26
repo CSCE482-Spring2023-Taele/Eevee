@@ -17,7 +17,10 @@ target 'PuppyLove' do
   pod 'Firebase'
   pod 'SDWebImageSwiftUI'
   pod 'FirebaseFirestoreSwift'
-  
+  pod 'Amplify'
+  pod 'AmplifyPlugins/AWSDataStorePlugin'
+  pod 'AmplifyPlugins/AWSS3StoragePlugin'
+  pod 'AmplifyPlugins/AWSCognitoAuthPlugin'
 
   target 'PuppyLoveTests' do
     inherit! :search_paths

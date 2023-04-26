@@ -105,7 +105,7 @@ struct UserPreferencesView: View {
                 user.MaxAge = Int(maxAge)
                 user.MinAge = Int(minAge)
                 Task {
-                    await sendRequest()
+                    // await sendRequest()
                 }
             }, label: {
                     Text("Next")
