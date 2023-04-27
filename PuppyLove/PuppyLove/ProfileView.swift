@@ -8,49 +8,32 @@
 import SwiftUI
 import Amplify
 
+struct DecodeUser: Codable {
+    
+    let ownerID: Int?
+    let ownerName: String?
+    let ownerEmail: String?
+    let age: Int?
+    let minAge: Int?
+    let maxAge: Int?
+    let sex: String?
+    let sexPreference: String?
+    let location: String?
+    let maxDistance: Int?
+}
+
+
+
 struct ProfileView: View {
     @State var isPresented = false
-    
-    // Setup for including photo
-    @EnvironmentObject var vm: UserAuthModel
-    @State var userPhoto: Data? = nil
-    @State var profilePhoto: UIImage?
-    func downloadImage() async throws {
-        print("downloading image")
-        let imageKey: String = "\(vm.emailAddress)"
-        let downloadTask = Amplify.Storage.downloadData(key: imageKey)
-            Task {
-                for await progress in await downloadTask.progress {
-                    print("Progress: \(progress)")
-                }
-            }
-        userPhoto = try await downloadTask.value
-        print("Completed")
-    }
 
     var body: some View {
-        
-        // Exmaple use of loading photo onto page
-//        VStack {
-//            if let userPhoto,
-//               let image = UIImage(data: userPhoto) {
-//                Image(uiImage: image)
-//                    .resizable()
-//                    .scaledToFill()
-//                    .frame(width: 100, height: 100)
-//                }
-//        }
-//        .onAppear {
-//            Task {
-//                // Showing the implementation of the function
-//                try await downloadImage()
-//            }
-//        }
-        
         VStack {
             VStack {
                 Header()
-                ProfileText()
+                ProfileText(
+                    user: User(OwnerID: 0, OwnerName: "", OwnerEmail: "", Age: 0, MinAge: 0, MaxAge: 0, Sex: "", SexPreference: "", Location: "", MaxDistance: 0),
+                        dog: Dog(DogID: 0, OwnerID: 0, DogName: "", Breed: "", Weight: 0, Age: "", Sex: "", ActivityLevel: 0, VaccinationStatus: false, FixedStatus: false, BreedPreference: "none", AdditionalInfo: ""))
             }
             Spacer()
             Button (
@@ -66,28 +49,35 @@ struct ProfileView: View {
 }
 
 struct ProfileText: View {
-    @AppStorage("name") var name = DefaultSettings.name
-    @AppStorage("age") var age = DefaultSettings.age
-    @AppStorage("gender") var gender = DefaultSettings.gender
+    @EnvironmentObject var vm: UserAuthModel
+    @StateObject var user: User
+    @StateObject var dog: Dog
+    
+    
+    var SexPreference = ["Male","Female", "Non-binary", "Everyone"]
+    @State var selectedPreference = "Male"
+        
+
+    @State var age: Int = 30
+    @State var Sex: String = "Male"
+    @State var Location: String = "Houston"
+    @State var distance: Double = 100
+    @State var minAge: Int = 18
+    @State var maxAge: Int = 100
+
+
     @AppStorage("description") var description = DefaultSettings.description
-    @AppStorage("minAge") var minAge = DefaultSettings.minAge
-    @AppStorage("maxAge") var maxAge = DefaultSettings.maxAge
-    @AppStorage("maxDistance") var maxDistance = DefaultSettings.maxDistance
-    @AppStorage("dogName") var dogName = DefaultSettings.dogName
-    @AppStorage("dogBreed") var dogBreed = DefaultSettings.dogBreed
-    
-    
     
     var body: some View {
         VStack(spacing: 15) {
             VStack(spacing: 5) {
-                Text(name)
+                Text(vm.givenName)
                     .bold()
                     .font(.title)
-                Text(age)
+                Text(String(vm.ownerAge ?? 0))
                     .font(.body)
                     .foregroundColor(.secondary)
-                Text(gender)
+                Text(vm.ownerSex)
                     .font(.body)
                     .foregroundColor(.secondary)
             }.padding()
