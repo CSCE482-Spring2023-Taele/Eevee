@@ -84,6 +84,50 @@ namespace PuppyLoveAPI
             return JsonSerializer.Serialize(dogs);
         }
 
+        public static string GetDogByEmail(string email)
+        {
+            DBConnection DB = DBConnection.Instance();
+            Dog dog = new Dog();
+
+            if (DB.IsConnect())
+            {
+                string query = $"select dogs.dog_id, dogs.owner_id, dogs.name, dogs.breed, dogs.weight, dogs.age, dogs.sex, dogs.activity_level, dogs.vaccination_status, dogs.fixed_status, dogs.breed_preference, dogs.additional_info from dogs inner join owners o on o.owner_id = dogs.owner_id where o.email = \'{email}\';\r\n";
+                MySqlCommand cmd = new MySqlCommand(query, DB.Connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    int dogId = Int32.Parse(reader.GetString(0));
+                    int ownerId = Int32.Parse(reader.GetString(1));
+                    string dogName = reader.GetString(2);
+                    string breed = reader.GetString(3);
+                    int weight = Int32.Parse(reader.GetString(4));
+                    string age = reader.GetString(5);
+                    string sex = reader.GetString(6);
+                    int activityLevel = Int32.Parse(reader.GetString(7));
+                    bool vaccinationStatus = bool.Parse(reader.GetString(8));
+                    bool fixedStatus = bool.Parse(reader.GetString(9));
+                    string breedPreference = reader.GetString(10);
+                    string additionalInfo = reader.GetString(11);
+
+                    dog.DogID = dogId;
+                    dog.OwnerID = ownerId;
+                    dog.DogName = dogName;
+                    dog.Breed = breed;
+                    dog.Weight = weight;
+                    dog.Age = age;
+                    dog.Sex = sex;
+                    dog.ActivityLevel = activityLevel;
+                    dog.VaccinationStatus = vaccinationStatus;
+                    dog.FixedStatus = fixedStatus;
+                    dog.BreedPreference = breedPreference;
+                    dog.AdditionalInfo = additionalInfo;
+
+                }
+                DB.Close();
+            }
+            return JsonSerializer.Serialize(dog);
+        }
+
         public static Dog GetDogId(int id)
         {
             DBConnection DB = DBConnection.Instance();
