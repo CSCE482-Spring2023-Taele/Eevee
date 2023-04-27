@@ -22,6 +22,7 @@ class UserAuthModel: ObservableObject {
     @Published var dogID: Int?
     @Published var dogName: String = ""
     @Published var dogBreed: String = ""
+    @Published var dogAge: String = ""
     @Published var dogInfo: String = ""
     @Published var ownerAge: Int?
     @Published var ownerSex: String = ""
@@ -106,10 +107,11 @@ class UserAuthModel: ObservableObject {
                 do {
                     // something wrong with this atm
                     let dogJson = try JSONSerialization.jsonObject(with: dogData, options: []) as? [String: Any]
-                    self.dogID = dogJson?["DogID"] as? Int
                     self.dogName = dogJson?["DogName"] as? String ?? ""
+                    self.dogAge = dogJson?["Age"] as? String ?? ""
                     self.dogBreed = dogJson?["Breed"] as? String ?? ""
                     self.dogInfo = dogJson?["AdditionInfo"] as? String ?? ""
+                    self.dogID = dogJson?["DogID"] as? Int ?? 0
 
                 }
                 catch let error {
