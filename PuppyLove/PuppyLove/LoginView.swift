@@ -72,37 +72,13 @@ class UserAuthModel: ObservableObject {
                         self.hasAccount = false
                     } else {
                         print("Email Found")
-                        let ownerAge = json?["Age"] as? Int
-                        let ownerSex = json?["Sex"] as? String
+                        self.ownerAge = json?["Age"] as? Int
+                        self.ownerSex = json?["Sex"] as? String ?? ""
                         let givenName = json?["OwnerName"] as? String
                         self.hasAccount = true
                         // Store the ownerID in the @Published variable
                         self.ownerID = json?["OwnerID"] as? Int
-                        // Start to populate other global variables that will be used for the profile
-                        let dogCheck = "https://puppyloveapishmeegan.azurewebsites.net/Email/" + email
-                        if let dogUrl = URL(string: dogCheck) {
-                            let dogTask = URLSession.shared.dataTask(with: dogUrl) { data, response, error in
-                                guard let dogData = data, error == nil else {
-                                    print("Error: \(error?.localizedDescription ?? "Unknown error")")
-                                    return
-                                }
-                                
-                                do {
-                                    // something wrong with this atm
-                                    let dogJson = try JSONSerialization.jsonObject(with: dogData, options: []) as? [String: Any]
-                                    let dogID = dogJson?["DogID"] as? Int
-                                    let dogName = dogJson?["DogName"] as? String
-                                    let dogBreed = dogJson?["Breed"] as? String
-                                    let dogInfo = dogJson?["AdditionInfo"] as? String
-                                    
-                                }
-                                catch let error {
-                                    print("Error decoding JSON: \(error.localizedDescription)")
-                                }
-                            }
-                            dogTask.resume()
-                        }
-                        
+                        self.grabDogVariables()
                     }
 
                 } catch let error {
@@ -114,6 +90,34 @@ class UserAuthModel: ObservableObject {
             print("Invalid URL")
         }
         print(self.hasAccount)
+    }
+    
+    func grabDogVariables()
+    {
+        // Start to populate other global variables that will be used for the profile
+        let dogCheck = "https://puppyloveapishmeegan.azurewebsites.net/Email/" + self.emailAddress
+        if let dogUrl = URL(string: dogCheck) {
+            let dogTask = URLSession.shared.dataTask(with: dogUrl) { data, response, error in
+                guard let dogData = data, error == nil else {
+                    print("Error: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+
+                do {
+                    // something wrong with this atm
+                    let dogJson = try JSONSerialization.jsonObject(with: dogData, options: []) as? [String: Any]
+                    self.dogID = dogJson?["DogID"] as? Int
+                    self.dogName = dogJson?["DogName"] as? String ?? ""
+                    self.dogBreed = dogJson?["Breed"] as? String ?? ""
+                    self.dogInfo = dogJson?["AdditionInfo"] as? String ?? ""
+
+                }
+                catch let error {
+                    print("Error decoding JSON: \(error.localizedDescription)")
+                }
+            }
+            dogTask.resume()
+        }
     }
 
     
