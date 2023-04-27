@@ -46,7 +46,6 @@
 		601F11E029E355FE0043B1C4 /* Matches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601F11DF29E355FE0043B1C4 /* Matches.swift */; };
 		9336F26929D17EFB009DDCC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9336F26529D17EFB009DDCC0 /* Assets.xcassets */; };
 		9336F26A29D17EFB009DDCC0 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9336F26629D17EFB009DDCC0 /* Categories.swift */; };
-		9336F26B29D17EFB009DDCC0 /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9336F26729D17EFB009DDCC0 /* PhotoPickerView.swift */; };
 		9336F26C29D17EFB009DDCC0 /* Preview Content in Resources */ = {isa = PBXBuildFile; fileRef = 9336F26829D17EFB009DDCC0 /* Preview Content */; };
 		93504E6029E47E650092EA41 /* userSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93504E5A29E47E650092EA41 /* userSettings.swift */; };
 		93504E6129E47E650092EA41 /* HeaderBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93504E5B29E47E650092EA41 /* HeaderBanner.swift */; };
@@ -121,7 +120,6 @@
 		8A8D4DE69495E6C8AC7EA8E0 /* Pods-PuppyLove-PuppyLoveUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PuppyLove-PuppyLoveUITests.debug.xcconfig"; path = "Target Support Files/Pods-PuppyLove-PuppyLoveUITests/Pods-PuppyLove-PuppyLoveUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9336F26529D17EFB009DDCC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9336F26629D17EFB009DDCC0 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
-		9336F26729D17EFB009DDCC0 /* PhotoPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
 		9336F26829D17EFB009DDCC0 /* Preview Content */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Preview Content"; sourceTree = "<group>"; };
 		93504E5A29E47E650092EA41 /* userSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userSettings.swift; sourceTree = "<group>"; };
 		93504E5B29E47E650092EA41 /* HeaderBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderBanner.swift; sourceTree = "<group>"; };
@@ -212,7 +210,6 @@
 				93504E5A29E47E650092EA41 /* userSettings.swift */,
 				9336F26529D17EFB009DDCC0 /* Assets.xcassets */,
 				9336F26629D17EFB009DDCC0 /* Categories.swift */,
-				9336F26729D17EFB009DDCC0 /* PhotoPickerView.swift */,
 				9336F26829D17EFB009DDCC0 /* Preview Content */,
 				43E568EE29D21DF500E67CF6 /* Breeds.swift */,
 				43E568D329CB7D5900E67CF6 /* Card.swift */,
@@ -282,8 +279,6 @@
 		78A26A8D4805BCE503F9A4E6 /* AmplifyConfig */ = {
 			isa = PBXGroup;
 			children = (
-				31844F7929F8A88800BA2B62 /* awsconfiguration.json */,
-				31844F7729F8A87C00BA2B62 /* amplifyconfiguration.json */,
 			);
 			name = AmplifyConfig;
 			sourceTree = "<group>";
@@ -573,7 +568,6 @@
 				43805DDA29DBC8AB00A02041 /* RecentMessage.swift in Sources */,
 				601F11D429E089D80043B1C4 /* ChatLogView.swift in Sources */,
 				43E568DB29CB8A3400E67CF6 /* ContentView.swift in Sources */,
-				9336F26B29D17EFB009DDCC0 /* PhotoPickerView.swift in Sources */,
 				43805DEA29E375D200A02041 /* Dog.swift in Sources */,
 				43E568D829CB7D5900E67CF6 /* Card.swift in Sources */,
 				19B481F329C2D512009D7D5A /* LoginView.swift in Sources */,

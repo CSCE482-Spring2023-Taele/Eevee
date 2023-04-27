@@ -77,12 +77,12 @@ struct UserInfoView: View {
     var body: some View {
         VStack {
             Form {
-                Section(header: Text("Name")) {
+                Section(header: Text("Name").foregroundColor(.white)) {
                     TextField("Name", text: $user.OwnerName)
                     
                 }.padding()
                 
-                Section(header: Text("Birthday")) {
+                Section(header: Text("Birthday").foregroundColor(.white)) {
                     DatePicker(
                         "Select Date",
                         selection: $date,
@@ -91,7 +91,7 @@ struct UserInfoView: View {
                     )
                 }.padding()
                 
-                Section(header: Text("Profile Picture")) {
+                Section(header: Text("Profile Picture").foregroundColor(.white)) {
                     HStack {
                         PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
                             Text("Select a photo")
@@ -114,24 +114,31 @@ struct UserInfoView: View {
                     }
                 }.padding()
                 
-                Section(header: Text("Gender")) {
+                Section(header: Text("Gender").foregroundColor(.white)) {
                     HStack {
                         Picker("Select Gender", selection: $selectedSex) {
                             ForEach(sexOptions, id: \.self, content: { sex in
                                 Text(sex)
                             })
                         }
+                        .pickerStyle(.segmented)
                     }
                 }.padding()
             }
+            .background(Color(red: 0.784, green: 0.635, blue: 0.784))
+            .foregroundColor(.orange)
+            .scrollContentBackground(.hidden)
+            .tint(.orange)
+            
             NavigationLink(destination: UserPreferencesView(user: user, dog: dog).onAppear {
                 grabLocation()
+                user.Sex = selectedSex
+                user.calculateAge(birthday: date)
                 Task {
                     try await uploadImage()
                 }
-                user.Sex = selectedSex
-                user.calculateAge(birthday: date)
-            }, label: { Text("Next")})
+            }, label: { Text("Next").foregroundColor(.black) })
+
         }
         .navigationBarTitle(Text("User Information"))
     }

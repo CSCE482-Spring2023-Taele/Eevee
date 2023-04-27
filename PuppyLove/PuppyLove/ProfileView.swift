@@ -17,7 +17,7 @@ struct ProfileView: View {
     @State var profilePhoto: UIImage?
     func downloadImage() async throws {
         print("downloading image")
-        let imageKey: String = "\(vm.emailAddress)"
+        let imageKey: String = "aaronsanchez01@tamu.edu"
         let downloadTask = Amplify.Storage.downloadData(key: imageKey)
             Task {
                 for await progress in await downloadTask.progress {
