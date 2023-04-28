@@ -36,14 +36,14 @@ struct ProfileView: View {
                         dog: Dog(DogID: 0, OwnerID: 0, DogName: "", Breed: "", Weight: 0, Age: "", Sex: "", ActivityLevel: 0, VaccinationStatus: false, FixedStatus: false, BreedPreference: "none", AdditionalInfo: ""))
             }
             Spacer()
-            Button (
-                action: { self.isPresented = true },
-                label: {
-                    Label("Edit", systemImage: "pencil")
-            })
-            .sheet(isPresented: $isPresented, content: {
-                SettingsView()
-            })
+//            Button (
+//                action: { self.isPresented = true },
+//                label: {
+//                    Label("Edit", systemImage: "pencil")
+//            })
+//            .sheet(isPresented: $isPresented, content: {
+//                SettingsView()
+//            })
         }
     }
 }
@@ -52,6 +52,22 @@ struct ProfileText: View {
     @EnvironmentObject var vm: UserAuthModel
     @StateObject var user: User
     @StateObject var dog: Dog
+    
+//    @State var userPhoto: Data? = nil
+//    @State var profilePhoto: UIImage?
+//    func downloadImage() async throws {
+//        print("downloading image")
+//        let imageKey: String = "\(vm.emailAddress)-Dog"
+//        let downloadTask = Amplify.Storage.downloadData(key: imageKey)
+//            Task {
+//                for await progress in await downloadTask.progress {
+//                    print("Progress: \(progress)")
+//                }
+//            }
+//        userPhoto = try await downloadTask.value
+//        print("Completed")
+//    }
+    
     
     
     var SexPreference = ["Male","Female", "Non-binary", "Everyone"]
@@ -64,7 +80,17 @@ struct ProfileText: View {
     @State var distance: Double = 100
     @State var minAge: Int = 18
     @State var maxAge: Int = 100
+    
 
+//    init() {
+//            Task.detached {
+//                do {
+//                    try await self.downloadImage()
+//                } catch {
+//                    print("Error initializing ProfileText: \(error)")
+//                }
+//            }
+//        }
 
     @AppStorage("description") var description = DefaultSettings.description
     
@@ -74,23 +100,45 @@ struct ProfileText: View {
                 Text(vm.givenName)
                     .bold()
                     .font(.title)
-                Text(String(vm.ownerAge ?? 0))
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                Text(vm.ownerSex)
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                Text(vm.dogName)
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                Text(vm.dogAge)
-                    .font(.body)
-                    .foregroundColor(.secondary)
-            }.padding()
-            Text(vm.dogInfo)
-                .multilineTextAlignment(.center)
-                .padding()
-            Spacer()
+                HStack {
+                    Text(String(vm.ownerAge ?? 0))
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                    Text(vm.ownerSex)
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                }.padding()
+                Spacer()
+                HStack
+                {
+                    // Image goes here
+                    if let profilePhoto = vm.profilePhoto {
+                        Image(uiImage: profilePhoto)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+
+                    VStack
+                    {
+                        Text(vm.dogName)
+                            .bold()
+                            .font(.title)
+                    HStack
+                        {
+                            Text(vm.dogAge)
+                                .font(.body)
+                                .foregroundColor(.secondary)
+                            Text(vm.dogBreed)
+                                .font(.body)
+                                .foregroundColor(.secondary)
+                            Text(vm.dogInfo)
+                                .multilineTextAlignment(.center)
+                                .padding()
+                        }
+                    }
+                }
+                
+            }
            
         }
     }

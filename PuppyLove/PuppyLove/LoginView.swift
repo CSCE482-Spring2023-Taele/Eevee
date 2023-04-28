@@ -8,6 +8,7 @@
 import SwiftUI
 import GoogleSignInSwift
 import GoogleSignIn
+import Amplify
 
 class UserAuthModel: ObservableObject {
     let signInConfig = GIDConfiguration.init(clientID: "CLIENT_ID")
@@ -26,6 +27,22 @@ class UserAuthModel: ObservableObject {
     @Published var dogInfo: String = ""
     @Published var ownerAge: Int?
     @Published var ownerSex: String = ""
+    @Published var userPhoto: Data? = nil
+    @Published var profilePhoto: UIImage?
+    
+    
+    func downloadDogImage() async throws {
+        print("downloading image")
+        let imageKey: String = "\(emailAddress)-Dog"
+        let downloadTask = Amplify.Storage.downloadData(key: imageKey)
+            Task {
+                for await progress in await downloadTask.progress {
+                    print("Progress: \(progress)")
+                }
+            }
+        userPhoto = try await downloadTask.value
+        print("Completed")
+    }
     
     init(){
         check()
@@ -80,6 +97,14 @@ class UserAuthModel: ObservableObject {
                         // Store the ownerID in the @Published variable
                         self.ownerID = json?["OwnerID"] as? Int
                         self.grabDogVariables()
+//                        Task {
+//                            do
+//                            {
+//                                try await self.downloadDogImage()
+//                            } catch {
+//                                print("Error initializing ProfileText: \(error)")
+//                            }
+//                        }
                     }
 
                 } catch let error {
@@ -110,7 +135,7 @@ class UserAuthModel: ObservableObject {
                     self.dogName = dogJson?["DogName"] as? String ?? ""
                     self.dogAge = dogJson?["Age"] as? String ?? ""
                     self.dogBreed = dogJson?["Breed"] as? String ?? ""
-                    self.dogInfo = dogJson?["AdditionInfo"] as? String ?? ""
+                    self.dogInfo = dogJson?["AdditionalInfo"] as? String ?? ""
                     self.dogID = dogJson?["DogID"] as? Int ?? 0
 
                 }

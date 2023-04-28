@@ -18,6 +18,7 @@ struct CardView: View {
             print("Failed to encode outcome")
             return
         }
+        outcome.currDogID = vm.dogID ?? 0
         outcome.reviewedDogID = card.dogID
         if let ownerID = vm.ownerID {
             outcome.currDogID = ownerID
@@ -33,19 +34,29 @@ struct CardView: View {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let timestampString = dateFormatter.string(from: date)
         outcome.timestamp = timestampString
+        
+        // Encode the `outcome` object to JSON data
+        let jsonEncoder = JSONEncoder()
+        
         let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/Swipe")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
-        do {
-            let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
-            print(outcome.currDogID)
-            print(outcome.reviewedDogID)
-//            print(outcome.timestamp)
-//            print(outcome.outcome)
-            // handle the result
-        } catch {
-            print("POST  failed.")
+        
+        if let encodedOutcome = try? jsonEncoder.encode(outcome)
+        {
+            request.httpBody = encodedOutcome
+            do {
+                //let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+                let (data, _) = try await URLSession.shared.upload(for: request, from: encodedOutcome)
+                print(outcome.currDogID)
+                print(outcome.reviewedDogID)
+                print(outcome.timestamp)
+                print(outcome.outcome)
+                // handle the result
+            } catch {
+                print("POST  failed.")
+            }
         }
     }
     var body: some View {
