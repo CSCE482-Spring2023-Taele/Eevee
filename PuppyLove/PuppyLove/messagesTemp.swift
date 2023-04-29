@@ -11,6 +11,14 @@ import SDWebImageSwiftUI
 import Firebase
 import FirebaseFirestoreSwift
 
+struct info: Codable{
+    let id = UUID()
+    let Item1: String
+    let Item2: String
+    let Item3: String
+}
+
+
 class MainMessagesViewModel: ObservableObject {
     
     @Published var errorMessage = ""
@@ -113,9 +121,9 @@ class MainMessagesViewModel: ObservableObject {
 }
     struct messagesTemp: View {
         @State var shouldShowLogOutOptions = false
-        
+        @State var results = [info]()
         @State var shouldNavigateToChatLogView = false
-        
+        @State var wew = ""
         @ObservedObject public var vm = MainMessagesViewModel()
         
         private var chatLogViewModel = ChatLogViewModel(chatUser: nil)
@@ -131,10 +139,12 @@ class MainMessagesViewModel: ObservableObject {
                         ChatLogView(vm: chatLogViewModel)
                     }
                     
+                    
                 }
                 .overlay(
                     newMessageButton, alignment: .bottom)
                 .navigationBarHidden(true)
+                .onAppear(perform: loadData)
             }
         }
         
@@ -143,8 +153,11 @@ class MainMessagesViewModel: ObservableObject {
                 
                 VStack(alignment: .leading, spacing: 4) {
                     let email = vm.chatUser?.email.replacingOccurrences(of: "@gmail.com", with: "") ?? ""
-                    Text(email)
-                        .font(.system(size: 24, weight: .bold))
+                    ForEach(results, id: \.id) { item in
+                                VStack(alignment: .leading) {
+                                    Text(item.Item3 + "/" + item.Item2).font(.system(size: 24, weight: .bold))
+                                }
+                            }
                     
                     HStack {
                         Circle()
@@ -182,7 +195,7 @@ class MainMessagesViewModel: ObservableObject {
                     
                                 
                                 VStack(alignment: .leading, spacing: 8) {
-                                    Text(recentMessage.username)
+                                    Text(recentMessage.fromDog)
                                         .font(.system(size: 16, weight: .bold))
                                         .foregroundColor(Color(.label))
                                         .multilineTextAlignment(.leading)
@@ -240,6 +253,31 @@ class MainMessagesViewModel: ObservableObject {
         }
         
         @State var chatUser: ChatUser?
+        
+        func loadData() {
+            let email = vm.chatUser?.email ?? ""
+            print("email: " + email)
+                guard let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/InefficientMessage/\(email)") else {
+                    print("Your API end point is Invalid")
+                    return
+                }
+                let request = URLRequest(url: url)
+
+                URLSession.shared.dataTask(with: request) { data, response, error in
+                    if let data = data {
+                        if let response = try? JSONDecoder().decode([info].self, from: data) {
+                            DispatchQueue.main.async {
+                                self.results = response
+                                print("Data:!")
+                                print(response)
+                            }
+                            return
+                        }
+                    }
+                    print("Rsp!")
+                    print(data)
+                }.resume()
+            }
     }
     
     struct messagesTemp_Previews: PreviewProvider {

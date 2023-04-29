@@ -142,6 +142,7 @@ struct ProfileText: View {
            
         }
     }
+    
 }
 /*
 #if DEBUG

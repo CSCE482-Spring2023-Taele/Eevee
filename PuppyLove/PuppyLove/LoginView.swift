@@ -46,6 +46,7 @@ class UserAuthModel: ObservableObject {
     
     init(){
         check()
+        prof.name = ""
     }
     
     func checkStatus(){
@@ -63,6 +64,8 @@ class UserAuthModel: ObservableObject {
                 print("Wowow: " + email2)
                 FirebaseManager.shared.currentUser?.email = email2
             }
+            prof.name = givenName ?? ""
+            prof.dog = "test"
             
             checkAccount()
         }else{

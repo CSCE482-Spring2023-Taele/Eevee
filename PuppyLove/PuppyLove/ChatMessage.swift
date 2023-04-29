@@ -12,4 +12,10 @@ struct ChatMessage: Codable, Identifiable {
     @DocumentID var id: String?
     let fromId, toId, text: String
     let timestamp: Date
+    let fromName, fromDog: String
+}
+
+struct prof{
+    static var name = ""
+    static var dog = ""
 }

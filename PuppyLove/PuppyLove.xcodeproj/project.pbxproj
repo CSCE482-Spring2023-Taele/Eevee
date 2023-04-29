@@ -282,8 +282,6 @@
 		78A26A8D4805BCE503F9A4E6 /* AmplifyConfig */ = {
 			isa = PBXGroup;
 			children = (
-				31844F7929F8A88800BA2B62 /* awsconfiguration.json */,
-				31844F7729F8A87C00BA2B62 /* amplifyconfiguration.json */,
 			);
 			name = AmplifyConfig;
 			sourceTree = "<group>";
@@ -737,6 +735,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PuppyLove/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your location to find dogs near you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -748,7 +747,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = PuppyLove.PuppyLove;
+				PRODUCT_BUNDLE_IDENTIFIER = PuppyLove;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -770,6 +769,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PuppyLove/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your location to find dogs near you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -781,7 +781,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = PuppyLove.PuppyLove;
+				PRODUCT_BUNDLE_IDENTIFIER = PuppyLove;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -3,37 +3,42 @@ import GoogleSignInSwift
 import GoogleSignIn
 import Firebase
 
-class Email{
-    var email: String
-    var created: String
-    var name: String
-    init(email: String, name:String) {
-        self.email = email
-        self.created = "0"
-        self.name = name
-    }
-}
+
+public var eemail = ""
+public var ecreated = ""
+public var ename = ""
+public var edog = ""
+    
+
 
 struct CardsSection: View {
     //let didCompleteLoginView: () -> ()
-    @State var email = Email(email: "", name:"")
+    @State var results = [info]()
+    //@State var email = Email(email: "", name:"")
     private func setEmail() ->String{
         if let email2 = GIDSignIn.sharedInstance.currentUser?.profile?.email{
             return email2
-            
+
         }
         return ""
     }
     
     init(){
-        print(setEmail())
-        self.email.email = setEmail()
-        print(email.email)
+        //print(setEmail())
+        eemail = setEmail()
+        print(eemail)
         loginUser()
-        print("Login: " + self.email.created)
-        if self.email.created == "0"{
+        print("Login: " + ecreated)
+        if ecreated == "0"{
             createNewAccount()
         }
+        loadData()
+        print("yayayay")
+        for thing in results{
+            print("WOw")
+            print(thing)
+        }
+        
         
         
     }
@@ -54,18 +59,18 @@ struct CardsSection: View {
     
     private func loginUser() {
         print("here")
-        FirebaseManager.shared.auth.signIn(withEmail: email.email, password: "P@ssw0rd!") { result, err in
+        FirebaseManager.shared.auth.signIn(withEmail: eemail, password: "P@ssw0rd!") { result, err in
             if let err = err {
                 print("Failed to login user:", err)
-                self.email.created = "0"
+                ecreated = "0"
                 return
             }
             
             print("Successfully logged in as user: \(result?.user.uid ?? "")")
             
-            self.email.created = "1"
+            ecreated = "1"
             //self.didCompleteLoginView()
-            //storeUserInformation()
+            storeUserInformation()
             
           
         }
@@ -73,7 +78,7 @@ struct CardsSection: View {
     private func createNewAccount() {
         
         
-        FirebaseManager.shared.auth.createUser(withEmail: email.email, password: "P@ssw0rd!") { result, err in
+        FirebaseManager.shared.auth.createUser(withEmail: eemail, password: "P@ssw0rd!") { result, err in
             if let err = err {
                 print("Failed to create user:", err)
                 
@@ -81,7 +86,7 @@ struct CardsSection: View {
             }
             
             print("Successfully created user: \(result?.user.uid ?? "")")
-            self.email.created = "1"
+            ecreated = "1"
             storeUserInformation()
             
             
@@ -89,8 +94,15 @@ struct CardsSection: View {
         }
     }
     private func storeUserInformation() {
+        @State var results = [info]()
+        
+        loadData()
+        print("please")
+        print(ename)
+        print(edog)
+        print("wowq")
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
-        let userData = [FirebaseConstants.email: self.email.email, FirebaseConstants.uid: uid] as [String:Any]
+        let userData = [FirebaseConstants.email: eemail, FirebaseConstants.uid: uid, FirebaseConstants.fromName: ename, FirebaseConstants.fromDog: edog] as [String:Any]
         FirebaseManager.shared.firestore.collection(FirebaseConstants.users)
             .document(uid).setData(userData) { err in
                 if let err = err {
@@ -104,6 +116,31 @@ struct CardsSection: View {
                 //self.didCompleteLoginProcess()
             }
     }
+    func loadData() {
+        let email = eemail
+        print("emailhere: " + email)
+            guard let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/InefficientMessage/\(email)") else {
+                print("Your API end point is Invalid")
+                return
+            }
+            let request = URLRequest(url: url)
+
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let data = data {
+                    if let response = try? JSONDecoder().decode([info].self, from: data) {
+                        DispatchQueue.main.async {
+                            self.results = response
+                            print("Data22:!")
+                            print(response)
+                            ename = response[0].Item3
+                            edog = response[0].Item2
+                        }
+                        return
+                    }
+                }
+                print("Rsp!")
+            }.resume()
+        }
 }
 
 struct CardsSection_Previews: PreviewProvider {

@@ -72,7 +72,7 @@ class ChatLogViewModel: ObservableObject {
             .collection(toId)
             .document()
         
-        let msg = ChatMessage(id: nil, fromId: fromId, toId: toId, text: chatText, timestamp: Date())
+        let msg = ChatMessage(id: nil, fromId: fromId, toId: toId, text: chatText, timestamp: Date(), fromName: ename, fromDog: edog)
         
         try? document.setData(from: msg) { error in
             if let error = error {
@@ -123,7 +123,9 @@ class ChatLogViewModel: ObservableObject {
             FirebaseConstants.fromId: uid,
             FirebaseConstants.toId: toId,
             //FirebaseConstants.profileImageUrl: chatUser.profileImageUrl,
-            FirebaseConstants.email: chatUser.email
+            FirebaseConstants.email: chatUser.email,
+            FirebaseConstants.fromDog: edog,
+            FirebaseConstants.fromName: ename
         ] as [String : Any]
         
         // you'll need to save another very similar dictionary for the recipient of this message...how?

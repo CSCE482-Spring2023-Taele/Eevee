@@ -47,7 +47,7 @@
                      print("Failed to fetch users: \(error)")
                      return
                  }
-                 MatchAPI.getMatches(userEmail: FirebaseManager.shared.auth.currentUser!.email!) {
+                 MatchAPI.getMatches(userEmail: eemail) {
                      result in
                      var parse = result.trimmingCharacters(in: CharacterSet(charactersIn: "[\"\"]"))
                      parse = parse.replacingOccurrences(of: "\"", with: "")
