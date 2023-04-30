@@ -30,7 +30,7 @@ struct ContentView: View {
                     CardsSection()
                         .tabItem{
                             VStack {
-                                Image(systemName:"messaging")
+                                Image(systemName:"message")
                                 Text("Bark")
                             }
                         }
