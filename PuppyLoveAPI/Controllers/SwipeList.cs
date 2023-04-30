@@ -27,7 +27,7 @@ namespace PuppyLoveAPI.Controllers
             int currDogID = -1;
             List<int> swipedIds = new List<int>();
             Dictionary<int, bool> swiped = new Dictionary<int, bool>();
-            List<Dog> returnDogs = new List<Dog>();
+            List<DogExtended> returnDogs = new List<DogExtended>();
             DBConnection DB = DBConnection.Instance();
 
             if (DB.IsConnect())
@@ -106,7 +106,7 @@ namespace PuppyLoveAPI.Controllers
 
                 // return info for dogs that still need to be swiped on
                 string dogQuery = $"select * from dogs inner join owners o on o.owner_id = dogs.owner_id where dog_id != {currDogID};";
-                List<Tuple<Dog, Owner>> dogs = new List<Tuple<Dog, Owner>>();
+                List<Tuple<DogExtended, Owner>> dogs = new List<Tuple<DogExtended, Owner>>();
 
                 MySqlCommand dogCmd = new MySqlCommand(dogQuery, DB.Connection);
                 MySqlDataReader dogReader = dogCmd.ExecuteReader();
@@ -148,7 +148,7 @@ namespace PuppyLoveAPI.Controllers
                     owner.Location = location;
                     owner.MaxDistance = maxDistance;
 
-                    Dog dog = new Dog();
+                    DogExtended dog = new DogExtended();
                     dog.DogID = dogId;
                     dog.OwnerID = ownerId;
                     dog.DogName = dogName;
@@ -161,13 +161,14 @@ namespace PuppyLoveAPI.Controllers
                     dog.FixedStatus = fixedStatus;
                     dog.BreedPreference = breedPreference;
                     dog.AdditionalInfo = additionalInfo;
+                    dog.Email = ownerEmail;
 
 
-                    dogs.Add(new Tuple<Dog, Owner>(dog, owner));
+                    dogs.Add(new Tuple<DogExtended, Owner>(dog, owner));
                 }
                 dogReader.Close();
 
-                List<Tuple<Dog, Owner>> nonRepeatDogs = new List<Tuple<Dog, Owner>>();
+                List<Tuple<DogExtended, Owner>> nonRepeatDogs = new List<Tuple<DogExtended, Owner>>();
 
                 // Get rid of dupes
                 for (int i = 0; i < dogs.Count; i++)
