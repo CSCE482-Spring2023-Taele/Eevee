@@ -28,7 +28,7 @@ class UserAuthModel: ObservableObject {
     @Published var ownerAge: Int?
     @Published var ownerSex: String = ""
     @Published var userPhoto: Data? = nil
-    @Published var profilePhoto: UIImage?
+    @Published var profilePhoto: Data? = nil
     
     
     func downloadDogImage() async throws {
@@ -41,6 +41,19 @@ class UserAuthModel: ObservableObject {
                 }
             }
         userPhoto = try await downloadTask.value
+        print("Completed")
+    }
+    
+    func downloadProfileImage() async throws {
+        print("downloading image")
+        let imageKey: String = "\(emailAddress)"
+        let downloadTask = Amplify.Storage.downloadData(key: imageKey)
+            Task {
+                for await progress in await downloadTask.progress {
+                    print("Progress: \(progress)")
+                }
+            }
+        profilePhoto = try await downloadTask.value
         print("Completed")
     }
     
@@ -142,6 +155,15 @@ class UserAuthModel: ObservableObject {
             do
             {
                 try await self.downloadDogImage()
+            } catch {
+                print("Error initializing ProfileText: \(error)")
+            }
+        }
+        
+        Task {
+            do
+            {
+                try await self.downloadProfileImage()
             } catch {
                 print("Error initializing ProfileText: \(error)")
             }

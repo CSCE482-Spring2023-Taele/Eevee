@@ -16,11 +16,15 @@ struct Header: View {
                 .foregroundColor(Color(red: 0.784, green: 0.635, blue: 0.784, opacity: 0.8))
                 .edgesIgnoringSafeArea(.top)
                 .frame(height: 50)
-            Image("cr7")
-                .frame(width:200, height: 200)
-                .clipShape(Circle() )
-                .overlay(Circle().stroke(Color.white, lineWidth: 4))
-                .shadow(radius: 5)
+            if let data = vm.profilePhoto, let image = UIImage(data: data) {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .clipShape(Circle())
+                    .frame(width: 200, height: 200)
+                    .overlay(Circle().stroke(Color.white, lineWidth: 4))
+                    .shadow(radius: 5)
+            }
         }
     }
 }
