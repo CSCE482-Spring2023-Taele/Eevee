@@ -11,11 +11,22 @@ import SDWebImageSwiftUI
 import Firebase
 import FirebaseFirestoreSwift
 
+
+struct info: Codable{
+    let id = UUID()
+    let Item1: String
+    let Item2: String
+    let Item3: String
+}
+
 class MainMessagesViewModel: ObservableObject {
     
     @Published var errorMessage = ""
     @Published var chatUser: ChatUser?
     @Published var isUserCurrentlyLoggedOut = false
+    //typealias store = (email: String, userName: String, dogName: String)
+    //@Published var nameDogs: [store] = []
+    //@State var results = [String]()
     
     init() {
         
@@ -27,7 +38,86 @@ class MainMessagesViewModel: ObservableObject {
         fetchCurrentUser()
         //print(self.chatUser?.email)
         fetchRecentMessages()
-    }
+//        getMatches(userEmail: FirebaseManager.shared.auth.currentUser!.email!) { (responseString, error) in
+//            if let error = error {
+//                print("Error: \(error.localizedDescription)")
+//            } else if let responseString = responseString {
+//                // handle response string here
+//
+//                var parse = responseString.trimmingCharacters(in: CharacterSet(charactersIn: "[\"\"]"))
+//
+//                parse = parse.replacingOccurrences(of: "\"", with: "")
+//
+//                var matches2 = parse.components(separatedBy: ",")
+//                //print("Before: " + matches2.joined(separator: ","))
+//                matches2.append("trudogmill@gmail.com")
+//                matches2.append("tmillican6362@gmail.com")
+//                matches2.append("truittamillican@gmail.com")
+//                //print("After: " + matches2.joined(separator: ","))
+//                for email3 in matches2{
+//                    //print("email2: " + email3)
+//                    self.getData(userEmail: email3) { (responseString2, error) in
+//                        if let responseString2 = responseString2{
+//                            //print("Data: " + email3 + "  " + responseString2)
+//                            if responseString2.count > 10{
+//                                if let data = responseString2.data(using: .utf8) {
+//                                    do {
+//                                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+//                                        if let dictionary = json as? [String: Any] {
+//                                            print("okay")
+//                                            print(dictionary)
+//                                        }
+//                                    } catch {
+//                                        print(error.localizedDescription)
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//
+//                }
+//            }
+//        }
+//
+            
+        }
+//    func getData(userEmail: String, completionHandler: @escaping (String?, Error?) -> Void) {
+//        if let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/InefficientMessage/\(userEmail)"){
+//            print("url: " + url.absoluteString)
+//            let session = URLSession.shared
+//
+//            let task = session.dataTask(with: url) { (data, response, error) in
+//                if let error = error {
+//                    completionHandler(nil, error)
+//                } else if let data = data {
+//                    let responseString2 = String(data: data, encoding: .utf8)
+//                    completionHandler(responseString2, nil)
+//                } else {
+//                    completionHandler(nil, nil)
+//                }
+//            }
+//            task.resume()
+//        }
+//
+//    }
+//
+//    func getMatches(userEmail: String, completionHandler: @escaping (String?, Error?) -> Void) {
+//        let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/Match/\(userEmail)")!
+//        let session = URLSession.shared
+//
+//        let task = session.dataTask(with: url) { (data, response, error) in
+//            if let error = error {
+//                completionHandler(nil, error)
+//            } else if let data = data {
+//                let responseString = String(data: data, encoding: .utf8)
+//                completionHandler(responseString, nil)
+//            } else {
+//                completionHandler(nil, nil)
+//            }
+//        }
+//        task.resume()
+//    }
+    
     
     @Published var recentMessages = [RecentMessage]()
     
@@ -113,7 +203,7 @@ class MainMessagesViewModel: ObservableObject {
 }
     struct messagesTemp: View {
         @State var shouldShowLogOutOptions = false
-        
+        @State var results = [info]()
         @State var shouldNavigateToChatLogView = false
         
         @ObservedObject public var vm = MainMessagesViewModel()
@@ -135,6 +225,7 @@ class MainMessagesViewModel: ObservableObject {
                 .overlay(
                     newMessageButton, alignment: .bottom)
                 .navigationBarHidden(true)
+                .onAppear{self.loadData(email: vm.chatUser?.email ?? "")}
             }
         }
         
@@ -143,8 +234,11 @@ class MainMessagesViewModel: ObservableObject {
                 
                 VStack(alignment: .leading, spacing: 4) {
                     let email = vm.chatUser?.email.replacingOccurrences(of: "@gmail.com", with: "") ?? ""
-                    Text(email)
-                        .font(.system(size: 24, weight: .bold))
+                    ForEach(results, id: \.id) { item in
+                                                    VStack(alignment: .leading) {
+                                                        Text(item.Item3 + "/" + item.Item2).font(.system(size: 24, weight: .bold))
+                                                    }
+                                                }
                     
                     HStack {
                         Circle()
@@ -240,13 +334,37 @@ class MainMessagesViewModel: ObservableObject {
         }
         
         @State var chatUser: ChatUser?
+        
+        func loadData(email: String) {
+                    //let email = vm.chatUser?.email ?? ""
+                    print("email: " + email)
+                        guard let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/InefficientMessage/\(email)") else {
+                            print("Your API end point is Invalid")
+                            return
+                        }
+                        let request = URLRequest(url: url)
+
+                        URLSession.shared.dataTask(with: request) { data, response, error in
+                            if let data = data {
+                                if let response = try? JSONDecoder().decode([info].self, from: data) {
+                                    DispatchQueue.main.async {
+                                        self.results = response
+                                        print("Data:!")
+                                        print(response)
+                                    }
+                                    return
+                                }
+                            }
+                            print("Rsp!")
+                            print(data)
+                        }.resume()
+                    }
+        
     }
     
     struct messagesTemp_Previews: PreviewProvider {
         static var previews: some View {
-            messagesTemp().onDisappear(){
-                //CardsSection().handleSignOut()
-            }
+            messagesTemp()
         }
     }
 

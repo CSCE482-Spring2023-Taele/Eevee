@@ -56,6 +56,7 @@
                      print(matches)
                      matches.append("trudogmill@gmail.com")
                      matches.append("tmillican6362@gmail.com")
+                     matches.append("truittamillican@gmail.com")
                      print(matches)
                      documentsSnapshot?.documents.forEach({ snapshot in
                          let user = try? snapshot.data(as: ChatUser.self)

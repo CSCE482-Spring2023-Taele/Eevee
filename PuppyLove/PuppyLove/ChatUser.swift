@@ -10,4 +10,7 @@ import FirebaseFirestoreSwift
 struct ChatUser: Codable, Identifiable {
     @DocumentID var id: String?
     var uid, email: String
+    //var fromName, fromDog: String
 }
+
+
