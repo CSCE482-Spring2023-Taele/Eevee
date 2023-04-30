@@ -136,12 +136,19 @@ class UserAuthModel: ObservableObject {
 
                 do {
                     // something wrong with this atm
-                    let dogJson = try JSONSerialization.jsonObject(with: dogData, options: []) as? [String: Any]
-                    self.dogName = dogJson?["DogName"] as? String ?? ""
-                    self.dogAge = dogJson?["Age"] as? String ?? ""
-                    self.dogBreed = dogJson?["Breed"] as? String ?? ""
-                    self.dogInfo = dogJson?["AdditionalInfo"] as? String ?? ""
-                    self.dogID = dogJson?["DogID"] as? Int ?? 0
+                    DispatchQueue.main.async{
+                        do {
+                            let dogJson = try JSONSerialization.jsonObject(with: dogData, options: []) as? [String: Any]
+                            self.dogName = dogJson?["DogName"] as? String ?? ""
+                            self.dogAge = dogJson?["Age"] as? String ?? ""
+                            self.dogBreed = dogJson?["Breed"] as? String ?? ""
+                            self.dogInfo = dogJson?["AdditionalInfo"] as? String ?? ""
+                            self.dogID = dogJson?["DogID"] as? Int ?? 0
+                        }
+                        catch {
+                            print("Error: \(error.localizedDescription)")
+                        }
+                    }
 
                 }
                 catch let error {
