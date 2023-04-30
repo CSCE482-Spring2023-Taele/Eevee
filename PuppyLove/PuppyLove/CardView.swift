@@ -61,9 +61,14 @@ struct CardView: View {
     }
     var body: some View {
         ZStack(alignment: .topLeading) {
-            Image(uiImage: card.imageName ?? UIImage())
-                .resizable()
-                .clipped()
+            if let data = card.imageData, let image = UIImage(data: data) {
+                Image(uiImage: image)
+                    .resizable()
+                    .clipped()
+            }
+//            Image(uiImage: card.imageName ?? UIImage())
+//                .resizable()
+//                .clipped()
             LinearGradient(gradient: cardGradient, startPoint: .top, endPoint: .bottom)
             VStack {
                 Spacer()

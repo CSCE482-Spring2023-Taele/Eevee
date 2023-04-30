@@ -15,10 +15,6 @@ struct Card: Identifiable, Codable {
     /// Card rotation angle
     var degree: Double = 0.0
     
-    var imageName: UIImage? {
-        return UIImage(data: imageData)
-    }
-    
     init(name: String, imageData: Data, age: String, bio: String, dogID: Int) {
         self.name = name
         self.age = age
