@@ -13,7 +13,7 @@ struct ContentView: View {
                     FooterSection()
                         .tabItem{
                             VStack {
-                                Image(systemName: "person")
+                                Image(systemName: "heart")
                                 Text("Swipe")
                             }
                         }
@@ -30,7 +30,7 @@ struct ContentView: View {
                     CardsSection()
                         .tabItem{
                             VStack {
-                                Image(systemName:"person")
+                                Image(systemName:"messaging")
                                 Text("Bark")
                             }
                         }
