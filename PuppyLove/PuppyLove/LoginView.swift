@@ -8,6 +8,7 @@
 import SwiftUI
 import GoogleSignInSwift
 import GoogleSignIn
+import Amplify
 
 class UserAuthModel: ObservableObject {
     let signInConfig = GIDConfiguration.init(clientID: "CLIENT_ID")
@@ -18,7 +19,30 @@ class UserAuthModel: ObservableObject {
     @Published var emailAddress: String = ""
     @Published var hasAccount: Bool = false
     @Published var ownerID: Int?
+    // Adding in the dog variables and other owner variables that need to be displayed
+    @Published var dogID: Int?
+    @Published var dogName: String = ""
+    @Published var dogBreed: String = ""
+    @Published var dogAge: String = ""
+    @Published var dogInfo: String = ""
+    @Published var ownerAge: Int?
+    @Published var ownerSex: String = ""
+    @Published var userPhoto: Data? = nil
+    @Published var profilePhoto: UIImage?
     
+    
+    func downloadDogImage() async throws {
+        print("downloading image")
+        let imageKey: String = "\(emailAddress)-Dog"
+        let downloadTask = Amplify.Storage.downloadData(key: imageKey)
+            Task {
+                for await progress in await downloadTask.progress {
+                    print("Progress: \(progress)")
+                }
+            }
+        userPhoto = try await downloadTask.value
+        print("Completed")
+    }
     
     init(){
         check()
@@ -51,6 +75,7 @@ class UserAuthModel: ObservableObject {
     func checkAccount() {
         let email = self.emailAddress
         let emailCheck = "https://puppyloveapishmeegan.azurewebsites.net/Owner/" + email + ",%201"
+
         if let emailUrl = URL(string: emailCheck) {
             let task = URLSession.shared.dataTask(with: emailUrl) { data, response, error in
                 guard let data = data, error == nil else {
@@ -65,9 +90,13 @@ class UserAuthModel: ObservableObject {
                         self.hasAccount = false
                     } else {
                         print("Email Found")
+                        self.ownerAge = json?["Age"] as? Int
+                        self.ownerSex = json?["Sex"] as? String ?? ""
+                        let givenName = json?["OwnerName"] as? String
                         self.hasAccount = true
                         // Store the ownerID in the @Published variable
                         self.ownerID = json?["OwnerID"] as? Int
+                        self.grabDogVariables()
                     }
 
                 } catch let error {
@@ -79,6 +108,45 @@ class UserAuthModel: ObservableObject {
             print("Invalid URL")
         }
         print(self.hasAccount)
+    }
+    
+    func grabDogVariables()
+    {
+        // Start to populate other global variables that will be used for the profile
+        let dogCheck = "https://puppyloveapishmeegan.azurewebsites.net/Email/" + self.emailAddress
+        if let dogUrl = URL(string: dogCheck) {
+            let dogTask = URLSession.shared.dataTask(with: dogUrl) { data, response, error in
+                guard let dogData = data, error == nil else {
+                    print("Error: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+
+                do {
+                    // something wrong with this atm
+                    let dogJson = try JSONSerialization.jsonObject(with: dogData, options: []) as? [String: Any]
+                    self.dogName = dogJson?["DogName"] as? String ?? ""
+                    self.dogAge = dogJson?["Age"] as? String ?? ""
+                    self.dogBreed = dogJson?["Breed"] as? String ?? ""
+                    self.dogInfo = dogJson?["AdditionalInfo"] as? String ?? ""
+                    self.dogID = dogJson?["DogID"] as? Int ?? 0
+
+                }
+                catch let error {
+                    print("Error decoding JSON: \(error.localizedDescription)")
+                }
+            }
+            dogTask.resume()
+        }
+        
+        Task {
+            do
+            {
+                try await self.downloadDogImage()
+            } catch {
+                print("Error initializing ProfileText: \(error)")
+            }
+        }
+        
     }
 
     
