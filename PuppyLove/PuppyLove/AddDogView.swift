@@ -201,6 +201,6 @@ struct AddDogView: View {
 
 struct AddDogView_Previews: PreviewProvider {
     static var previews: some View {
-        AddDogView(dog: Dog(DogID: 0, OwnerID: 0, DogName: "", Breed: "", Weight: 0, Age: "", Sex: "", ActivityLevel: 0, VaccinationStatus: false, FixedStatus: false, BreedPreference: "none", AdditionalInfo: ""))
+        AddDogView(dog: Dog(DogID: 0, OwnerID: 0, DogName: "", Breed: "", Weight: 0, Age: "", Sex: "", ActivityLevel: 0, VaccinationStatus: false, FixedStatus: false, BreedPreference: "none", AdditionalInfo: "", Email: ""))
     }
 }
