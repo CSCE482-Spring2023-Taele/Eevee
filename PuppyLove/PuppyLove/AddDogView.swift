@@ -79,11 +79,11 @@ struct AddDogView: View {
     var body: some View {
         VStack {
             Form {
-                Section(header: Text("Name")) {
+                Section(header: Text("Name").foregroundColor(.white)) {
                     TextField("Name", text: $dog.DogName)
                 }.padding()
                 
-                Section(header: Text("Profile Picture")) {
+                Section(header: Text("Profile Picture").foregroundColor(.white)) {
                     HStack {
                         PhotosPicker(selection: $selected, matching: .images, photoLibrary: .shared()) {
                             Text("Select a photo")
@@ -106,7 +106,7 @@ struct AddDogView: View {
                     }
                 }.padding()
                 
-                Section(header: Text("Activity Level")) {
+                Section(header: Text("Activity Level").foregroundColor(.white)) {
                     Slider(
                         value: $activityLevel,
                         in: 0...10,
@@ -119,7 +119,7 @@ struct AddDogView: View {
                     }
                 }.padding()
                 
-                Section(header: Text("Breed")) {
+                Section(header: Text("Breed").foregroundColor(.white)) {
                     Picker("Select Breed", selection: $selectedBreed) {
                         ForEach(breeds, id: \.self, content: { breed in
                             Text(breed.name)
@@ -130,19 +130,21 @@ struct AddDogView: View {
                             self.breeds = breeds
                         }
                     }
+                    .pickerStyle(.wheel)
                 }.padding()
                 
-                Section(header: Text("Sex")) {
+                Section(header: Text("Sex").foregroundColor(.white)) {
                     HStack {
                         Picker("Select sex", selection: $selectedSex) {
                             ForEach(sexOptions, id: \.self, content: { sex in
                                 Text(sex)
                             })
                         }
+                        .pickerStyle(.segmented)
                     }
                 }.padding()
                 
-                Section(header: Text("Age")) {
+                Section(header: Text("Age").foregroundColor(.white)) {
                     HStack {
                         Picker("Age range", selection: $selectedAgeRange){
                             ForEach(ageOptions, id: \.self, content: { age in
@@ -152,7 +154,7 @@ struct AddDogView: View {
                     }
                 }.padding()
                 
-                Section(header: Text("Size")) {
+                Section(header: Text("Size").foregroundColor(.white)) {
                     HStack {
                         Picker("Select Weight (lbs)", selection: $dogWeight){
                             ForEach(1 ..< 150) {
@@ -162,19 +164,24 @@ struct AddDogView: View {
                     }
                 }.padding()
                 
-                Section(header: Text("Bio")) {
+                Section(header: Text("Bio").foregroundColor(.white)) {
                     TextField("Tell us about your pup...", text: $dog.AdditionalInfo,  axis: .vertical)
                         .lineLimit(5...10)
                 }.padding()
                 
-                Section(header: Text("Vaccination Status")) {
+                Section(header: Text("Vaccination Status").foregroundColor(.white)) {
                     Toggle("Up to date on annual vaccinations?", isOn: $vaccinated)
                 }.padding()
                 
-                Section(header: Text("Fixed Status")) {
+                Section(header: Text("Fixed Status").foregroundColor(.white)) {
                     Toggle("Is your dog neutered/spayed?", isOn: $fixed)
                 }.padding()
             }
+            .background(Color(red: 0.784, green: 0.635, blue: 0.784))
+            .foregroundColor(.orange)
+            .scrollContentBackground(.hidden)
+            .tint(.orange)
+            
             NavigationLink(destination: LoginView().onAppear {
                 dog.Sex = selectedSex
                 dog.Age = selectedAgeRange
@@ -186,7 +193,7 @@ struct AddDogView: View {
                     await sendRequest()
                     try await uploadImage()
                 }
-            }, label: { Text("Save")})
+            }, label: { Text("Save").foregroundColor(.black) })
         }
         .navigationBarTitle(Text("Dog Information")).navigationBarBackButtonHidden()
     }

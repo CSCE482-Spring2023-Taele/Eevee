@@ -35,22 +35,16 @@ struct ContentView: View {
                             }
                         }
                         .tag(2)
-                    
+
                 }
             }
         }
         else if(vm.isLoggedIn == true) {
-                NavigationView {
-                    SignUpView()
-                }//.navigationTitle("Sign Up")
+                SignUpView()
         }
         else {
             LoginView()
-            // SignUpView()
         }
-//        NavigationView {
-//            SignUpView()
-//        }.navigationTitle("Sign Up")
     }
 }
 

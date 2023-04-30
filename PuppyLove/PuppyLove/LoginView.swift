@@ -183,8 +183,6 @@ class UserAuthModel: ObservableObject {
                         }
                     }
 
-
-
                 }
                 catch let error {
                     print("Error decoding JSON: \(error.localizedDescription)")
