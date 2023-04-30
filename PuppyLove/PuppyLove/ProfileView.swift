@@ -110,11 +110,11 @@ struct ProfileText: View {
                 HStack
                 {
                     // Image goes here
-                    if let profilePhoto = vm.profilePhoto {
-                        Image(uiImage: profilePhoto)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    }
+//                    if let profilePhoto = vm.profilePhoto {
+//                        Image(uiImage: profilePhoto)
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fit)
+//                    }
 //                    Image("cr7")
 //                        .frame(width:100, height: 200)
 //                        .clipShape(Rectangle() )
@@ -122,6 +122,12 @@ struct ProfileText: View {
 //                    Text("Picture Holder")
 //                        .bold()
 //                        .font(.title)
+                    if let data = vm.userPhoto, let image = UIImage(data: data) {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 200)
+                    }
 
                     VStack
                     {
