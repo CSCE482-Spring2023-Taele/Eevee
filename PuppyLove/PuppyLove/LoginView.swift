@@ -97,14 +97,6 @@ class UserAuthModel: ObservableObject {
                         // Store the ownerID in the @Published variable
                         self.ownerID = json?["OwnerID"] as? Int
                         self.grabDogVariables()
-//                        Task {
-//                            do
-//                            {
-//                                try await self.downloadDogImage()
-//                            } catch {
-//                                print("Error initializing ProfileText: \(error)")
-//                            }
-//                        }
                     }
 
                 } catch let error {
@@ -145,6 +137,16 @@ class UserAuthModel: ObservableObject {
             }
             dogTask.resume()
         }
+        
+        Task {
+            do
+            {
+                try await self.downloadDogImage()
+            } catch {
+                print("Error initializing ProfileText: \(error)")
+            }
+        }
+        
     }
 
     

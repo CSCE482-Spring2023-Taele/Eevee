@@ -91,8 +91,6 @@ struct ProfileText: View {
 //                }
 //            }
 //        }
-
-    @AppStorage("description") var description = DefaultSettings.description
     
     var body: some View {
         VStack(spacing: 15) {
@@ -107,8 +105,8 @@ struct ProfileText: View {
                     Text(vm.ownerSex)
                         .font(.body)
                         .foregroundColor(.secondary)
-                }.padding()
-                Spacer()
+                }
+                //Spacer()
                 HStack
                 {
                     // Image goes here
@@ -117,6 +115,13 @@ struct ProfileText: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                     }
+//                    Image("cr7")
+//                        .frame(width:100, height: 200)
+//                        .clipShape(Rectangle() )
+//                        .overlay(Rectangle().stroke(Color.white, lineWidth: 4))
+//                    Text("Picture Holder")
+//                        .bold()
+//                        .font(.title)
 
                     VStack
                     {
@@ -131,10 +136,10 @@ struct ProfileText: View {
                             Text(vm.dogBreed)
                                 .font(.body)
                                 .foregroundColor(.secondary)
-                            Text(vm.dogInfo)
-                                .multilineTextAlignment(.center)
-                                .padding()
                         }
+                        Text(vm.dogInfo)
+                            .multilineTextAlignment(.center)
+                            .padding()
                     }
                 }
                 
@@ -143,12 +148,3 @@ struct ProfileText: View {
         }
     }
 }
-/*
-#if DEBUG
-struct ContentView_Previews : PreviewProvider {
-    static var previews: some View {
-        ProfileView()
-    }
-}
-#endif
-*/

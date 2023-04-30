@@ -10,14 +10,10 @@ import SwiftUI
 struct Header: View {
     @EnvironmentObject var vm: UserAuthModel
     
-    @AppStorage("rValue") var rValue = DefaultSettings.rValue
-    @AppStorage("gValue") var gValue = DefaultSettings.gValue
-    @AppStorage("bValue") var bValue = DefaultSettings.bValue
-    
     var body: some View {
         ZStack(alignment: .top) {
             Rectangle()
-                .foregroundColor(Color(red: rValue, green: gValue, blue: bValue, opacity: 1.0))
+                .foregroundColor(Color(red: 0.784, green: 0.635, blue: 0.784, opacity: 0.8))
                 .edgesIgnoringSafeArea(.top)
                 .frame(height: 50)
             Image("cr7")
