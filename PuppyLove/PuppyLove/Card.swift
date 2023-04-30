@@ -4,7 +4,7 @@ struct Card: Identifiable, Codable {
     
     let id = UUID()
     let name: String
-    let imageName: String
+    let imageData: Data // Store the image data instead of UIImage directly
     let age: String
     let bio: String
     let dogID: Int
@@ -14,6 +14,18 @@ struct Card: Identifiable, Codable {
     var y: CGFloat = 0.0
     /// Card rotation angle
     var degree: Double = 0.0
+    
+    var imageName: UIImage? {
+        return UIImage(data: imageData)
+    }
+    
+    init(name: String, imageData: Data, age: String, bio: String, dogID: Int) {
+        self.name = name
+        self.age = age
+        self.bio = bio
+        self.dogID = dogID
+        self.imageData = imageData
+    }
     
     static var data: [Card] {
            get {
@@ -32,5 +44,4 @@ struct Card: Identifiable, Codable {
                }
            }
        }
-    
 }

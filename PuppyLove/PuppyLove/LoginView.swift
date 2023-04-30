@@ -251,6 +251,7 @@ struct LoginView: View {
     @State var owners = [User]()
     @State var dogs = [Dog]()
     @State var showSignUp = false
+    @State var dogPhoto: UIImage?
 
     var body: some View {
         NavigationView {
@@ -276,15 +277,32 @@ struct LoginView: View {
                         sleep(2)
                     }
                     print("User logged in with email: \(vm.emailAddress)")
-                    vm.getDogComments { dogs in
-                        self.dogs = dogs
+                    vm.getDogComments { dogs in self.dogs = dogs
                 for dog in dogs {
-                let newCard = Card(name: dog.DogName, imageName: "p0", age: dog.Age, bio: dog.AdditionalInfo, dogID: dog.DogID)
-                if !Card.data.contains(where: { $0.dogID == newCard.dogID}) {
-                    Card.data.append(newCard)
-                } else {
-                    print("Did not meet compatibility score")
-                }
+                    let imageKey: String = "\(dog.Email)-Dog"
+                    let downloadTask = Amplify.Storage.downloadData(key: imageKey)
+                    Task {
+                        for await progress in await downloadTask.progress {
+                            print("Progress: \(progress)")
+                        }
+                        do {
+                            if let imageData = try? await downloadTask.value {
+                                self.dogPhoto = UIImage(data: imageData)
+                            } else {
+                                print("Error: failed to download image data")
+                            }
+                        } catch {
+                            print("Error downloading image: \(error.localizedDescription)")
+                        }
+                    }
+                    let newCard = Card(name: dog.DogName, imageData: dogPhoto?.jpegData(compressionQuality: 1.0) ?? Data(), age: dog.Age, bio: dog.AdditionalInfo, dogID: dog.DogID)
+                        if !Card.data.contains(where: { $0.dogID == newCard.dogID}) {
+                            Card.data.append(newCard)
+                            print("added a card")
+                        } else {
+                            print("Did not meet compatibility score")
+                        }
+
             }
                         }
                     }
