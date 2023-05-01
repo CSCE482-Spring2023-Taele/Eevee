@@ -33,17 +33,9 @@ struct ProfileView: View {
                 Header()
                 ProfileText(
                     user: User(OwnerID: 0, OwnerName: "", OwnerEmail: "", Age: 0, MinAge: 0, MaxAge: 0, Sex: "", SexPreference: "", Location: "", MaxDistance: 0),
-                        dog: Dog(DogID: 0, OwnerID: 0, DogName: "", Breed: "", Weight: 0, Age: "", Sex: "", ActivityLevel: 0, VaccinationStatus: false, FixedStatus: false, BreedPreference: "none", AdditionalInfo: ""))
+                    dog: Dog(DogID: 0, OwnerID: 0, DogName: "", Breed: "", Weight: 0, Age: "", Sex: "", ActivityLevel: 0, VaccinationStatus: false, FixedStatus: false, BreedPreference: "none", AdditionalInfo: "", Email: ""))
             }
             Spacer()
-//            Button (
-//                action: { self.isPresented = true },
-//                label: {
-//                    Label("Edit", systemImage: "pencil")
-//            })
-//            .sheet(isPresented: $isPresented, content: {
-//                SettingsView()
-//            })
         }
     }
 }
@@ -52,23 +44,6 @@ struct ProfileText: View {
     @EnvironmentObject var vm: UserAuthModel
     @StateObject var user: User
     @StateObject var dog: Dog
-    
-//    @State var userPhoto: Data? = nil
-//    @State var profilePhoto: UIImage?
-//    func downloadImage() async throws {
-//        print("downloading image")
-//        let imageKey: String = "\(vm.emailAddress)-Dog"
-//        let downloadTask = Amplify.Storage.downloadData(key: imageKey)
-//            Task {
-//                for await progress in await downloadTask.progress {
-//                    print("Progress: \(progress)")
-//                }
-//            }
-//        userPhoto = try await downloadTask.value
-//        print("Completed")
-//    }
-    
-    
     
     var SexPreference = ["Male","Female", "Non-binary", "Everyone"]
     @State var selectedPreference = "Male"
@@ -80,19 +55,7 @@ struct ProfileText: View {
     @State var distance: Double = 100
     @State var minAge: Int = 18
     @State var maxAge: Int = 100
-    
 
-//    init() {
-//            Task.detached {
-//                do {
-//                    try await self.downloadImage()
-//                } catch {
-//                    print("Error initializing ProfileText: \(error)")
-//                }
-//            }
-//        }
-
-    @AppStorage("description") var description = DefaultSettings.description
     
     var body: some View {
         VStack(spacing: 15) {
@@ -107,15 +70,16 @@ struct ProfileText: View {
                     Text(vm.ownerSex)
                         .font(.body)
                         .foregroundColor(.secondary)
-                }.padding()
-                Spacer()
+                }
+    
                 HStack
                 {
                     // Image goes here
-                    if let profilePhoto = vm.profilePhoto {
-                        Image(uiImage: profilePhoto)
+                    if let data = vm.userPhoto, let image = UIImage(data: data) {
+                        Image(uiImage: image)
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
+                            .scaledToFit()
+                            .frame(width: 100, height: 200)
                     }
 
                     VStack
@@ -131,10 +95,10 @@ struct ProfileText: View {
                             Text(vm.dogBreed)
                                 .font(.body)
                                 .foregroundColor(.secondary)
-                            Text(vm.dogInfo)
-                                .multilineTextAlignment(.center)
-                                .padding()
                         }
+                        Text(vm.dogInfo)
+                            .multilineTextAlignment(.center)
+                            .padding()
                     }
                 }
                 
@@ -143,12 +107,3 @@ struct ProfileText: View {
         }
     }
 }
-/*
-#if DEBUG
-struct ContentView_Previews : PreviewProvider {
-    static var previews: some View {
-        ProfileView()
-    }
-}
-#endif
-*/

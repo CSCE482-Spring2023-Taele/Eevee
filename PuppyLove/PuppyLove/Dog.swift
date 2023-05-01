@@ -22,8 +22,9 @@ class Dog: Codable, Identifiable, ObservableObject {
     var FixedStatus: Bool
     var BreedPreference: String
     var AdditionalInfo: String
+    var Email: String
     
-    init(DogID: Int, OwnerID: Int, DogName: String, Breed: String, Weight: Int, Age: String, Sex: String, ActivityLevel: Int, VaccinationStatus: Bool, FixedStatus: Bool, BreedPreference: String, AdditionalInfo: String) {
+    init(DogID: Int, OwnerID: Int, DogName: String, Breed: String, Weight: Int, Age: String, Sex: String, ActivityLevel: Int, VaccinationStatus: Bool, FixedStatus: Bool, BreedPreference: String, AdditionalInfo: String, Email: String) {
         self.DogID = DogID
         self.OwnerID = OwnerID
         self.DogName = DogName
@@ -36,5 +37,6 @@ class Dog: Codable, Identifiable, ObservableObject {
         self.FixedStatus = FixedStatus
         self.BreedPreference = BreedPreference
         self.AdditionalInfo = AdditionalInfo
+        self.Email = Email
     }
 }

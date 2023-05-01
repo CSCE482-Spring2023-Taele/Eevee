@@ -13,7 +13,7 @@ struct ContentView: View {
                     FooterSection()
                         .tabItem{
                             VStack {
-                                Image(systemName: "person")
+                                Image(systemName: "heart")
                                 Text("Swipe")
                             }
                         }
@@ -30,27 +30,21 @@ struct ContentView: View {
                     CardsSection()
                         .tabItem{
                             VStack {
-                                Image(systemName:"person")
+                                Image(systemName:"message")
                                 Text("Bark")
                             }
                         }
                         .tag(2)
-                    
+
                 }
             }
         }
         else if(vm.isLoggedIn == true) {
-                NavigationView {
-                    SignUpView()
-                }//.navigationTitle("Sign Up")
+                SignUpView()
         }
         else {
             LoginView()
-            // SignUpView()
         }
-//        NavigationView {
-//            SignUpView()
-//        }.navigationTitle("Sign Up")
     }
 }
 

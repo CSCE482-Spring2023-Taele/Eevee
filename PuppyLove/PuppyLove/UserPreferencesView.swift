@@ -59,28 +59,16 @@ struct UserPreferencesView: View {
             print("Decoding failed.")
         }
     }
-    
-    func downloadImage() async throws {
-        let imageKey: String = "izzy@gmail.com"
-        let downloadTask = Amplify.Storage.downloadData(key: imageKey)
-            Task {
-                for await progress in await downloadTask.progress {
-                    print("Progress: \(progress)")
-                }
-            }
-        let data = try await downloadTask.value
-        print("Completed: \(data)")
-    }
 
     var body: some View {
         VStack {
             Form {
-                Section(header: Text("Distance")) {
+                Section(header: Text("Distance").foregroundColor(.white)) {
                     Slider(value: $distance, in: 0...100, step: 1)
                     Text("\(Int(distance)) miles")
                 }.padding()
                 
-                Section(header: Text("Owner Gender Preference")) {
+                Section(header: Text("Owner Gender Preference").foregroundColor(.white)) {
                     HStack {
                         Picker("Show me...", selection: $selectedPreference) {
                             ForEach(sexPreferences, id: \.self, content: { sex in
@@ -90,14 +78,19 @@ struct UserPreferencesView: View {
                     }
                 }.padding()
                 
-                Section(header: Text("Owner Age Preference")) {
+                Section(header: Text("Owner Age Preference").foregroundColor(.white)) {
                     VStack {
                         Stepper("Minimum Age: \(minAge)", value: $minAge, in: 18...100)
                         Stepper("Maximum Age: \(maxAge)", value: $maxAge, in: minAge...100)
                     }
                 }.padding()
             }
-            
+            .background(Color(red: 0.784, green: 0.635, blue: 0.784))
+            .foregroundColor(.orange)
+            .scrollContentBackground(.hidden)
+            .tint(.orange)
+        
+
             NavigationLink(destination: AddDogView(dog: dog).onAppear {
                 user.SexPreference = selectedPreference
                 user.OwnerEmail = vm.emailAddress
@@ -105,11 +98,9 @@ struct UserPreferencesView: View {
                 user.MaxAge = Int(maxAge)
                 user.MinAge = Int(minAge)
                 Task {
-                    // await sendRequest()
+                    await sendRequest()
                 }
-            }, label: {
-                    Text("Next")
-            })
+            }, label: { Text("Next").foregroundColor(.black) })
         }
         .navigationBarTitle(Text("User Preferences"))
     }
@@ -119,7 +110,7 @@ struct UserPreferencesView_Previews: PreviewProvider {
     static var previews: some View {
         UserPreferencesView(
             user: User(OwnerID: 0, OwnerName: "", OwnerEmail: "", Age: 0, MinAge: 0, MaxAge: 0, Sex: "", SexPreference: "", Location: "", MaxDistance: 0),
-            dog: Dog(DogID: 0, OwnerID: 0, DogName: "", Breed: "", Weight: 0, Age: "", Sex: "", ActivityLevel: 0, VaccinationStatus: false, FixedStatus: false, BreedPreference: "none", AdditionalInfo: "")
+            dog: Dog(DogID: 0, OwnerID: 0, DogName: "", Breed: "", Weight: 0, Age: "", Sex: "", ActivityLevel: 0, VaccinationStatus: false, FixedStatus: false, BreedPreference: "none", AdditionalInfo: "", Email: "")
         )
     }
 }

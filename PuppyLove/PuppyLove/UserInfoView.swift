@@ -77,12 +77,12 @@ struct UserInfoView: View {
     var body: some View {
         VStack {
             Form {
-                Section(header: Text("Name")) {
+                Section(header: Text("Name").foregroundColor(.white)) {
                     TextField("Name", text: $user.OwnerName)
                     
                 }.padding()
                 
-                Section(header: Text("Birthday")) {
+                Section(header: Text("Birthday").foregroundColor(.white)) {
                     DatePicker(
                         "Select Date",
                         selection: $date,
@@ -91,7 +91,7 @@ struct UserInfoView: View {
                     )
                 }.padding()
                 
-                Section(header: Text("Profile Picture")) {
+                Section(header: Text("Profile Picture").foregroundColor(.white)) {
                     HStack {
                         PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
                             Text("Select a photo")
@@ -114,24 +114,31 @@ struct UserInfoView: View {
                     }
                 }.padding()
                 
-                Section(header: Text("Gender")) {
+                Section(header: Text("Gender").foregroundColor(.white)) {
                     HStack {
                         Picker("Select Gender", selection: $selectedSex) {
                             ForEach(sexOptions, id: \.self, content: { sex in
                                 Text(sex)
                             })
                         }
+                        .pickerStyle(.segmented)
                     }
                 }.padding()
             }
+            .background(Color(red: 0.784, green: 0.635, blue: 0.784))
+            .foregroundColor(.orange)
+            .scrollContentBackground(.hidden)
+            .tint(.orange)
+            
             NavigationLink(destination: UserPreferencesView(user: user, dog: dog).onAppear {
                 grabLocation()
+                user.Sex = selectedSex
+                user.calculateAge(birthday: date)
                 Task {
                     try await uploadImage()
                 }
-                user.Sex = selectedSex
-                user.calculateAge(birthday: date)
-            }, label: { Text("Next")})
+            }, label: { Text("Next").foregroundColor(.black) })
+
         }
         .navigationBarTitle(Text("User Information"))
     }
@@ -141,7 +148,7 @@ struct UserInfoView_Previews: PreviewProvider {
     static var previews: some View {
         return UserInfoView(
             user: User(OwnerID: 0, OwnerName: "", OwnerEmail: "", Age: 0, MinAge: 0, MaxAge: 0, Sex: "", SexPreference: "", Location: "", MaxDistance: 0),
-            dog: Dog(DogID: 0, OwnerID: 0, DogName: "", Breed: "", Weight: 0, Age: "", Sex: "", ActivityLevel: 0, VaccinationStatus: false, FixedStatus: false, BreedPreference: "none", AdditionalInfo: "")
+            dog: Dog(DogID: 0, OwnerID: 0, DogName: "", Breed: "", Weight: 0, Age: "", Sex: "", ActivityLevel: 0, VaccinationStatus: false, FixedStatus: false, BreedPreference: "none", AdditionalInfo: "", Email: "")
         )
     }
 }

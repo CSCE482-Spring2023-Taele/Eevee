@@ -27,15 +27,6 @@ struct FooterSection: View {
             .padding(8)
             .zIndex(1.0)
             Spacer()
-            HStack {
-                Button(action: {}) {
-                Image("dismiss")
-            }
-                Button(action: {}) {
-                    Image("like")
-                }
-            }
-            Spacer()
         }
     }
 }

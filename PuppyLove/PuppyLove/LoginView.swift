@@ -28,7 +28,9 @@ class UserAuthModel: ObservableObject {
     @Published var ownerAge: Int?
     @Published var ownerSex: String = ""
     @Published var userPhoto: Data? = nil
-    @Published var profilePhoto: UIImage?
+    @Published var profilePhoto: Data? = nil
+    @Published var dogPhoto: Data? = nil
+    @Published var dogs = [Dog]()
     
     
     func downloadDogImage() async throws {
@@ -41,7 +43,20 @@ class UserAuthModel: ObservableObject {
                 }
             }
         userPhoto = try await downloadTask.value
-        print("Completed")
+//        print("Completed")
+    }
+    
+    func downloadProfileImage() async throws {
+        print("downloading image")
+        let imageKey: String = "\(emailAddress)"
+        let downloadTask = Amplify.Storage.downloadData(key: imageKey)
+            Task {
+                for await progress in await downloadTask.progress {
+                    print("Progress: \(progress)")
+                }
+            }
+        profilePhoto = try await downloadTask.value
+//        print("Completed")
     }
     
     init(){
@@ -97,14 +112,38 @@ class UserAuthModel: ObservableObject {
                         // Store the ownerID in the @Published variable
                         self.ownerID = json?["OwnerID"] as? Int
                         self.grabDogVariables()
-//                        Task {
-//                            do
-//                            {
-//                                try await self.downloadDogImage()
-//                            } catch {
-//                                print("Error initializing ProfileText: \(error)")
-//                            }
-//                        }
+                        
+                        Task {
+                            print("User logged in with email: \(self.emailAddress)")
+                            do {
+                                print("Starting the do")
+                                let dogs = try await self.getDogComments()
+                                self.dogs = dogs
+                                for dog in dogs {
+                                    let imageKey: String = "\(dog.Email)-Dog"
+                                    let downloadTask = Amplify.Storage.downloadData(key: imageKey)
+                                    print("downloading image 1")
+                                    Task {
+                                        for await progress in await downloadTask.progress {
+                                            print("Progress 1: \(progress)")
+                                        }
+                                    }
+                                    print("completed")
+                                    self.dogPhoto = try await downloadTask.value
+                                    print("Hello")
+                                    print("Completed")
+                                    let newCard = Card(name: dog.DogName, imageData: self.dogPhoto!, age: dog.Age, bio: dog.AdditionalInfo, dogID: dog.DogID)
+                                    if !Card.data.contains(where: { $0.dogID == newCard.dogID}) {
+                                        Card.data.append(newCard)
+                                        print("added a card")
+                                    } else {
+                                        print("Did not meet compatibility score")
+                                    }
+                                }
+                            } catch {
+                                print("Error fetching dog comments: \(error)")
+                            }
+                        }
                     }
 
                 } catch let error {
@@ -131,12 +170,18 @@ class UserAuthModel: ObservableObject {
 
                 do {
                     // something wrong with this atm
-                    let dogJson = try JSONSerialization.jsonObject(with: dogData, options: []) as? [String: Any]
-                    self.dogName = dogJson?["DogName"] as? String ?? ""
-                    self.dogAge = dogJson?["Age"] as? String ?? ""
-                    self.dogBreed = dogJson?["Breed"] as? String ?? ""
-                    self.dogInfo = dogJson?["AdditionalInfo"] as? String ?? ""
-                    self.dogID = dogJson?["DogID"] as? Int ?? 0
+                    DispatchQueue.main.async {
+                        do {
+                            let dogJson = try JSONSerialization.jsonObject(with: dogData, options: []) as? [String: Any]
+                            self.dogAge = dogJson?["Age"] as? String ?? ""
+                            self.dogBreed = dogJson?["Breed"] as? String ?? ""
+                            self.dogInfo = dogJson?["AdditionalInfo"] as? String ?? ""
+                            self.dogID = dogJson?["DogID"] as? Int ?? 0
+                            self.dogName = dogJson?["DogName"] as? String ?? ""
+                        } catch {
+                            print("Error: \(error.localizedDescription)")
+                        }
+                    }
 
                 }
                 catch let error {
@@ -145,6 +190,25 @@ class UserAuthModel: ObservableObject {
             }
             dogTask.resume()
         }
+        
+        Task {
+            do
+            {
+                try await self.downloadDogImage()
+            } catch {
+                print("Error initializing ProfileText: \(error)")
+            }
+        }
+        
+        Task {
+            do
+            {
+                try await self.downloadProfileImage()
+            } catch {
+                print("Error initializing ProfileText: \(error)")
+            }
+        }
+        
     }
 
     
@@ -197,21 +261,18 @@ class UserAuthModel: ObservableObject {
         }
         .resume()
     }
-    func getDogComments(completion:@escaping ([Dog]) -> ()) {
+    func getDogComments() async throws -> [Dog] {
         let eligbleDogs = "https://puppyloveapishmeegan.azurewebsites.net/SwipeList/" + emailAddress
-        guard let url = URL(string: eligbleDogs) else { return }
-        
-        URLSession.shared.dataTask(with: url) { (data, _, _) in
-            let dogs = try! JSONDecoder().decode([Dog].self, from: data!)
-            print("grabbed dogs")
-            print(dogs)
-            
-            DispatchQueue.main.async {
-                completion(dogs)
-            }
+        guard let url = URL(string: eligbleDogs) else {
+            throw URLError(.badURL)
         }
-        .resume()
+        
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let dogs = try JSONDecoder().decode([Dog].self, from: data)
+        print("grabbed dogs")
+        return dogs
     }
+
 }
 
 struct LoginView: View {
@@ -219,6 +280,7 @@ struct LoginView: View {
     @State var owners = [User]()
     @State var dogs = [Dog]()
     @State var showSignUp = false
+//    @State var dogPhoto: Data? = nil
 
     var body: some View {
         NavigationView {
@@ -238,25 +300,49 @@ struct LoginView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(red: 0.784, green: 0.635, blue: 0.784))
             .onAppear {
-                DispatchQueue.global(qos: .background).async {
-                    while vm.emailAddress.isEmpty {
-                        print("User not logged in yet")
-                        sleep(2)
-                    }
-                    print("User logged in with email: \(vm.emailAddress)")
-                    vm.getDogComments { dogs in
-                        self.dogs = dogs
-                for dog in dogs {
-                let newCard = Card(name: dog.DogName, imageName: "p0", age: dog.Age, bio: dog.AdditionalInfo, dogID: dog.DogID)
-                if !Card.data.contains(where: { $0.dogID == newCard.dogID}) {
-                    Card.data.append(newCard)
-                } else {
-                    print("Did not meet compatibility score")
-                }
+//                Task {
+//                    while vm.emailAddress.isEmpty {
+//                        print("User not logged in yet")
+//                        await Task.sleep(2_000_000_000) // sleep for 2 seconds
+//                    }
+//                    print("User logged in with email: \(vm.emailAddress)")
+//                    do {
+//                        print("Starting the do")
+//                        let dogs = try await vm.getDogComments()
+//                        self.dogs = dogs
+//                        for dog in dogs {
+//                            let imageKey: String = "\(dog.Email)-Dog"
+//                            let downloadTask = Amplify.Storage.downloadData(key: imageKey)
+//                            print("downloading image 1")
+//                            await Task {
+//                                for await progress in await downloadTask.progress {
+//                                    print("Progress 1: \(progress)")
+//                                }
+//                            }
+//                            print("completed")
+//                            dogPhoto = try await downloadTask.value
+//                            print("Hello")
+//                            print("Completed")
+//                            let newCard = Card(name: dog.DogName, imageData: dogPhoto!, age: dog.Age, bio: dog.AdditionalInfo, dogID: dog.DogID)
+//                            if !Card.data.contains(where: { $0.dogID == newCard.dogID}) {
+//                                Card.data.append(newCard)
+//                                print("added a card")
+//                            } else {
+//                                print("Did not meet compatibility score")
+//                            }
+//                        }
+//                    } catch {
+//                        print("Error fetching dog comments: \(error)")
+//                    }
+//                }
             }
-                        }
-                    }
-                }
+
+
+
+
+
+
+
             }
         }
     }
