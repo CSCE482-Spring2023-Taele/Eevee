@@ -3,17 +3,29 @@ import GoogleSignInSwift
 import GoogleSignIn
 import Firebase
 
+/**
+ Class containing the user's information
+ Contains the users email, anem, and if the account with that email is created or not
+ */
 class Email{
     var email: String
     var created: String
     var name: String
+    /**
+     Init of the class
+     - PArameters
+     -email: email of the user
+    -name: name of the user
+     */
     init(email: String, name:String) {
         self.email = email
         self.created = "0"
         self.name = name
     }
 }
-
+/**
+ creates the inital email opbject and finds the user's email
+ */
 struct CardsSection: View {
     //let didCompleteLoginView: () -> ()
     @State var email = Email(email: "", name:"")
@@ -24,7 +36,11 @@ struct CardsSection: View {
         }
         return ""
     }
-    
+    /**
+     init to be run when first appears on screen
+        It sets the users email to what was found in setEmail
+        It will then either login the user if an account is found in the DB or create a new account if not
+     */
     init(){
         print(setEmail())
         self.email.email = setEmail()
@@ -36,7 +52,9 @@ struct CardsSection: View {
         }
         
         
-    }
+    }/**
+      Callses messagesTemp to display all of the relevant messages
+      */
     var body: some View {
         
 //        VStack{
@@ -46,12 +64,16 @@ struct CardsSection: View {
         
         
     }
-    
+    /**
+     signs the users out of messages
+     */
     func handleSignOut() {
         
         try? FirebaseManager.shared.auth.signOut()
     }
-    
+    /**
+     logs the user into firebase
+     */
     private func loginUser() {
         print("here")
         FirebaseManager.shared.auth.signIn(withEmail: email.email, password: "P@ssw0rd!") { result, err in
@@ -70,6 +92,9 @@ struct CardsSection: View {
           
         }
     }
+    /**
+     creates a new account if the user is not found in the firebase db
+     */
     private func createNewAccount() {
         
         
@@ -88,6 +113,9 @@ struct CardsSection: View {
             
         }
     }
+    /**
+     stores the user's email and uid in the firebase db
+     */
     private func storeUserInformation() {
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
         let userData = [FirebaseConstants.email: self.email.email, FirebaseConstants.uid: uid] as [String:Any]
@@ -105,7 +133,9 @@ struct CardsSection: View {
             }
     }
 }
-
+/**
+ serves as the preview of the page to be displayed
+ */
 struct CardsSection_Previews: PreviewProvider {
     static var previews: some View {
         CardsSection()

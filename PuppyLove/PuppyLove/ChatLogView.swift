@@ -2,29 +2,47 @@
 //  ChatLogView.swift
 //  LBTASwiftUIFirebaseChat
 //
-//  Created by Brian Voong on 11/18/21.
+///  Created by Brian Voong on 11/18/21.
 //
+/// Template taken from: https://www.letsbuildthatapp.com/courses/SwiftUI%20Firebase%20Chat
 
 import SwiftUI
 import Firebase
-
+/**
+ Used to display the chat log within the app
+ */
 class ChatLogViewModel: ObservableObject {
-    
+    /**
+        text of the message being displayed
+     */
     @Published var chatText = ""
+    /**
+     used to keep track of any erros what occur
+     */
     @Published var errorMessage = ""
-    
+    /**
+     list of messages that need to be displayed
+     */
     @Published var chatMessages = [ChatMessage]()
-    
+    /**
+        An instance of CHatUser used to keep track of the user's information
+     */
     var chatUser: ChatUser?
-    
+    /**
+        Init of the class. Accepts a chatuser, assigns the class's chatuser to that user, and fetches all of the relavent messages
+     */
     init(chatUser: ChatUser?) {
         self.chatUser = chatUser
         
         fetchMessages()
     }
-    
+    /**
+     Instance of the firestorelistener
+     */
     var firestoreListener: ListenerRegistration?
-    
+    /**
+     Fetches all of the messages for that particular chat
+     */
     func fetchMessages() {
         guard let fromId = FirebaseManager.shared.auth.currentUser?.uid else { return }
         guard let toId = chatUser?.uid else { return }
@@ -60,7 +78,9 @@ class ChatLogViewModel: ObservableObject {
                 }
             }
     }
-    
+    /**
+     Sends the message to the databse based on the ChatMessage template
+     */
     func handleSend() {
         print(chatText)
         guard let fromId = FirebaseManager.shared.auth.currentUser?.uid else { return }
@@ -104,7 +124,9 @@ class ChatLogViewModel: ObservableObject {
             print("Recipient saved message as well")
         }
     }
-    
+    /**
+     Formats the recentmessage and sends it to the db to be stored
+     */
     private func persistRecentMessage() {
         guard let chatUser = chatUser else { return }
         
@@ -158,10 +180,14 @@ class ChatLogViewModel: ObservableObject {
                 }
             }
     }
-    
+    /**
+     counts how many messages to display
+     */
     @Published var count = 0
 }
-
+/**
+ The acutal view that appears on the user's screen
+ */
 struct ChatLogView: View {
     
 //    let chatUser: ChatUser?
@@ -170,9 +196,13 @@ struct ChatLogView: View {
 //        self.chatUser = chatUser
 //        self.vm = .init(chatUser: chatUser)
 //    }
-    
+    /**
+     vm of the view
+     */
     @ObservedObject var vm: ChatLogViewModel
-    
+    /**
+     body of the page being displayed
+     */
     var body: some View {
         ZStack {
             messagesView
@@ -184,9 +214,13 @@ struct ChatLogView: View {
             vm.firestoreListener?.remove()
         }
     }
-    
+    /**
+     Empty message used as a placeholder
+     */
     static let emptyScrollToString = "Empty"
-    
+    /**
+     Acutal view being displayed in the body. This is empty if there are no messages to display
+     */
     private var messagesView: some View {
         VStack {
             if #available(iOS 15.0, *) {
@@ -217,7 +251,9 @@ struct ChatLogView: View {
             }
         }
     }
-    
+    /**
+     Formats the bottom of the screen where "send" and where the user types in their message is placed
+     */
     private var chatBottomBar: some View {
         HStack(spacing: 16) {
             
@@ -243,11 +279,17 @@ struct ChatLogView: View {
         .padding(.vertical, 8)
     }
 }
-
+/**
+ Acutal view being displayed in the body. This is where each chat is loaded in if their are messages
+ */
 struct MessageView: View {
-    
+    /**
+     chat message to be referenced in body
+     */
     let message: ChatMessage
-    
+    /**
+     the acutal body of what is displayed on screen
+     */
     var body: some View {
         VStack {
             if message.fromId == FirebaseManager.shared.auth.currentUser?.uid {
@@ -278,7 +320,9 @@ struct MessageView: View {
         .padding(.top, 8)
     }
 }
-
+/**
+ Placeholder for the description of what is being typed by the user
+ */
 private struct DescriptionPlaceholder: View {
     var body: some View {
         HStack {
@@ -291,7 +335,9 @@ private struct DescriptionPlaceholder: View {
         }
     }
 }
-
+/**
+ Preview of the message. Taken to messagesTemp
+ */
 struct ChatLogView_Previews: PreviewProvider {
     static var previews: some View {
 //        NavigationView {

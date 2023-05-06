@@ -1,14 +1,14 @@
-//
+///
 //  LocationManager.swift
 //  PuppyLove
-//
-//  Created by Reagan Green on 4/11/23.
-//
+///
+///  Created by Reagan Green on 4/11/23.
+///
 
 import Foundation
 import CoreLocation
 
-// Code referenced from https://github.com/coledennis/CoreLocationSwiftUITutorial
+/// Code referenced from https://github.com/coledennis/CoreLocationSwiftUITutorial
 
 class LocationDataManager : NSObject, ObservableObject, CLLocationManagerDelegate {
    var locationManager = CLLocationManager()

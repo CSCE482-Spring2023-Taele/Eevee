@@ -2,32 +2,58 @@
 //  messagesTemp.swift
 //  PuppyLove
 //
-//  Created by Jennifer Choudhury on 4/4/23.
+///  Created by Jennifer Choudhury on 4/4/23.
 //
-//test
+///  Template taken from: https://www.letsbuildthatapp.com/courses/SwiftUI%20Firebase%20Chat
 
 import SwiftUI
 import SDWebImageSwiftUI
 import Firebase
 import FirebaseFirestoreSwift
 
-
+/**
+ Formatting of the inefficientmessage API response
+ */
 struct info: Codable{
+    /**
+        identification token used to identify the message in the code. Needed to iterate through each response
+     */
     let id = UUID()
+    /**
+     User's email
+     */
     let Item1: String
+    /**
+     User's dog
+     */
     let Item2: String
+    /**
+     User's name
+     */
     let Item3: String
 }
-
+/**
+ Used to create the main messages view when the user clicks on the "bark" page
+ */
 class MainMessagesViewModel: ObservableObject {
-    
+    /**
+     Used to display errors at any point in the code process
+     */
     @Published var errorMessage = ""
+    /**
+     Used to keep track of the current user's info in order to display their information
+     */
     @Published var chatUser: ChatUser?
+    /**
+     Used to keep track of the user's loggged in status. If the user logs out, it will wipe the messages so they cannot be extracted
+     */
     @Published var isUserCurrentlyLoggedOut = false
     //typealias store = (email: String, userName: String, dogName: String)
     //@Published var nameDogs: [store] = []
     //@State var results = [String]()
-    
+    /**
+     Init of the class. Checks to see if the user is logged in, fetches the info of the user of they are logged in, and fetches the recent messages that need to be displayed
+     */
     init() {
         
         DispatchQueue.main.async {
@@ -118,11 +144,17 @@ class MainMessagesViewModel: ObservableObject {
 //        task.resume()
 //    }
     
-    
+    /**
+     List of recent messaegs to display
+     */
     @Published var recentMessages = [RecentMessage]()
     
     private var firestoreListener: ListenerRegistration?
-    
+    /**
+        Gets the name of the user
+     - Parameters:
+     - email: email to which the API call is mage
+     */
     func getUsername(email: String, completion:@escaping ([User]) -> ()) {
         guard let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/Owner/\(email),%201") else { return }
         
@@ -138,7 +170,9 @@ class MainMessagesViewModel: ObservableObject {
     }
     
     
-    
+    /**
+     Gets all of the recent messages that need to be displayed and adds them to the above class list
+     */
     func fetchRecentMessages() {
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
         
@@ -178,7 +212,9 @@ class MainMessagesViewModel: ObservableObject {
     }
     
     
-    
+    /**
+     fetches the info of the current user in the firebase db
+     */
     func fetchCurrentUser() {
         print("inside")
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
@@ -201,15 +237,29 @@ class MainMessagesViewModel: ObservableObject {
     }
     
 }
+/**
+ Actual display in the app. A View
+ */
     struct messagesTemp: View {
-        @State var shouldShowLogOutOptions = false
+        /**
+         used to hold the user's information as when the inefficientmessage api is called
+         */
         @State var results = [info]()
+        /**
+                used to keep track of which screen to display: messages or new messages
+         */
         @State var shouldNavigateToChatLogView = false
-        
+        /**
+                used to keep all of the user's information observable throughout the chat space
+         */
         @ObservedObject public var vm = MainMessagesViewModel()
-        
+        /**
+                chatLogViewModel used as a model for how the chat log should be displayed
+         */
         private var chatLogViewModel = ChatLogViewModel(chatUser: nil)
-        
+        /**
+         acutal body of what is displayed on screen
+         */
         var body: some View {
             NavigationView {
                 
@@ -228,7 +278,9 @@ class MainMessagesViewModel: ObservableObject {
                 .onAppear{self.loadData(email: vm.chatUser?.email ?? "")}
             }
         }
-        
+        /**
+         Displays the user's name/dog at the top along with their online status
+         */
         private var customNavBar: some View {
             HStack(spacing: 16) {
                 
@@ -258,7 +310,9 @@ class MainMessagesViewModel: ObservableObject {
             
             
         }
-        
+        /**
+         Actual view for the messages
+         */
         private var messagesView: some View {
             ScrollView {
                 ForEach(vm.recentMessages) { recentMessage in
@@ -302,9 +356,13 @@ class MainMessagesViewModel: ObservableObject {
                 }.padding(.bottom, 50)
             }
         }
-        
+        /**
+                    Used to keep track of if the new message screen should be displayed. Toggled by the newmessage button
+         */
         @State var shouldShowNewMessageScreen = false
-        
+        /**
+                button that takes the user to the newMessages view
+         */
         private var newMessageButton: some View {
             Button {
                 shouldShowNewMessageScreen.toggle()
@@ -332,7 +390,9 @@ class MainMessagesViewModel: ObservableObject {
                 })
             }
         }
-        
+        /**
+            A Chatuser used to keep track of the info of the current signin user for chatting
+         */
         @State var chatUser: ChatUser?
         
         func loadData(email: String) {
@@ -361,7 +421,9 @@ class MainMessagesViewModel: ObservableObject {
                     }
         
     }
-    
+    /**
+     The preview provider for messagesTemp SImply takes the user to messagesTemp
+     */
     struct messagesTemp_Previews: PreviewProvider {
         static var previews: some View {
             messagesTemp()
