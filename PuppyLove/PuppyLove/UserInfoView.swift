@@ -11,6 +11,7 @@ import PhotosUI
 import CoreLocation
 import Amplify
 
+/// This struct contains the view of the form where the user adds information about themselves to their profile.
 struct UserInfoView: View {
     @StateObject var user: User
     @StateObject var dog: Dog
@@ -33,6 +34,14 @@ struct UserInfoView: View {
             calendar.date(from:endComponents)!
     }()
     
+    /**
+     This function prompts the user to allow access to their location while using the application.
+     ## Important Notes ##
+     1.  Utilizes the LocationDataManager class utilities.
+     2. Assigns the coordinates of the user's location into the User Class variable "Location" to be sent to the database.
+    - parameters: none
+    - returns: none
+    */
     func grabLocation() {
         switch locationDataManager.locationManager.authorizationStatus {
             case .authorizedWhenInUse:  // Location services are available.
@@ -53,6 +62,14 @@ struct UserInfoView: View {
         }
     }
     
+    /**
+     This function performs the uploading of the user image to the AWS S3 bucket where all images are stored.
+     ## Important Notes ##
+     1.  Establishes connection to AWS S3 Bucket using the AWS Amplify framework.
+     2. Uploads the image using the user's email as the key for easy accessibility.
+    - parameters: none
+    - returns: none
+    */
     func uploadImage() async throws {
         if userPhoto != nil {
             let userPhotoData: Data! = userPhoto ?? nil

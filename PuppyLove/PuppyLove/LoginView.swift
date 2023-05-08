@@ -11,6 +11,35 @@ import GoogleSignIn
 import Amplify
 
 class UserAuthModel: ObservableObject {
+    
+    /**
+     This is a struct to define the UserAuthModel to store information of the current logged in owner
+     ## Important Notes ##
+     1. This creates a group of variables that can be used in functions needed in the app
+     
+     - parameters:
+        -a: givenName is the given name of the logged in user
+        -b: profilePicUrl is the url that is used to grab the profile picture
+        -c: isLoggedIn is a variable to check if the user is successfully logged in
+        -d: errorMessage allows for an errorMessage to be printed out to test
+        -e: hasAccount checks to see if it is a valid google account
+        -f: ownerID is the id of the current owner that is logged in grabbed from the database
+        -g: dogID is the id of the current owner's dog that is logged in grabbed from the database
+        -h: dogName is the name of the current owner's dog
+        -i: dogBreed is the breed of the current owner's dog
+        -j: dogAge is the age of the current owner's dog
+        -k: dogInfo is the info of the current owner's dog
+        -l: ownerAge is the age of the current owner
+        -m: ownerSex is the sex of the current owner
+        -n: userPhoto is the photo of the current owner
+        -o: profilePhoto is the profile photo of the current owner
+        -p: dogPhoto is the dog photo of the current owner's dog
+        -q: dogs is an array that stores the list of eligible dogs
+     
+     - returns:
+     a logged in user and all associated information stored in variables for future use
+     
+     */
     let signInConfig = GIDConfiguration.init(clientID: "CLIENT_ID")
     @Published var givenName: String = ""
     @Published var profilePicUrl: String = ""
@@ -32,6 +61,9 @@ class UserAuthModel: ObservableObject {
     @Published var dogPhoto: Data? = nil
     @Published var dogs = [Dog]()
     
+    /**
+        Downloads the dog image to showcase the picture on the swipe page
+     */
     
     func downloadDogImage() async throws {
         print("downloading image")
@@ -45,6 +77,10 @@ class UserAuthModel: ObservableObject {
         userPhoto = try await downloadTask.value
 //        print("Completed")
     }
+    
+    /**
+        Downloads profile image to show the picture of the owner
+     */
     
     func downloadProfileImage() async throws {
         print("downloading image")
@@ -62,6 +98,10 @@ class UserAuthModel: ObservableObject {
     init(){
         check()
     }
+    
+    /**
+        This checks the status of the logged in user to check if it is a valid user or not
+     */
     
     func checkStatus(){
         if(GIDSignIn.sharedInstance.currentUser != nil){
@@ -86,6 +126,11 @@ class UserAuthModel: ObservableObject {
             self.profilePicUrl =  ""
         }
     }
+    
+    /**
+        This checks if the user is a valid user if it is then grabs the array of all eligible dogs that the user can match with, it also downloads the image
+     of the dog to create in the card so that the user has a full swipe page of profiles
+     */
 
     func checkAccount() {
         let email = self.emailAddress
@@ -157,6 +202,10 @@ class UserAuthModel: ObservableObject {
         print(self.hasAccount)
     }
     
+    /**
+        This grabs all the variables associated with the logged in owner's dog so the values are initiliazed
+     */
+    
     func grabDogVariables()
     {
         // Start to populate other global variables that will be used for the profile
@@ -211,7 +260,9 @@ class UserAuthModel: ObservableObject {
         
     }
 
-    
+    /**
+     This restores the session to check if they are already signed in
+     */
     func check(){
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
             if let error = error {
@@ -222,14 +273,18 @@ class UserAuthModel: ObservableObject {
         }
     }
     
-     
+     /**
+      This method signs out the user from their current logged in session
+      */
      func signOut(){
          GIDSignIn.sharedInstance.signOut()
          try? FirebaseManager.shared.auth.signOut()
          self.checkStatus()
          Card.data = []
      }
-    
+    /**
+     This method allows for the user to sign in with a new instance
+     */
     func handleSignInButton() {
         // https://paulallies.medium.com/google-sign-in-swiftui-2909e01ea4ed This is a good resource to google oauth
         // It is outdated, but shows how to use view controller
@@ -247,6 +302,9 @@ class UserAuthModel: ObservableObject {
             
         }
     }
+    /**
+     This method grabs all owners from the api to see a list of all other owners
+     */
     func getUserComments(completion:@escaping ([User]) -> ()) {
         guard let url = URL(string: "https://puppyloveapishmeegan.azurewebsites.net/Owner/") else { return }
         
@@ -261,6 +319,9 @@ class UserAuthModel: ObservableObject {
         }
         .resume()
     }
+    /**
+     This method all eligible dogs to swipe on and stores them to be used in the swipe page
+     */
     func getDogComments() async throws -> [Dog] {
         let eligbleDogs = "https://puppyloveapishmeegan.azurewebsites.net/SwipeList/" + emailAddress
         guard let url = URL(string: eligbleDogs) else {
@@ -276,6 +337,22 @@ class UserAuthModel: ObservableObject {
 }
 
 struct LoginView: View {
+    
+    /**
+     This is a struct that creates a login page for the users to access the app with their google account
+     ## Important Notes ##
+     1. This shows the login page so the user can access the app
+     
+     - parameters:
+        -a: UserAuthModel is the object vm that stores all the information from the logged in user
+        -b: owners is the array of user objects that have each owner stored
+        -c: dogs is the array of dog objects that have each dog stored
+        -d: showSignUp is a variable that stores if the user has an account or not
+     
+     - returns:
+     a login page that allows the user to access the app
+     */
+    
     @EnvironmentObject var vm: UserAuthModel
     @State var owners = [User]()
     @State var dogs = [Dog]()
@@ -351,6 +428,9 @@ struct LoginView: View {
 
 
 struct LoginView_Previews: PreviewProvider {
+    /**
+     This struct calls for login view to show up
+     */
     static var previews: some View {
         LoginView()
     }

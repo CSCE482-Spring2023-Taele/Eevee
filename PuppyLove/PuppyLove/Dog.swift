@@ -8,6 +8,7 @@
 import Foundation
 
 
+/// This class holds the information of the dog provided by the user.
 class Dog: Codable, Identifiable, ObservableObject {
     let id = UUID()
     var DogID: Int

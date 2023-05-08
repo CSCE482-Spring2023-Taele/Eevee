@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+/// This struct contains the overall sign up view and initializes the User and Dog models which are passed through to the UserInfoView().
 struct SignUpView: View {
     @StateObject var user = User(OwnerID: 0, OwnerName: "", OwnerEmail: "", Age: 0, MinAge: 18, MaxAge: 100, Sex: "Male", SexPreference: "Everyone", Location: "", MaxDistance: 100)
     
