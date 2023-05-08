@@ -1,13 +1,30 @@
 import SwiftUI
 
 struct CardView: View {
+    
+    /**
+     This is a struct creates the swipe outcomes each user chooses to make and sends them to the database for future use
+     ## Important Notes ##
+     1. This sends information based on the response of the user in their swipe outcome
+     
+     - parameters:
+        -a: card is the card object that will be used to display on the swiping page
+        -b: UserAuthModel is the object vm that stores all the information from the logged in user
+        -c: swipeOutcome is a yes or no boolean that is used to determine if they swiped yes or no
+     
+     - returns:
+     swipe outcomes based on how the user responded to each user
+     */
+    
     @State var card: Card
     @EnvironmentObject var vm: UserAuthModel
     @State var swipeOutcome = 0
     var outcome: Outcome? = Outcome(outcomeID: 0, currDogID: 0, reviewedDogID: 0, timestamp: "", outcome: 0)
     // MARK: - Drawing Constant
     let cardGradient = Gradient(colors: [Color.black.opacity(0.0), Color.black.opacity(0.5)])
-
+    /**
+        This function allows for a swipe outcome to be posted using an api in order to send information needed to determine matches and rejections
+     */
     func sendRequest() async {
         print("sendRequest() for swipe outcome")
         guard let outcome = outcome else {
@@ -138,7 +155,12 @@ struct CardView: View {
     }
 }
 
+
+
 struct CardView_Previews: PreviewProvider {
+    /**
+     This struct returns the card data at index 0 each time to show the view of all cards
+     */
     static var previews: some View {
         return CardView(card: Card.data[0])
             .previewLayout(.sizeThatFits)
