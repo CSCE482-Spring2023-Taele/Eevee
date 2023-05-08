@@ -6,7 +6,9 @@
 //
 
 import Foundation
-
+/**
+ Contains all of the constants needed for firebase to function
+ */
 struct FirebaseConstants {
     static let fromId = "fromId"
     static let toId = "toId"

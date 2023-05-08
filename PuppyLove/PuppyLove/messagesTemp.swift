@@ -13,6 +13,7 @@ import FirebaseFirestoreSwift
 
 /**
  Formatting of the inefficientmessage API response
+ 
  */
 struct info: Codable{
     /**
@@ -38,6 +39,9 @@ struct info: Codable{
 class MainMessagesViewModel: ObservableObject {
     /**
      Used to display errors at any point in the code process
+     Template taken from: https://www.letsbuildthatapp.com/courses/SwiftUI%20Firebase%20Chat
+
+     
      */
     @Published var errorMessage = ""
     /**

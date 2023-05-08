@@ -9,6 +9,8 @@ import Foundation
 import FirebaseFirestoreSwift
 /**
  Format of a recent message. Recent message is a separate category in the Firebase databse. It is the message that is displayed when the chatlog is not in view. It is a separate entitiry so that each message's timestamp does not need to be checked for the most recent message
+ Template taken from: https://www.letsbuildthatapp.com/courses/SwiftUI%20Firebase%20Chat
+
  */
 struct RecentMessage: Codable, Identifiable {
     /**

@@ -8,6 +8,8 @@
 import FirebaseFirestoreSwift
 /**
  Chat user struct used to keep track of the info of the current signin user
+ Template taken from: https://www.letsbuildthatapp.com/courses/SwiftUI%20Firebase%20Chat
+
  */
 struct ChatUser: Codable, Identifiable {
     /**
