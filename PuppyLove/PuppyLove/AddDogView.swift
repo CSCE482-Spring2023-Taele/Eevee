@@ -10,6 +10,7 @@ import SwiftUI
 import PhotosUI
 import Amplify
 
+/// This struct contains the view of the form where the user adds information about their dog to their profile.
 struct AddDogView: View {
     @StateObject var dog: Dog
     @EnvironmentObject var vm: UserAuthModel
@@ -34,7 +35,13 @@ struct AddDogView: View {
     var ageOptions = ["Puppy (0-1 years)", "Young (1-4 years)", "Adult (4-8 years)", "Senior (8+ years)"]
     @State var selectedAgeRange = "Puppy (0-1 years)"
     
-    // API call POST the dog
+    /**
+     This function performs the API request that sends the dog information to the database upon submission of the form.
+     ## Important Notes ##
+     1. Utilizes the Dog Class to store information and compose the API call in JSON form.
+    - parameters: none
+    - returns: none
+    */
     func sendRequest() async {
         print("sendRequest()")
         guard let encoded = try? JSONEncoder().encode(dog) else {
@@ -55,6 +62,14 @@ struct AddDogView: View {
         }
     }
     
+    /**
+     This function performs the uploading of the dog image to the AWS S3 bucket where all images are stored.
+     ## Important Notes ##
+     1.  Establishes connection to AWS S3 Bucket using the AWS Amplify framework.
+     2. Uploads the image using the owner's email as the key for easy accessibility.
+    - parameters: none
+    - returns: none
+    */
     func uploadImage() async throws {
         if dogPhoto != nil {
             let dogPhotoData: Data! = dogPhoto ?? nil

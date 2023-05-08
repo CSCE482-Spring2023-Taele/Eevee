@@ -21,6 +21,7 @@ struct DecodedUser: Codable {
     let maxDistance: Int?
 }
 
+/// This struct contains the view of the form where the user adds information about their preferences  to their profile.
 struct UserPreferencesView: View {
     @EnvironmentObject var vm: UserAuthModel
     @StateObject var user: User
@@ -33,7 +34,13 @@ struct UserPreferencesView: View {
     @State var minAge: Int = 18
     @State var maxAge: Int = 25
     
-    // API call POST owner
+    /**
+     This function performs the API request that sends the user information to the database upon submission of the form.
+     ## Important Notes ##
+     1. Utilizes the User Class to store information and compose the API call in JSON form.
+    - parameters: none
+    - returns: none
+    */
     func sendRequest() async {
         print("sendRequest()")
         guard let encoded = try? JSONEncoder().encode(user) else {

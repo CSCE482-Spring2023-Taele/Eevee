@@ -8,8 +8,9 @@
 import Foundation
 import CoreLocation
 
-// Code referenced from https://github.com/coledennis/CoreLocationSwiftUITutorial
+/// Code referenced from https://github.com/coledennis/CoreLocationSwiftUITutorial
 
+/// This class contains the CLLocationManagerDelegate object used to gain location access of the user.
 class LocationDataManager : NSObject, ObservableObject, CLLocationManagerDelegate {
    var locationManager = CLLocationManager()
     @Published var authorizationStatus: CLAuthorizationStatus?
@@ -19,6 +20,14 @@ class LocationDataManager : NSObject, ObservableObject, CLLocationManagerDelegat
       locationManager.delegate = self
    }
     
+    /**
+     This function handles the different case scenarios the user may choose to authorize location services for our application.
+     ## Important Notes ##
+     1.  Utilizes the LocationDataManager class utilities.
+    - parameters:
+    - a: CLLocationManager as the manager param
+    - returns: none
+    */
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
             switch manager.authorizationStatus {
                 case .authorizedWhenInUse:  // Location services are available.
